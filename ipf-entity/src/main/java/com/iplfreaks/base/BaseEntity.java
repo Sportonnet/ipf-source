@@ -9,6 +9,7 @@ import org.joda.time.DateTime;
 
 /**
  * @author dhananjayp
+ * base entity class
  *
  */
 public abstract class BaseEntity implements Serializable {
