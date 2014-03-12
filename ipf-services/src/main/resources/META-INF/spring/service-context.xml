@@ -3,9 +3,11 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
 	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd ">
 
-	<!-- <service id="helloServiceBean" ref="helloServiceImpl"
-		interface="com.iplfreaks.services.api.IHelloService" /> -->
-		
+	<!-- <service id="helloServiceBean" ref="helloServiceImpl" interface="com.iplfreaks.services.api.IHelloService" 
+		/> -->
+
 	<bean id="helloServiceImpl" class="com.iplfreaks.services.impl.HelloService" />
+
+	<bean id="createLeagueService" class="com.iplfreaks.services.impl.CreateLeagueServiceImpl" />
 
 </beans>
