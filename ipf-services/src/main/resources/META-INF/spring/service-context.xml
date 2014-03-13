@@ -10,4 +10,9 @@
 
 	<bean id="createLeagueService" class="com.iplfreaks.services.impl.CreateLeagueServiceImpl" />
 
+	<bean id="userAuthenticationService"
+		class="com.iplfreaks.services.impl.UserAuthenticationServiceImpl" />
+
+	<bean id="createUserService" class="com.iplfreaks.services.impl.CreateUserServiceImpl" />
+
 </beans>

@@ -17,6 +17,8 @@
 		<jaxrs:serviceBeans>
 			<ref bean="helloServiceRestImpl" />
 			<ref bean="createLeagueRestService" />
+			<ref bean="userAuthenticationRestService" />
+			<ref bean="createUserRestService" />
 		</jaxrs:serviceBeans>
 	</jaxrs:server>
 	<!-- 3 -->
@@ -27,6 +29,14 @@
 	<bean id="createLeagueRestService"
 		class="com.iplfreaks.services.rest.impl.CreateLeagueRestServiceImpl">
 		<property name="creteLeagueService" ref="createLeagueService" />
+	</bean>
+	<bean id="userAuthenticationRestService"
+		class="com.iplfreaks.services.rest.impl.UserAuthenticationRestServiceImpl">
+		<property name="userAuthenticationService" ref="userAuthenticationService" />
+	</bean>
+	<bean id="createUserRestService"
+		class="com.iplfreaks.services.rest.impl.CreateUserRestServiceImpl">
+		<property name="createUserService" ref="createUserService" />
 	</bean>
 	<!-- 4 -->
 	<!-- This has to point to the service registered through serviceimpl.xml 

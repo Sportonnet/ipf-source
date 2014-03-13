@@ -14,7 +14,7 @@ import org.joda.time.DateTime;
 public interface IFixturesSelectorRestService {
 
 	/**
-	 * This method returns the matches for the current date
+	 * Rest Service to get all matches on the input date
 	 * 
 	 * @param date
 	 *            date of the match

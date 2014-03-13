@@ -10,6 +10,7 @@ import javax.ws.rs.Produces;
 public interface ICreateLeagueRestService {
 
 	/**
+	 * Rest Service to create league
 	 * 
 	 * @param competition
 	 *            competition name
