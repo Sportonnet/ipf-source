@@ -4,16 +4,13 @@ public interface ICreateUserService {
 
 	/**
 	 * 
-	 * @param firstName
-	 *            first name
-	 * @param lastName
-	 *            last name
+	 * @param name
+	 *            full name of the user
 	 * @param emailId
-	 *            email id
+	 *            email id of the user
 	 * @param password
 	 *            password
 	 * @return return true if user is created successfully else false
 	 */
-	public boolean createUser(String firstName, String lastName,
-			String emailId, String password);
+	public boolean createUser(String namen, String emailId, String password);
 }

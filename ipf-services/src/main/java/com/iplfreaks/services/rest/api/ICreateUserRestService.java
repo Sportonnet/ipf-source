@@ -24,8 +24,7 @@ public interface ICreateUserRestService {
 	 */
 	@POST
 	@Path("/createUser")
-	public boolean createUser(@FormParam("firstname") String firstName,
-			@FormParam("lastname") String lastName,
-			@FormParam("email") String emailId,
+	public boolean createUser(@FormParam("name") String name,
+			@FormParam("emailId") String emailId,
 			@FormParam("password") String password);
 }

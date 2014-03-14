@@ -9,8 +9,8 @@ public class UserAuthenticationRestServiceImpl implements
 	private IUserAuthenticationService userAuthenticationService;
 
 	@Override
-	public boolean isUserAuthorized(String userName, String password) {
-		return this.userAuthenticationService.isUserAuthorized(userName,
+	public boolean isUserAuthorized(String emailId, String password) {
+		return this.userAuthenticationService.isUserAuthorized(emailId,
 				password);
 	}
 

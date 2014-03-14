@@ -13,7 +13,7 @@
 		</cxf:features>
 	</cxf:bus>
 	<!-- 2 -->
-	<jaxrs:server address="/service" id="someRestService">
+	<jaxrs:server address="/" id="someRestService">
 		<jaxrs:serviceBeans>
 			<ref bean="helloServiceRestImpl" />
 			<ref bean="createLeagueRestService" />

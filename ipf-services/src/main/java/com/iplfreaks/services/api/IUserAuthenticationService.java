@@ -4,11 +4,11 @@ public interface IUserAuthenticationService {
 
 	/**
 	 * 
-	 * @param userName
-	 *            user name
+	 * @param emailId
+	 *            email id of the user
 	 * @param password
 	 *            password
 	 * @return returns true if user is authenticated else false
 	 */
-	public boolean isUserAuthorized(String userName, String password);
+	public boolean isUserAuthorized(String emailId, String password);
 }

@@ -12,15 +12,15 @@ public interface IUserAuthenticationRestService {
 	/**
 	 * Rest Service to authenticate user
 	 * 
-	 * @param userName
-	 *            user name
+	 * @param emailId
+	 *            email id of the user
 	 * @param password
 	 *            password
 	 * @return returns true if user is authenticated else false
 	 */
 	@POST
 	@Path("/isUserAuthorized")
-	public boolean isUserAuthorized(@FormParam("username") String userName,
+	public boolean isUserAuthorized(@FormParam("emailId") String emailId,
 			@FormParam("password") String password);
 
 }
