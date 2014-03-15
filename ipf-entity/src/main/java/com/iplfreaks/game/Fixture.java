@@ -10,7 +10,7 @@ import com.iplfreaks.game.Team;
  * @author Aniket
  * 
  */
-public class Fixture extends BaseEntity {
+public abstract class Fixture extends BaseEntity {
 
 	/**
 	 * 
@@ -21,8 +21,6 @@ public class Fixture extends BaseEntity {
 	 * Simple name for this fixture
 	 */
 	private String fixtureName;
-
-	private String bonusQuestion;
 
 	private Team homeTeam;
 
@@ -36,14 +34,6 @@ public class Fixture extends BaseEntity {
 
 	public void setFixtureName(String fixtureName) {
 		this.fixtureName = fixtureName;
-	}
-
-	public String getBonusQuestion() {
-		return bonusQuestion;
-	}
-
-	public void setBonusQuestion(String bonusQuestion) {
-		this.bonusQuestion = bonusQuestion;
 	}
 
 	public Team getHomeTeam() {

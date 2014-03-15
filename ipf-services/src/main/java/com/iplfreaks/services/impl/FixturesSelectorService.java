@@ -6,6 +6,7 @@ import java.util.List;
 import org.joda.time.DateTime;
 
 import com.iplfreaks.game.Fixture;
+import com.iplfreaks.game.cricket.CricketFixture;
 import com.iplfreaks.game.cricket.CricketTeam;
 import com.iplfreaks.services.api.IFixturesSelectorService;
 
@@ -30,7 +31,7 @@ public class FixturesSelectorService implements IFixturesSelectorService {
 		awayTeam1.setHomeCity("Chennai");
 		awayTeam1.setName("Chennai Super Kings");
 
-		Fixture fixture1 = new Fixture();
+		final CricketFixture fixture1 = new CricketFixture();
 		fixture1.setFixtureName(homeTeam1.getName() + " vs "
 				+ awayTeam1.getName());
 		fixture1.setHomeTeam(homeTeam1);
@@ -45,7 +46,7 @@ public class FixturesSelectorService implements IFixturesSelectorService {
 		awayTeam2.setHomeCity("Bangalore");
 		awayTeam2.setName("Royal Chanllegers Bangalore");
 
-		Fixture fixture2 = new Fixture();
+		final CricketFixture fixture2 = new CricketFixture();
 		fixture2.setFixtureName(homeTeam2.getName() + " vs "
 				+ awayTeam2.getName());
 		fixture2.setHomeTeam(homeTeam2);
@@ -77,7 +78,7 @@ public class FixturesSelectorService implements IFixturesSelectorService {
 		awayTeam1.setHomeCity("Delhi");
 		awayTeam1.setName("Delhi Daredevils");
 
-		Fixture fixture1 = new Fixture();
+		final CricketFixture fixture1 = new CricketFixture();
 		fixture1.setFixtureName(homeTeam1.getName() + " vs "
 				+ awayTeam1.getName());
 		fixture1.setHomeTeam(homeTeam1);
@@ -92,7 +93,7 @@ public class FixturesSelectorService implements IFixturesSelectorService {
 		awayTeam2.setHomeCity("Hyderabad");
 		awayTeam2.setName("Sunrisers Hyderabad");
 
-		Fixture fixture2 = new Fixture();
+		final CricketFixture fixture2 = new CricketFixture();
 		fixture2.setFixtureName(homeTeam2.getName() + " vs "
 				+ awayTeam2.getName());
 		fixture2.setHomeTeam(homeTeam2);
@@ -124,7 +125,7 @@ public class FixturesSelectorService implements IFixturesSelectorService {
 		awayTeam1.setHomeCity("Chennai");
 		awayTeam1.setName("Chennai Super Kings");
 
-		Fixture fixture1 = new Fixture();
+		final CricketFixture fixture1 = new CricketFixture();
 		fixture1.setFixtureName(homeTeam1.getName() + " vs "
 				+ awayTeam1.getName());
 		fixture1.setHomeTeam(homeTeam1);
@@ -139,7 +140,7 @@ public class FixturesSelectorService implements IFixturesSelectorService {
 		awayTeam2.setHomeCity("Hyderabad");
 		awayTeam2.setName("Sunrisers Hyderabad");
 
-		Fixture fixture2 = new Fixture();
+		final CricketFixture fixture2 = new CricketFixture();
 		fixture2.setFixtureName(homeTeam2.getName() + " vs "
 				+ awayTeam2.getName());
 		fixture2.setHomeTeam(homeTeam2);
