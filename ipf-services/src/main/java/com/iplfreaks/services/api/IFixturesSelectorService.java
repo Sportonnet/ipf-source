@@ -2,14 +2,27 @@ package com.iplfreaks.services.api;
 
 import java.util.List;
 
-import org.joda.time.DateTime;
+import com.iplfreaks.game.Fixture;
 
 public interface IFixturesSelectorService {
 	/**
-	 * this method fetches the fixture on the date
+	 * this method returns the fixture which will be held today
 	 * 
-	 * @param date
 	 * @return list of fixtures on date
 	 */
-	public List<String> getFixtures(final DateTime date);
+	public List<Fixture> getFixtures();
+
+	/**
+	 * this method returns all the fixtures before today
+	 * 
+	 * @return
+	 */
+	public List<Fixture> getPastFixtures();
+
+	/**
+	 * this method returns all the fixtures tomorrow onwards
+	 * 
+	 * @return
+	 */
+	public List<Fixture> getUpcomingFixtures();
 }

@@ -49,5 +49,6 @@
 		<property name="userDao" ref="userDao" />
 	</bean>
 
+	<bean id="fixtureSelectorService" class="com.iplfreaks.services.impl.FixturesSelectorService" />
 
 </beans>

@@ -19,6 +19,7 @@
 			<ref bean="createLeagueRestService" />
 			<ref bean="userAuthenticationRestService" />
 			<ref bean="createUserRestService" />
+			<ref bean="fixtureSelectorRestService" />
 		</jaxrs:serviceBeans>
 	</jaxrs:server>
 	<!-- 3 -->
@@ -37,6 +38,11 @@
 	<bean id="createUserRestService"
 		class="com.iplfreaks.services.rest.impl.CreateUserRestServiceImpl">
 		<property name="createUserService" ref="createUserService" />
+	</bean>
+
+	<bean id="fixtureSelectorRestService"
+		class="com.iplfreaks.services.rest.impl.FixturesSelectorRestServiceImpl">
+		<property name="fixtureSelectorService" ref="fixtureSelectorService" />
 	</bean>
 	<!-- 4 -->
 	<!-- This has to point to the service registered through serviceimpl.xml 

@@ -2,8 +2,8 @@ package com.iplfreaks.services.rest.impl;
 
 import java.util.List;
 
-import org.joda.time.DateTime;
-
+import com.google.gson.Gson;
+import com.iplfreaks.game.Fixture;
 import com.iplfreaks.services.api.IFixturesSelectorService;
 import com.iplfreaks.services.rest.api.IFixturesSelectorRestService;
 
@@ -18,9 +18,30 @@ public class FixturesSelectorRestServiceImpl implements
 	private IFixturesSelectorService fixtureSelectorService;
 
 	@Override
-	public List<String> getFixtures(DateTime date) {
-		List<String> fixtures = this.fixtureSelectorService.getFixtures(date);
-		return fixtures;
+	public String getFixtures() {
+		List<Fixture> fixtures = this.fixtureSelectorService.getFixtures();
+
+		String jsonResponse = new Gson().toJson(fixtures);
+
+		return jsonResponse;
+	}
+
+	@Override
+	public String getPastFixtures() {
+		List<Fixture> fixtures = this.fixtureSelectorService.getPastFixtures();
+
+		String jsonResponse = new Gson().toJson(fixtures);
+
+		return jsonResponse;
+	}
+
+	@Override
+	public String getUpcomingFixtures() {
+		List<Fixture> fixtures = this.fixtureSelectorService
+				.getUpcomingFixtures();
+		String jsonResponse = new Gson().toJson(fixtures);
+
+		return jsonResponse;
 	}
 
 	public IFixturesSelectorService getFixtureSelectorService() {
