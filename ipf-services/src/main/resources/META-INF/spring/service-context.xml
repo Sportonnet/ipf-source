@@ -40,6 +40,10 @@
 		<property name="mongoTemplate" ref="mongoTemplate" />
 	</bean>
 
+	<bean id="fixtureDao" class="com.iplfreaks.dao.impl.FixtureSelectorDaoImpl">
+		<property name="mongoTemplate" ref="mongoTemplate" />
+	</bean>
+
 	<bean id="userAuthenticationService"
 		class="com.iplfreaks.services.impl.UserAuthenticationServiceImpl">
 		<property name="userDao" ref="userDao" />
@@ -49,6 +53,8 @@
 		<property name="userDao" ref="userDao" />
 	</bean>
 
-	<bean id="fixtureSelectorService" class="com.iplfreaks.services.impl.FixturesSelectorService" />
+	<bean id="fixtureSelectorService" class="com.iplfreaks.services.impl.FixturesSelectorService">
+		<property name="fixtureDao" ref="fixtureDao" />
+	</bean>
 
 </beans>

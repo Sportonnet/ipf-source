@@ -10,7 +10,7 @@ import com.iplfreaks.game.Team;
  * @author Aniket
  * 
  */
-public abstract class Fixture extends BaseEntity {
+public class Fixture extends BaseEntity {
 
 	/**
 	 * 

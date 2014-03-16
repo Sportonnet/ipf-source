@@ -6,9 +6,9 @@ import com.iplfreaks.base.BaseEntity;
 
 /**
  * @author dhananjayp
- *
+ * 
  */
-public abstract class Team extends BaseEntity {
+public class Team extends BaseEntity {
 
 	/**
 	 * 
@@ -16,9 +16,9 @@ public abstract class Team extends BaseEntity {
 	private static final long serialVersionUID = 1877266600126247841L;
 
 	private String name;
-	
+
 	private String homeCity;
-	
+
 	private String country;
 
 	public String getCountry() {
@@ -30,7 +30,7 @@ public abstract class Team extends BaseEntity {
 	}
 
 	private Set<Player> players;
-	
+
 	public Set<Player> getPlayers() {
 		return players;
 	}
@@ -54,5 +54,5 @@ public abstract class Team extends BaseEntity {
 	public void setHomeCity(String homeCity) {
 		this.homeCity = homeCity;
 	}
-	
+
 }
