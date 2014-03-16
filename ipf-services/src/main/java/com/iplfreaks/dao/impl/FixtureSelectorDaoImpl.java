@@ -24,23 +24,20 @@ public class FixtureSelectorDaoImpl implements IFixtureSelectorDao {
 		Integer year = new DateTime().getYear();
 
 		final String floorTime = year.toString()
+				+ "-"
 				+ (month.toString().length() < 2 ? "0" + month.toString()
-						: month.toString()) + day.toString();
+						: month.toString()) + "-" + day.toString();
 
-		@SuppressWarnings("unused")
 		final String ceilingTime = year.toString()
+				+ "-"
 				+ (month.toString().length() < 2 ? "0" + month.toString()
-						: month.toString()) + new Integer(day + 1).toString();
+						: month.toString()) + "-"
+				+ new Integer(day + 1).toString();
 
-		final Query fixtureQuery = new Query(Criteria.where("dateTime").is(
-				new DateTime(floorTime)));
+		final Query fixtureQuery = new Query(Criteria.where("dateTime")
+				.gt(new DateTime(floorTime)).lt(new DateTime(ceilingTime)));
 
 		System.out.println("Query : " + fixtureQuery.toString());
-		/*
-		 * final Query fixtureQuery = new Query(Criteria.where("dateTime")
-		 * .gte(new DateTime(floorTime)).and("dateTime") .lt(new
-		 * DateTime(ceilingTime)));
-		 */
 
 		final List<Fixture> fixtures = this.mongoTemplate.find(fixtureQuery,
 				Fixture.class, FIXTURE_COLLECTION);
@@ -55,23 +52,14 @@ public class FixtureSelectorDaoImpl implements IFixtureSelectorDao {
 		Integer year = new DateTime().getYear();
 
 		final String floorTime = year.toString()
+				+ "-"
 				+ (month.toString().length() < 2 ? "0" + month.toString()
-						: month.toString()) + day.toString();
-
-		@SuppressWarnings("unused")
-		final String ceilingTime = year.toString()
-				+ (month.toString().length() < 2 ? "0" + month.toString()
-						: month.toString()) + new Integer(day + 1).toString();
+						: month.toString()) + "-" + day.toString();
 
 		final Query fixtureQuery = new Query(Criteria.where("dateTime").lt(
 				new DateTime(floorTime)));
 
 		System.out.println("Query : " + fixtureQuery.toString());
-		/*
-		 * final Query fixtureQuery = new Query(Criteria.where("dateTime")
-		 * .gte(new DateTime(floorTime)).and("dateTime") .lt(new
-		 * DateTime(ceilingTime)));
-		 */
 
 		final List<Fixture> fixtures = this.mongoTemplate.find(fixtureQuery,
 				Fixture.class, FIXTURE_COLLECTION);
@@ -85,25 +73,16 @@ public class FixtureSelectorDaoImpl implements IFixtureSelectorDao {
 		Integer month = new DateTime().getMonthOfYear();
 		Integer year = new DateTime().getYear();
 
-		final String floorTime = year.toString()
-				+ (month.toString().length() < 2 ? "0" + month.toString()
-						: month.toString()) + day.toString();
-
-		@SuppressWarnings("unused")
 		final String ceilingTime = year.toString()
+				+ "-"
 				+ (month.toString().length() < 2 ? "0" + month.toString()
-						: month.toString()) + new Integer(day + 1).toString();
+						: month.toString()) + "-"
+				+ new Integer(day + 1).toString();
 
 		final Query fixtureQuery = new Query(Criteria.where("dateTime").gt(
-				new DateTime(floorTime)));
+				new DateTime(ceilingTime)));
 
 		System.out.println("Query : " + fixtureQuery.toString());
-
-		/*
-		 * final Query fixtureQuery = new Query(Criteria.where("dateTime")
-		 * .gte(new DateTime(floorTime)).and("dateTime") .lt(new
-		 * DateTime(ceilingTime)));
-		 */
 
 		final List<Fixture> fixtures = this.mongoTemplate.find(fixtureQuery,
 				Fixture.class, FIXTURE_COLLECTION);
