@@ -50,7 +50,7 @@ public class FixtureSelectorDaoImpl implements IFixtureSelectorDao {
 	@Override
 	public List<Fixture> getPastFixtures() {
 
-		Integer day = new DateTime().getDayOfMonth() - 1;
+		Integer day = new DateTime().getDayOfMonth();
 		Integer month = new DateTime().getMonthOfYear();
 		Integer year = new DateTime().getYear();
 
@@ -81,7 +81,7 @@ public class FixtureSelectorDaoImpl implements IFixtureSelectorDao {
 	@Override
 	public List<Fixture> getUpcomingFixtures() {
 
-		Integer day = new DateTime().getDayOfMonth() + 1;
+		Integer day = new DateTime().getDayOfMonth();
 		Integer month = new DateTime().getMonthOfYear();
 		Integer year = new DateTime().getYear();
 
