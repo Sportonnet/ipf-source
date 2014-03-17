@@ -21,6 +21,8 @@ public class Team extends BaseEntity {
 
 	private String country;
 
+	private Set<Player> players;
+
 	public String getCountry() {
 		return country;
 	}
@@ -28,8 +30,6 @@ public class Team extends BaseEntity {
 	public void setCountry(String country) {
 		this.country = country;
 	}
-
-	private Set<Player> players;
 
 	public Set<Player> getPlayers() {
 		return players;

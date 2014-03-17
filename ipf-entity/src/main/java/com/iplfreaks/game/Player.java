@@ -2,21 +2,19 @@ package com.iplfreaks.game;
 
 import com.iplfreaks.base.BaseEntity;
 
-public abstract class Player extends BaseEntity {
+public class Player extends BaseEntity {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -4728610973357566604L;
-	
-	
 
 	private String name;
-	
-	private Skillable skill;
 
-	//TODO associate stats of the player
-	
+	private Skill skill;
+
+	// TODO associate stats of the player
+
 	public String getName() {
 		return name;
 	}
@@ -29,10 +27,8 @@ public abstract class Player extends BaseEntity {
 		return skill;
 	}
 
-	public void setSkill(Skillable skill) {
+	public void setSkill(Skill skill) {
 		this.skill = skill;
 	}
-	
-	
-	
+
 }
