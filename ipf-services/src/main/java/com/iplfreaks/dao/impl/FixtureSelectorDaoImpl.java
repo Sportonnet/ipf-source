@@ -3,6 +3,8 @@ package com.iplfreaks.dao.impl;
 import java.util.List;
 
 import org.joda.time.DateTime;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -28,14 +30,15 @@ public class FixtureSelectorDaoImpl implements IFixtureSelectorDao {
 				+ (month.toString().length() < 2 ? "0" + month.toString()
 						: month.toString()) + "-" + day.toString();
 
-		final String ceilingTime = year.toString()
+		final String ceilTime = year.toString()
 				+ "-"
 				+ (month.toString().length() < 2 ? "0" + month.toString()
 						: month.toString()) + "-"
 				+ new Integer(day + 1).toString();
 
 		final Query fixtureQuery = new Query(Criteria.where("dateTime")
-				.gt(new DateTime(floorTime)).lt(new DateTime(ceilingTime)));
+				.gt(new DateTime(floorTime)).lt(new DateTime(ceilTime)))
+				.with(new Sort(Direction.ASC, "dateTime"));
 
 		System.out.println("Query : " + fixtureQuery.toString());
 
@@ -73,14 +76,14 @@ public class FixtureSelectorDaoImpl implements IFixtureSelectorDao {
 		Integer month = new DateTime().getMonthOfYear();
 		Integer year = new DateTime().getYear();
 
-		final String ceilingTime = year.toString()
+		final String ceilTime = year.toString()
 				+ "-"
 				+ (month.toString().length() < 2 ? "0" + month.toString()
 						: month.toString()) + "-"
 				+ new Integer(day + 1).toString();
 
 		final Query fixtureQuery = new Query(Criteria.where("dateTime").gt(
-				new DateTime(ceilingTime)));
+				new DateTime(ceilTime)));
 
 		System.out.println("Query : " + fixtureQuery.toString());
 

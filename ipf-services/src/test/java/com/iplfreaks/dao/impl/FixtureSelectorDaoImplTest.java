@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,8 +33,8 @@ public class FixtureSelectorDaoImplTest {
 	private List<Fixture> getFixtures() {
 
 		final List<Fixture> fixtures = new ArrayList<Fixture>();
-		final DateTime date1 = new DateTime("2014-03-16").plusDays(0)
-				.plusHours(16);
+		final DateTime date1 = new DateTime("2014-03-17").plusDays(0)
+				.plusHours(16).toDateTime(DateTimeZone.getDefault());
 		final CricketTeam homeTeam1 = new CricketTeam();
 		final CricketTeam homeTeam2 = new CricketTeam();
 
@@ -63,8 +64,8 @@ public class FixtureSelectorDaoImplTest {
 		awayTeam2.setHomeCity("Hyderabad");
 		awayTeam2.setName("Sunrisers Hyderabad");
 
-		final DateTime date2 = new DateTime("2014-03-16").plusDays(0)
-				.plusHours(20);
+		final DateTime date2 = new DateTime("2014-03-17").plusDays(0)
+				.plusHours(20).toDateTime(DateTimeZone.getDefault());
 
 		final CricketFixture fixture2 = new CricketFixture();
 		fixture2.setFixtureName(homeTeam2.getName() + " vs "
@@ -81,8 +82,8 @@ public class FixtureSelectorDaoImplTest {
 	private List<Fixture> getPastFixtures() {
 		final List<Fixture> fixtures = new ArrayList<Fixture>();
 
-		final DateTime date1 = new DateTime("2014-03-16").minusDays(1)
-				.plusHours(16);
+		final DateTime date1 = new DateTime("2014-03-17").minusDays(1)
+				.plusHours(16).toDateTime(DateTimeZone.getDefault());
 		final CricketTeam homeTeam1 = new CricketTeam();
 		final CricketTeam homeTeam2 = new CricketTeam();
 
@@ -112,8 +113,8 @@ public class FixtureSelectorDaoImplTest {
 		awayTeam2.setHomeCity("Bangalore");
 		awayTeam2.setName("Royal Chanllegers Bangalore");
 
-		final DateTime date2 = new DateTime("2014-03-16").minusDays(2)
-				.plusHours(20);
+		final DateTime date2 = new DateTime("2014-03-17").minusDays(2)
+				.plusHours(20).toDateTime(DateTimeZone.getDefault());
 		final CricketFixture fixture2 = new CricketFixture();
 		fixture2.setFixtureName(homeTeam2.getName() + " vs "
 				+ awayTeam2.getName());
@@ -130,8 +131,8 @@ public class FixtureSelectorDaoImplTest {
 	private List<Fixture> getUpcomingFixtures() {
 		final List<Fixture> fixtures = new ArrayList<Fixture>();
 
-		final DateTime date1 = new DateTime("2014-03-16").plusDays(1)
-				.plusHours(20);
+		final DateTime date1 = new DateTime("2014-03-17").plusDays(1)
+				.plusHours(20).toDateTime(DateTimeZone.getDefault());
 		final CricketTeam homeTeam1 = new CricketTeam();
 		final CricketTeam homeTeam2 = new CricketTeam();
 
@@ -161,8 +162,8 @@ public class FixtureSelectorDaoImplTest {
 		awayTeam2.setHomeCity("Chennai");
 		awayTeam2.setName("Chennai Super Kings");
 
-		final DateTime date2 = new DateTime("2014-03-16").plusDays(2)
-				.plusHours(16);
+		final DateTime date2 = new DateTime("2014-03-17").plusDays(2)
+				.plusHours(16).toDateTime(DateTimeZone.getDefault());
 		final CricketFixture fixture2 = new CricketFixture();
 		fixture2.setFixtureName(homeTeam2.getName() + " vs "
 				+ awayTeam2.getName());
