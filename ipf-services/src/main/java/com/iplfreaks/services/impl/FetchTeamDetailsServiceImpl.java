@@ -1,24 +1,24 @@
 package com.iplfreaks.services.impl;
 
-import com.iplfreaks.dao.api.IFetchTeamDetailsDao;
+import com.iplfreaks.dao.api.ITeamDao;
 import com.iplfreaks.game.Team;
 import com.iplfreaks.services.api.IFetchTeamDetailsService;
 
 public class FetchTeamDetailsServiceImpl implements IFetchTeamDetailsService {
 
-	private IFetchTeamDetailsDao fetchTeamDetailsDao;
+	private ITeamDao teamDao;
 
 	@Override
 	public Team getTeamDetails(String teamName) {
-		return this.fetchTeamDetailsDao.getTeamDetails(teamName);
+		return this.teamDao.getTeamDetails(teamName);
 	}
 
-	public IFetchTeamDetailsDao getFetchTeamDetailsDao() {
-		return fetchTeamDetailsDao;
+	public ITeamDao getFetchTeamDetailsDao() {
+		return teamDao;
 	}
 
-	public void setFetchTeamDetailsDao(IFetchTeamDetailsDao fetchTeamDetailsDao) {
-		this.fetchTeamDetailsDao = fetchTeamDetailsDao;
+	public void setFetchTeamDetailsDao(ITeamDao fetchTeamDetailsDao) {
+		this.teamDao = fetchTeamDetailsDao;
 	}
 
 }

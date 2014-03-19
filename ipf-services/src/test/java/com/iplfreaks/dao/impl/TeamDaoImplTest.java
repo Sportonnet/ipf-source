@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,10 +22,20 @@ import com.iplfreaks.game.Team;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:/META-INF/spring/spring-config-test.xml")
-public class FetchTeamDetailsDaoImplTest {
+public class TeamDaoImplTest {
 
 	@Autowired
 	private MongoTemplate mongoTemplate;
+	
+	@Autowired
+	private TeamDaoImpl teamDaoImpl;
+
+	/**
+	 * @param teamDaoImpl the teamDaoImpl to set
+	 */
+	public void setTeamDaoImpl(TeamDaoImpl teamDaoImpl) {
+		this.teamDaoImpl = teamDaoImpl;
+	}
 
 	@Test
 	public void testFetch() {
@@ -32,16 +43,23 @@ public class FetchTeamDetailsDaoImplTest {
 				.is("DD"));
 
 		final Team team = this.mongoTemplate.findOne(teamDetailsQuery,
-				Team.class, "teams");
+				Team.class, "team");
 
 		System.out.println(new Gson().toJson(team));
 
 	}
+	
+	@Test
+	public void testGetTeamDetails()
+	{
+		final Team team = teamDaoImpl.getTeamDetails("Mumbai Indians (MI)");
+		Assert.assertNotNull(team);
+	}
 
-	// @Test
+	//@Test
 	public void test() {
 
-		this.mongoTemplate.insert(getTeams(), "teams");
+		this.mongoTemplate.insert(getTeams(), "team");
 
 	}
 

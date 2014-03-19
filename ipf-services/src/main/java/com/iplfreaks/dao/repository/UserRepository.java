@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.iplfreaks.dao.api;
+package com.iplfreaks.dao.repository;
 
 import java.util.List;
 

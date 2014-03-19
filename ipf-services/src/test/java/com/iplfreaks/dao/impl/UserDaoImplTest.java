@@ -5,6 +5,7 @@ package com.iplfreaks.dao.impl;
 
 
 
+import org.joda.time.DateTime;
 import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
@@ -56,6 +57,7 @@ public class UserDaoImplTest {
 		final User user = new User();
 		user.setEmail("testuser@gmail.com");
 		user.setPassword("testpassword");
+		user.setCreatedDate(new DateTime());
 		return user;
 	}
 

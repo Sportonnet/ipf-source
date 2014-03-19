@@ -19,11 +19,9 @@
 		<constructor-arg name="userCredentials" ref="userCredentials" />
 	</bean>
 	
-	<mongo:repositories base-package="com.iplfreaks.dao.api">
-	
-		<mongo:repository id="userRepository" mongo-template-ref="mongoTemplate">
-		</mongo:repository>
-	
+	<mongo:repositories base-package="com.iplfreaks.dao.repository">
+		<mongo:repository id="userRepository" mongo-template-ref="mongoTemplate" />
+		<mongo:repository id="teamRepository" mongo-template-ref="mongoTemplate" />
 	</mongo:repositories>
 
 	<bean id="userCredentials" class="org.springframework.data.authentication.UserCredentials">
@@ -53,8 +51,9 @@
 		<property name="mongoTemplate" ref="mongoTemplate" />
 	</bean>
 
-	<bean id="fetchTeamDetailsDao" class="com.iplfreaks.dao.impl.FetchTeamDetailsDaoImpl">
+	<bean id="teamDao" class="com.iplfreaks.dao.impl.TeamDaoImpl">
 		<property name="mongoTemplate" ref="mongoTemplate" />
+		<property name="teamRepository" ref="teamRepository" />
 	</bean>
 	
 	<!-- services -->
@@ -76,6 +75,6 @@
 	</bean>
 
 	<bean id="fetchTeamDetailsService" class="com.iplfreaks.services.impl.FetchTeamDetailsServiceImpl">
-		<property name="fetchTeamDetailsDao" ref="fetchTeamDetailsDao" />
+		<property name="teamDao" ref="teamDao" />
 	</bean>
 </beans>

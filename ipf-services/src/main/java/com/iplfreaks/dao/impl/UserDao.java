@@ -7,14 +7,13 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 
 import com.iplfreaks.dao.api.IUserDao;
-import com.iplfreaks.dao.api.UserRepository;
+import com.iplfreaks.dao.repository.UserRepository;
 import com.iplfreaks.user.User;
 import com.mongodb.DBCollection;
 
 public class UserDao implements IUserDao {
 
 	private MongoTemplate mongoTemplate;
-	private DBCollection userCollection;
 	private UserRepository userRepository;
 
 	private static final String USER_COLLECTION = "user";
@@ -52,9 +51,9 @@ public class UserDao implements IUserDao {
 	 * init method
 	 */
 	public void init() {
-		System.out.println("getting user collection");
+		/*System.out.println("getting user collection");
 		this.userCollection = mongoTemplate.getCollection(USER_COLLECTION);
-		System.out.println("Fetched user collection");
+		System.out.println("Fetched user collection");*/
 
 		/*
 		 * final User user = new User();
