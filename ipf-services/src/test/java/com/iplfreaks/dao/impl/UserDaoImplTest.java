@@ -6,9 +6,12 @@ package com.iplfreaks.dao.impl;
 
 
 import org.junit.Assert;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -28,10 +31,16 @@ public class UserDaoImplTest {
 	@Autowired
 	private UserDao userDao;
 	
-	@Test
+	@Rule
+	public ExpectedException exception = ExpectedException.none();
+	
+	@Test//(expected=Exception.class)
 	public void testCreateUser()
 	{
-		final boolean isSuccess = this.userDao.createUser(createUser());
+		final User user = createUser();
+		
+		exception.expect(DuplicateKeyException.class);
+		final boolean isSuccess = this.userDao.createUser(user);
 		Assert.assertTrue(isSuccess);
 	}
 	
