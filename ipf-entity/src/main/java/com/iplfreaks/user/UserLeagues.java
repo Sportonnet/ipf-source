@@ -2,6 +2,10 @@ package com.iplfreaks.user;
 
 import java.util.Set;
 
+import org.springframework.data.annotation.TypeAlias;
+import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import com.iplfreaks.base.BaseEntity;
 
 /**
@@ -10,6 +14,8 @@ import com.iplfreaks.base.BaseEntity;
  * @author dhananjayp
  *
  */
+@Document
+@TypeAlias(value="UserLeagues")
 public class UserLeagues extends BaseEntity {
 
 	/**
@@ -17,6 +23,7 @@ public class UserLeagues extends BaseEntity {
 	 */
 	private static final long serialVersionUID = -6191890843194844548L;
 	
+	@Indexed(unique=true, sparse=true)
 	private String email;
 	
 	private Set<String> leagues;

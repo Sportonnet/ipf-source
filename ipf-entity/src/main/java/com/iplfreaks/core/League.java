@@ -22,6 +22,8 @@ public class League extends BaseEntity {
 	private String name;
 	
 	private Set<Challenger> challengers;
+	
+	private Set<Challenge> pendingChallengers;
 
 	private DateTime leagueStartDate;
 
@@ -82,6 +84,20 @@ public class League extends BaseEntity {
 	 */
 	public void setCompetition(Competition competition) {
 		this.competition = competition;
+	}
+
+	/**
+	 * @return the pendingChallengers
+	 */
+	public Set<Challenge> getPendingChallengers() {
+		return pendingChallengers;
+	}
+
+	/**
+	 * @param pendingChallengers the pendingChallengers to set
+	 */
+	public void setPendingChallengers(Set<Challenge> pendingChallengers) {
+		this.pendingChallengers = pendingChallengers;
 	}
 
 	public static void main(String[] args) {

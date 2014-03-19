@@ -27,6 +27,8 @@ public class Fixture extends BaseEntity {
 	private Team awayTeam;
 
 	private DateTime dateTime;
+	
+	private String venue;
 
 	public String getFixtureName() {
 		return fixtureName;
@@ -58,6 +60,20 @@ public class Fixture extends BaseEntity {
 
 	public void setDateTime(DateTime dateTime) {
 		this.dateTime = dateTime;
+	}
+
+	/**
+	 * @return the venue
+	 */
+	public String getVenue() {
+		return venue;
+	}
+
+	/**
+	 * @param venue the venue to set
+	 */
+	public void setVenue(String venue) {
+		this.venue = venue;
 	}
 
 }
