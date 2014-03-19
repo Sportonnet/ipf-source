@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.iplfreaks.game.Fixture;
 
-public interface IFixturesSelectorService {
+public interface IFixturesService {
 	/**
 	 * this method returns the fixture which will be held today
 	 * 

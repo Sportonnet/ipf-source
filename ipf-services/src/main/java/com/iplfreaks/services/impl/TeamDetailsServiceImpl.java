@@ -2,9 +2,9 @@ package com.iplfreaks.services.impl;
 
 import com.iplfreaks.dao.api.ITeamDao;
 import com.iplfreaks.game.Team;
-import com.iplfreaks.services.api.IFetchTeamDetailsService;
+import com.iplfreaks.services.api.ITeamDetailsService;
 
-public class FetchTeamDetailsServiceImpl implements IFetchTeamDetailsService {
+public class TeamDetailsServiceImpl implements ITeamDetailsService {
 
 	private ITeamDao teamDao;
 
@@ -13,12 +13,12 @@ public class FetchTeamDetailsServiceImpl implements IFetchTeamDetailsService {
 		return this.teamDao.getTeamDetails(teamName);
 	}
 
-	public ITeamDao getFetchTeamDetailsDao() {
+	public ITeamDao getTeamDao() {
 		return teamDao;
 	}
 
-	public void setFetchTeamDetailsDao(ITeamDao fetchTeamDetailsDao) {
-		this.teamDao = fetchTeamDetailsDao;
+	public void setTeamDao(ITeamDao teamDao) {
+		this.teamDao = teamDao;
 	}
 
 }

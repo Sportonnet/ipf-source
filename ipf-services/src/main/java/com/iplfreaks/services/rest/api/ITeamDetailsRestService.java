@@ -7,7 +7,7 @@ import javax.ws.rs.Produces;
 
 @Path("/teams")
 @Produces({ "application/json" })
-public interface IFetchTeamDetailsRestService {
+public interface ITeamDetailsRestService {
 
 	/**
 	 * Rest Service returns the team details for the team name received

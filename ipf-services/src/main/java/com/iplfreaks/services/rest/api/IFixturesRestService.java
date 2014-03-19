@@ -6,7 +6,7 @@ import javax.ws.rs.Produces;
 
 @Path("/fixtures")
 @Produces({ "application/json" })
-public interface IFixturesSelectorRestService {
+public interface IFixturesRestService {
 
 	/**
 	 * Rest Service returns the fixture which will be held today

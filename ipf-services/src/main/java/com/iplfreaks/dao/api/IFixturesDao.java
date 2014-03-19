@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.iplfreaks.game.Fixture;
 
-public interface IFixtureSelectorDao {
+public interface IFixturesDao {
 
 	/**
 	 * 

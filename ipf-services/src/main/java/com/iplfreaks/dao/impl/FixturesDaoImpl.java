@@ -9,10 +9,10 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 
-import com.iplfreaks.dao.api.IFixtureSelectorDao;
+import com.iplfreaks.dao.api.IFixturesDao;
 import com.iplfreaks.game.Fixture;
 
-public class FixtureSelectorDaoImpl implements IFixtureSelectorDao {
+public class FixturesDaoImpl implements IFixturesDao {
 
 	private MongoTemplate mongoTemplate;
 

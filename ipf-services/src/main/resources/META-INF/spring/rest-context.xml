@@ -21,8 +21,8 @@
 			<ref bean="createLeagueRestService" />
 			<ref bean="userAuthenticationRestService" />
 			<ref bean="createUserRestService" />
-			<ref bean="fixtureSelectorRestService" />
-			<ref bean="fetchTeamDetailsRestService" />
+			<ref bean="fixtureRestService" />
+			<ref bean="teamDetailsRestService" />
 		</jaxrs:serviceBeans>
 	</jaxrs:server>
 
@@ -44,13 +44,13 @@
 		<property name="createUserService" ref="createUserService" />
 	</bean>
 
-	<bean id="fixtureSelectorRestService"
-		class="com.iplfreaks.services.rest.impl.FixturesSelectorRestServiceImpl">
-		<property name="fixtureSelectorService" ref="fixtureSelectorService" />
+	<bean id="fixtureRestService"
+		class="com.iplfreaks.services.rest.impl.FixturesRestServiceImpl">
+		<property name="fixtureService" ref="fixtureService" />
 	</bean>
-	<bean id="fetchTeamDetailsRestService"
-		class="com.iplfreaks.services.rest.impl.FetchTeamDetailsRestServiceImpl">
-		<property name="fetchTeamDetailsService" ref="fetchTeamDetailsService" />
+	<bean id="teamDetailsRestService"
+		class="com.iplfreaks.services.rest.impl.TeamDetailsRestServiceImpl">
+		<property name="teamDetailsService" ref="teamDetailsService" />
 	</bean>
 
 	<!-- 4 -->

@@ -17,8 +17,10 @@ public interface TeamRepository extends MongoRepository<Team, String> {
 	
 	List<Team> findByName(final String name);
 	
-	List<Team> findByhomeVenue(final String homevenue);
-	
-	List<Team> findByPlayersName(final String name);
+	/*
+	 * List<Team> findByhomeVenue(final String homevenue);
+	 * 
+	 * List<Team> findByPlayersName(final String name);
+	 */
 
 }

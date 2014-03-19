@@ -170,7 +170,10 @@
 							org.apache.cxf.bus.spring,
 							org.springframework.data.repository,
 							org.springframework.data.mongodb.repository.support,
-							org.springframework.data.repository.core.support
+							org.springframework.data.repository.core.support,
+							org.springframework.aop,
+							org.springframework.aop.framework,
+							org.aopalliance.aop
 						</Import-Package>
 						<Bundle-Version>${project.version}</Bundle-Version>
 						<Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>

@@ -18,10 +18,12 @@
 		<constructor-arg name="databaseName" value="sports_on_net_1" />
 		<constructor-arg name="userCredentials" ref="userCredentials" />
 	</bean>
-	
+
 	<mongo:repositories base-package="com.iplfreaks.dao.repository">
-		<mongo:repository id="userRepository" mongo-template-ref="mongoTemplate" />
-		<mongo:repository id="teamRepository" mongo-template-ref="mongoTemplate" />
+		<mongo:repository id="userRepository"
+			mongo-template-ref="mongoTemplate" />
+		<mongo:repository id="teamRepository"
+			mongo-template-ref="mongoTemplate" />
 	</mongo:repositories>
 
 	<bean id="userCredentials" class="org.springframework.data.authentication.UserCredentials">
@@ -47,7 +49,7 @@
 		<property name="userRepository" ref="userRepository" />
 	</bean>
 
-	<bean id="fixtureDao" class="com.iplfreaks.dao.impl.FixtureSelectorDaoImpl">
+	<bean id="fixtureDao" class="com.iplfreaks.dao.impl.FixturesDaoImpl">
 		<property name="mongoTemplate" ref="mongoTemplate" />
 	</bean>
 
@@ -55,7 +57,7 @@
 		<property name="mongoTemplate" ref="mongoTemplate" />
 		<property name="teamRepository" ref="teamRepository" />
 	</bean>
-	
+
 	<!-- services -->
 	<bean id="helloServiceImpl" class="com.iplfreaks.services.impl.HelloService" />
 
@@ -70,11 +72,11 @@
 		<property name="userDao" ref="userDao" />
 	</bean>
 
-	<bean id="fixtureSelectorService" class="com.iplfreaks.services.impl.FixturesSelectorService">
+	<bean id="fixtureService" class="com.iplfreaks.services.impl.FixturesServiceImpl">
 		<property name="fixtureDao" ref="fixtureDao" />
 	</bean>
 
-	<bean id="fetchTeamDetailsService" class="com.iplfreaks.services.impl.FetchTeamDetailsServiceImpl">
+	<bean id="teamDetailsService" class="com.iplfreaks.services.impl.TeamDetailsServiceImpl">
 		<property name="teamDao" ref="teamDao" />
 	</bean>
 </beans>

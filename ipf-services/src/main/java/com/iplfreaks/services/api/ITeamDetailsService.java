@@ -2,7 +2,7 @@ package com.iplfreaks.services.api;
 
 import com.iplfreaks.game.Team;
 
-public interface IFetchTeamDetailsService {
+public interface ITeamDetailsService {
 
 	/**
 	 * 
