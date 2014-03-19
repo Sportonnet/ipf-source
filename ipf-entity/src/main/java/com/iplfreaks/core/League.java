@@ -27,6 +27,8 @@ public class League extends BaseEntity {
 
 	private User leagueOwner;
 	
+	private Competition competition;
+	
 	
 	public League(String name,User leagueOwner,String startDate) {
 		this.name = name;
@@ -68,6 +70,20 @@ public class League extends BaseEntity {
 		this.leagueOwner = leagueOwner;
 	}
 	
+	/**
+	 * @return the competition
+	 */
+	public Competition getCompetition() {
+		return competition;
+	}
+
+	/**
+	 * @param competition the competition to set
+	 */
+	public void setCompetition(Competition competition) {
+		this.competition = competition;
+	}
+
 	public static void main(String[] args) {
 		String str = "20131003";
 		DateTime dateTime= new DateTime(str);

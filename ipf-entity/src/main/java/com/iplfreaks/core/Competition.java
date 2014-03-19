@@ -3,6 +3,7 @@ package com.iplfreaks.core;
 import java.util.Set;
 
 import com.iplfreaks.base.BaseEntity;
+import com.iplfreaks.game.Fixture;
 
 public class Competition extends BaseEntity{
 
@@ -13,14 +14,14 @@ public class Competition extends BaseEntity{
 
 	private String name;
 	
-	private Set<League> leagues;
+	private Set<Fixture> fixtures;
 
-	public Set<League> getLeagues() {
-		return leagues;
+	public Set<Fixture> getFixtures() {
+		return fixtures;
 	}
 
-	public void setLeagues(Set<League> leagues) {
-		this.leagues = leagues;
+	public void setFixtures(Set<Fixture> fixtures) {
+		this.fixtures = fixtures;
 	}
 
 	public String getName() {
