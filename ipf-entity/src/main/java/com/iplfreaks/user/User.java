@@ -1,5 +1,7 @@
 package com.iplfreaks.user;
 
+import org.springframework.beans.factory.annotation.Required;
+import org.springframework.data.annotation.TypeAlias;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -10,6 +12,7 @@ import com.iplfreaks.base.BaseEntity;
  *
  */
 @Document
+@TypeAlias(value="User")
 public class User extends BaseEntity {
 
 	/**
@@ -30,6 +33,7 @@ public class User extends BaseEntity {
 	/**
 	 * 
 	 */
+	
 	@Indexed(unique=true)
 	private String email;
 	
