@@ -1,12 +1,23 @@
+
+
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mongo="http://www.springframework.org/schema/data/mongo"
+	xmlns:util="http://www.springframework.org/schema/util"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
-	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd ">
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	http://www.springframework.org/schema/data/mongo
+	http://www.springframework.org/schema/data/mongo/spring-mongo-1.0.xsd
+	http://www.springframework.org/schema/util 
+	http://www.springframework.org/schema/util/spring-util.xsd">
 
 	<bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
 		<constructor-arg name="mongo" ref="mongo" />
 		<constructor-arg name="databaseName" value="sports_on_net_1" />
 		<constructor-arg name="userCredentials" ref="userCredentials" />
+		<property name="writeConcern">
+			<util:constant static-field="com.mongodb.WriteConcern.SAFE" />
+		</property>
 	</bean>
 
 	<bean id="userCredentials" class="org.springframework.data.authentication.UserCredentials">
@@ -17,6 +28,16 @@
 	<!-- Factory bean that creates the Mongo instance -->
 	<bean id="mongo" class="org.springframework.data.mongodb.core.MongoFactoryBean">
 		<property name="host" value="localhost" />
+	</bean>
+	
+	<mongo:repositories base-package="com.iplfreaks.dao.api">
+		<mongo:repository id="userRepository" mongo-template-ref="mongoTemplate"/>
+	</mongo:repositories>
+	
+	<bean id="userDao" class="com.iplfreaks.dao.impl.UserDao"
+		init-method="init">
+		<property name="mongoTemplate" ref="mongoTemplate" />
+		<property name="userRepository" ref="userRepository" />
 	</bean>
 
 </beans>

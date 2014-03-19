@@ -1,7 +1,10 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mongo="http://www.springframework.org/schema/data/mongo"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
-	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd ">
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	http://www.springframework.org/schema/data/mongo
+	http://www.springframework.org/schema/data/mongo/spring-mongo-1.0.xsd">
 
 	<!-- <service id="helloServiceBean" ref="helloServiceImpl" interface="com.iplfreaks.services.api.IHelloService" 
 		/> -->
@@ -15,6 +18,13 @@
 		<constructor-arg name="databaseName" value="sports_on_net_1" />
 		<constructor-arg name="userCredentials" ref="userCredentials" />
 	</bean>
+	
+	<mongo:repositories base-package="com.iplfreaks.dao.api">
+	
+		<mongo:repository id="userRepository" mongo-template-ref="mongoTemplate">
+		</mongo:repository>
+	
+	</mongo:repositories>
 
 	<bean id="userCredentials" class="org.springframework.data.authentication.UserCredentials">
 		<constructor-arg name="username" value="gambler" />
@@ -36,6 +46,7 @@
 	<bean id="userDao" class="com.iplfreaks.dao.impl.UserDao"
 		init-method="init">
 		<property name="mongoTemplate" ref="mongoTemplate" />
+		<property name="userRepository" ref="userRepository" />
 	</bean>
 
 	<bean id="fixtureDao" class="com.iplfreaks.dao.impl.FixtureSelectorDaoImpl">

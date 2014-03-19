@@ -7,6 +7,7 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 
 import com.iplfreaks.dao.api.IUserDao;
+import com.iplfreaks.dao.api.UserRepository;
 import com.iplfreaks.user.User;
 import com.mongodb.DBCollection;
 
@@ -14,6 +15,7 @@ public class UserDao implements IUserDao {
 
 	private MongoTemplate mongoTemplate;
 	private DBCollection userCollection;
+	private UserRepository userRepository;
 
 	private static final String USER_COLLECTION = "user";
 
@@ -27,9 +29,11 @@ public class UserDao implements IUserDao {
 		// userQuery.append("password", user.getPassword());
 		// final long userCount = this.userCollection.count(userQuery);
 
-		final List<User> userList = this.mongoTemplate.find(userQuery,
-				User.class, USER_COLLECTION);
+		/*final List<User> userList = this.mongoTemplate.find(userQuery,
+				User.class, USER_COLLECTION);*/
 
+		final List<User> userList = this.getUserRepository().findByEmailAndPassword(user.getEmail(), user.getPassword());
+		
 		if (userList == null || userList.isEmpty()) {
 			return false;
 		}
@@ -85,6 +89,20 @@ public class UserDao implements IUserDao {
 	 */
 	public void setMongoTemplate(MongoTemplate mongoTemplate) {
 		this.mongoTemplate = mongoTemplate;
+	}
+
+	/**
+	 * @return the userRepository
+	 */
+	public UserRepository getUserRepository() {
+		return userRepository;
+	}
+
+	/**
+	 * @param userRepository the userRepository to set
+	 */
+	public void setUserRepository(UserRepository userRepository) {
+		this.userRepository = userRepository;
 	}
 
 }

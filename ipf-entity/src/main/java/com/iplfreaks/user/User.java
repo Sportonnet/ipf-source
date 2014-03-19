@@ -1,11 +1,15 @@
 package com.iplfreaks.user;
 
+import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import com.iplfreaks.base.BaseEntity;
 
 /**
  * @author dhananjayp
  *
  */
+@Document
 public class User extends BaseEntity {
 
 	/**
@@ -26,6 +30,7 @@ public class User extends BaseEntity {
 	/**
 	 * 
 	 */
+	@Indexed(unique=true)
 	private String email;
 	
 	private String password;
