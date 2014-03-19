@@ -21,7 +21,7 @@ public class CricketTeam extends Team {
 	public Set<Player> getBowlers(){
 		Set<Player> bowlers = new HashSet<Player>();
 		if(this.getPlayers() != null && !this.getPlayers().isEmpty()){
-			for (Player player : bowlers) {
+			for (Player player : this.getPlayers()) {
 				if(player.getSkill() == Skill.BOWLER)
 					bowlers.add(player);
 			}
@@ -35,7 +35,7 @@ public class CricketTeam extends Team {
 	public Set<Player> getBatsmen(){
 		Set<Player> batsmen = new HashSet<Player>();
 		if(this.getPlayers() != null && !this.getPlayers().isEmpty()){
-			for (Player player : batsmen) {
+			for (Player player : this.getPlayers()) {
 				if(player.getSkill() == Skill.BATSMAN)
 					batsmen.add(player);
 			}
@@ -49,7 +49,7 @@ public class CricketTeam extends Team {
 	public Set<Player> getAllrounders(){
 		Set<Player> allrounders = new HashSet<Player>();
 		if(this.getPlayers() != null && !this.getPlayers().isEmpty()){
-			for (Player player : allrounders) {
+			for (Player player : this.getPlayers()) {
 				if(player.getSkill() == Skill.ALLROUNDER)
 					allrounders.add(player);
 			}
