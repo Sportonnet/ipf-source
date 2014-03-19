@@ -167,7 +167,10 @@
 					<instructions>
 						<manifestLocation>META-INF</manifestLocation>
 						<Import-Package>*,
-							org.apache.cxf.bus.spring
+							org.apache.cxf.bus.spring,
+							org.springframework.data.repository,
+							org.springframework.data.mongodb.repository.support,
+							org.springframework.data.repository.core.support
 						</Import-Package>
 						<Bundle-Version>${project.version}</Bundle-Version>
 						<Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
