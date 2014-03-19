@@ -53,7 +53,7 @@ public class TeamDaoImplTest {
 	public void testGetTeamDetails()
 	{
 		final Team team = teamDaoImpl.getTeamDetails("Mumbai Indians (MI)");
-		Assert.assertNotNull(team);
+		Assert.assertEquals("Mumbai", team.getHomeCity());
 	}
 
 	//@Test
