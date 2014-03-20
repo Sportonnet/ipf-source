@@ -26,7 +26,11 @@
 			mongo-template-ref="mongoTemplate" />
 		<mongo:repository id="userLeagueRepository"
 			mongo-template-ref="mongoTemplate" />
-			<mongo:repository id="leagueRepository"
+		<mongo:repository id="leagueRepository"
+			mongo-template-ref="mongoTemplate" />
+		<mongo:repository id="competitionRepository"
+			mongo-template-ref="mongoTemplate" />
+		<mongo:repository id="fixtureRepository"
 			mongo-template-ref="mongoTemplate" />
 	</mongo:repositories>
 

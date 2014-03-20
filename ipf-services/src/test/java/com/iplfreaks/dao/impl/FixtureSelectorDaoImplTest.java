@@ -1,6 +1,7 @@
 package com.iplfreaks.dao.impl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.joda.time.DateTime;
@@ -12,6 +13,7 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.iplfreaks.dao.repository.FixtureRepository;
 import com.iplfreaks.game.Fixture;
 import com.iplfreaks.game.cricket.CricketFixture;
 import com.iplfreaks.game.cricket.CricketTeam;
@@ -22,6 +24,15 @@ public class FixtureSelectorDaoImplTest {
 
 	@Autowired
 	private MongoTemplate mongoTemplate;
+	
+	@Autowired
+	private FixtureRepository fixtureRepository;
+	
+	@Test
+	public void testFetchFixture()
+	{
+		final List<Fixture> fixtureList = fixtureRepository.findBydateTimeGreaterThan(new Date());
+	}
 
 	@Test
 	public void test() {
