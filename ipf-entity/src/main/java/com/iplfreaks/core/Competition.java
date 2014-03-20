@@ -2,9 +2,14 @@ package com.iplfreaks.core;
 
 import java.util.Set;
 
+import org.springframework.data.annotation.TypeAlias;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import com.iplfreaks.base.BaseEntity;
 import com.iplfreaks.game.Fixture;
 
+@Document
+@TypeAlias(value="competition")
 public class Competition extends BaseEntity{
 
 	/**
