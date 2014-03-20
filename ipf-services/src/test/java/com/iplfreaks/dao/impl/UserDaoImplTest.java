@@ -52,6 +52,13 @@ public class UserDaoImplTest {
 		Assert.assertTrue(isSuccess);
 	}
 	
+	@Test
+	public void testIsUserPresent()
+	{
+		final boolean isSuccess = this.userDao.isUserPresent("testuser@gmail.com");
+		Assert.assertTrue(isSuccess);
+	}
+	
 	private User createUser()
 	{
 		final User user = new User();

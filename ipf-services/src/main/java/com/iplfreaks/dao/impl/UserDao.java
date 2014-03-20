@@ -16,6 +16,16 @@ public class UserDao implements IUserDao {
 	private UserRepository userRepository;
 
 	private static final String USER_COLLECTION = "user";
+	
+	@Override
+	public boolean isUserPresent(final String email) {
+		final List<User> userList = this.userRepository.findByEmail(email);
+		if (userList == null || userList.isEmpty()) {
+			return false;
+		}
+
+		return true;
+	}
 
 	public boolean authenticateUser(final User user) {
 
@@ -40,6 +50,8 @@ public class UserDao implements IUserDao {
 
 		// return userCount == 1 ? true : false;
 	}
+	
+	
 
 	public boolean createUser(final User user) {
 		getMongoTemplate().insert(user, USER_COLLECTION);
@@ -102,5 +114,4 @@ public class UserDao implements IUserDao {
 	public void setUserRepository(UserRepository userRepository) {
 		this.userRepository = userRepository;
 	}
-
 }

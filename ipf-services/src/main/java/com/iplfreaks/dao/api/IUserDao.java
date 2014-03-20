@@ -7,5 +7,7 @@ public interface IUserDao {
 	public boolean authenticateUser(final User user);
 	
 	public boolean createUser(final User user);
+	
+	public boolean isUserPresent(final String email);
 
 }
