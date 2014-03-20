@@ -33,6 +33,8 @@
 	<mongo:repositories base-package="com.iplfreaks.dao.repository">
 		<mongo:repository id="userRepository" mongo-template-ref="mongoTemplate"/>
 		<mongo:repository id="teamRepository" mongo-template-ref="mongoTemplate"/>
+		<mongo:repository id="userLeagueRepository" mongo-template-ref="mongoTemplate" />
+		<mongo:repository id="leagueRepository" mongo-template-ref="mongoTemplate" />
 	</mongo:repositories>
 	
 	<bean id="userDao" class="com.iplfreaks.dao.impl.UserDao"
@@ -44,6 +46,12 @@
 	<bean id="teamDao" class="com.iplfreaks.dao.impl.TeamDaoImpl">
 		<property name="mongoTemplate" ref="mongoTemplate" />
 		<property name="teamRepository" ref="teamRepository" />
+	</bean>
+	
+	<bean id="userLeagueDao" class="com.iplfreaks.dao.impl.UserLeaguesDaoImpl">
+	</bean>
+	
+	<bean id="leagueDao" class="com.iplfreaks.dao.impl.LeagueDaoImpl">
 	</bean>
 
 </beans>

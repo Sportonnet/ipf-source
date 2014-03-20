@@ -9,7 +9,6 @@ import org.springframework.data.mongodb.core.query.Query;
 import com.iplfreaks.dao.api.IUserDao;
 import com.iplfreaks.dao.repository.UserRepository;
 import com.iplfreaks.user.User;
-import com.mongodb.DBCollection;
 
 public class UserDao implements IUserDao {
 

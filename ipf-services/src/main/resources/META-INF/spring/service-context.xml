@@ -24,6 +24,10 @@
 			mongo-template-ref="mongoTemplate" />
 		<mongo:repository id="teamRepository"
 			mongo-template-ref="mongoTemplate" />
+		<mongo:repository id="userLeagueRepository"
+			mongo-template-ref="mongoTemplate" />
+			<mongo:repository id="leagueRepository"
+			mongo-template-ref="mongoTemplate" />
 	</mongo:repositories>
 
 	<bean id="userCredentials" class="org.springframework.data.authentication.UserCredentials">
@@ -57,6 +61,12 @@
 		<property name="mongoTemplate" ref="mongoTemplate" />
 		<property name="teamRepository" ref="teamRepository" />
 	</bean>
+	
+	<bean id="userLeagueDao" class="com.iplfreaks.dao.impl.UserLeaguesDaoImpl">
+	</bean>
+	
+	<bean id="leagueDao" class="com.iplfreaks.dao.impl.LeagueDaoImpl">
+	</bean>
 
 	<!-- services -->
 	<bean id="helloServiceImpl" class="com.iplfreaks.services.impl.HelloService" />
@@ -79,4 +89,5 @@
 	<bean id="teamDetailsService" class="com.iplfreaks.services.impl.TeamDetailsServiceImpl">
 		<property name="teamDao" ref="teamDao" />
 	</bean>
+	
 </beans>
