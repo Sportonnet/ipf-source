@@ -4,6 +4,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.joda.time.DateTime;
+import org.springframework.data.annotation.TypeAlias;
+import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.iplfreaks.base.BaseEntity;
 import com.iplfreaks.user.User;
@@ -12,6 +15,8 @@ import com.iplfreaks.user.User;
  * @author dhananjayp
  *
  */
+@Document
+@TypeAlias(value="league")
 public class League extends BaseEntity {
 
 	/**
@@ -19,6 +24,7 @@ public class League extends BaseEntity {
 	 */
 	private static final long serialVersionUID = -4308164605799997987L;
 
+	@Indexed(unique=true, sparse=true)
 	private String name;
 	
 	private Set<Challenger> challengers;
@@ -36,6 +42,14 @@ public class League extends BaseEntity {
 		this.name = name;
 		this.leagueOwner = leagueOwner;
 		this.leagueStartDate =new DateTime(startDate);
+	}
+	
+	public League() {
+	}
+	
+	public League(String name,User leagueOwner) {
+		this.name = name;
+		this.leagueOwner = leagueOwner;
 	}
 
 	public String getName() {

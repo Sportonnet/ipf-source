@@ -15,7 +15,7 @@ import com.iplfreaks.base.BaseEntity;
  *
  */
 @Document
-@TypeAlias(value="UserLeagues")
+@TypeAlias(value="userLeagues")
 public class UserLeagues extends BaseEntity {
 
 	/**
