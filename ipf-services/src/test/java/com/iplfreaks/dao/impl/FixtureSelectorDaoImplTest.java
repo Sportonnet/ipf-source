@@ -4,11 +4,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.joda.time.DateMidnight;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -31,7 +34,24 @@ public class FixtureSelectorDaoImplTest {
 	@Test
 	public void testFetchFixture()
 	{
-		final List<Fixture> fixtureList = fixtureRepository.findBydateTimeGreaterThan(new Date());
+		final DateTime dt = new DateTime();
+		dt.withTime(0, 0, 0, 0);
+		//System.out.println(dt);
+		
+		DateMidnight dm1 = new DateMidnight(DateTimeZone.UTC);
+		dm1 = dm1.minusDays(1);
+		System.out.println(dm1);
+		
+		DateMidnight dm2 = dm1.plusDays(1);
+		System.out.println(dm2);
+		
+		//final List<Fixture> fixtureList = fixtureRepository.findBydateTimeLessThan(dm);
+		final Sort sort = new Sort(Direction.ASC, "dateTime");
+		final List<Fixture> fixtureList = fixtureRepository.findBydateTimeBetween(dm1, dm2, sort);
+		for(final Fixture fixture: fixtureList)
+		{
+			System.out.println(fixture.getDateTime());
+		}
 	}
 
 	@Test
