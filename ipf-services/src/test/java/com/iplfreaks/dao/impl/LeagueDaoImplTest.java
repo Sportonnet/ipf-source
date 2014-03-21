@@ -34,7 +34,7 @@ public class LeagueDaoImplTest {
 	
 	@Test
 	public void testFetchLeague() {
-		final League league = leagueDaoImpl.fetchLeague("l1");
+		final League league = leagueDaoImpl.fetchLeague("iplfreaks");
 		System.out.println(league.getLeagueStartDate());
 	}
 	
@@ -47,7 +47,7 @@ public class LeagueDaoImplTest {
 	{
 		final User user = new User();
 		user.setEmail("a");
-		final League league = new League("l1", user);
+		final League league = new League("iplfreaks", user);
 		league.setLeagueStartDate(new DateTime());
 		
 		return league;

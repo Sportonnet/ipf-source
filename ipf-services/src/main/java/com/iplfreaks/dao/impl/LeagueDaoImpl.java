@@ -11,7 +11,6 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import com.iplfreaks.core.League;
 import com.iplfreaks.dao.api.ILeagueDao;
 import com.iplfreaks.dao.repository.LeagueRepository;
-import com.iplfreaks.dao.repository.UserRepository;
 
 /**
  * @author jayeshm3

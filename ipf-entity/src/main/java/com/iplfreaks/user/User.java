@@ -1,6 +1,5 @@
 package com.iplfreaks.user;
 
-import org.springframework.beans.factory.annotation.Required;
 import org.springframework.data.annotation.TypeAlias;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;

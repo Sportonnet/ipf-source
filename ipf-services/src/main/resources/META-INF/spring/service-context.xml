@@ -71,17 +71,20 @@
 		<property name="mongoTemplate" ref="mongoTemplate" />
 		<property name="teamRepository" ref="teamRepository" />
 	</bean>
-	
+
 	<bean id="userLeagueDao" class="com.iplfreaks.dao.impl.UserLeaguesDaoImpl">
 	</bean>
-	
+
 	<bean id="leagueDao" class="com.iplfreaks.dao.impl.LeagueDaoImpl">
+		<property name="mongoTemplate" ref="mongoTemplate" />
+		<property name="leagueRepository" ref="leagueRepository" />
 	</bean>
 
 	<!-- services -->
-	<bean id="helloServiceImpl" class="com.iplfreaks.services.impl.HelloService" />
-
-	<bean id="createLeagueService" class="com.iplfreaks.services.impl.CreateLeagueServiceImpl" />
+	<bean id="createLeagueService" class="com.iplfreaks.services.impl.CreateLeagueServiceImpl">
+		<property name="leagueDao" ref="leagueDao" />
+		<property name="userDao" ref="userDao" />
+	</bean>
 
 	<bean id="userAuthenticationService"
 		class="com.iplfreaks.services.impl.UserAuthenticationServiceImpl">
@@ -99,5 +102,5 @@
 	<bean id="teamDetailsService" class="com.iplfreaks.services.impl.TeamDetailsServiceImpl">
 		<property name="teamDao" ref="teamDao" />
 	</bean>
-	
+
 </beans>

@@ -3,8 +3,6 @@
  */
 package com.iplfreaks.dao.api;
 
-import java.util.List;
-
 import com.iplfreaks.user.UserLeagues;
 
 

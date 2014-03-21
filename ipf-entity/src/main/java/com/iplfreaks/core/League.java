@@ -1,6 +1,7 @@
 package com.iplfreaks.core;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.joda.time.DateTime;
@@ -13,10 +14,10 @@ import com.iplfreaks.user.User;
 
 /**
  * @author dhananjayp
- *
+ * 
  */
 @Document
-@TypeAlias(value="league")
+@TypeAlias(value = "league")
 public class League extends BaseEntity {
 
 	/**
@@ -24,30 +25,29 @@ public class League extends BaseEntity {
 	 */
 	private static final long serialVersionUID = -4308164605799997987L;
 
-	@Indexed(unique=true, sparse=true)
+	@Indexed(unique = true, sparse = true)
 	private String name;
-	
-	private Set<Challenger> challengers;
-	
-	private Set<Challenge> pendingChallengers;
+
+	private final Set<Challenger> challengers = new HashSet<Challenger>();
+
+	private final Set<Challenger> pendingChallengers = new HashSet<Challenger>();
 
 	private DateTime leagueStartDate;
 
 	private User leagueOwner;
-	
+
 	private Competition competition;
-	
-	
-	public League(String name,User leagueOwner,String startDate) {
+
+	public League(String name, User leagueOwner, String startDate) {
 		this.name = name;
 		this.leagueOwner = leagueOwner;
-		this.leagueStartDate =new DateTime(startDate);
+		this.leagueStartDate = new DateTime(startDate);
 	}
-	
+
 	public League() {
 	}
-	
-	public League(String name,User leagueOwner) {
+
+	public League(String name, User leagueOwner) {
 		this.name = name;
 		this.leagueOwner = leagueOwner;
 	}
@@ -64,12 +64,14 @@ public class League extends BaseEntity {
 		return challengers;
 	}
 
-	public void addChallenger(Challenger challenger){
-		if(this.challengers == null)
-			this.challengers = new HashSet<Challenger>();
-		this.challengers.add(challenger);
+	public void addChallengers(List<Challenger> challenger) {
+		this.challengers.addAll(challenger);
 	}
-	
+
+	public void addPendingChallengers(List<Challenger> pendingChallengers) {
+		this.pendingChallengers.addAll(pendingChallengers);
+	}
+
 	public DateTime getLeagueStartDate() {
 		return leagueStartDate;
 	}
@@ -77,7 +79,7 @@ public class League extends BaseEntity {
 	public void setLeagueStartDate(DateTime leagueStartDate) {
 		this.leagueStartDate = leagueStartDate;
 	}
-	
+
 	public User getLeagueOwner() {
 		return leagueOwner;
 	}
@@ -85,7 +87,7 @@ public class League extends BaseEntity {
 	public void setLeagueOwner(User leagueOwner) {
 		this.leagueOwner = leagueOwner;
 	}
-	
+
 	/**
 	 * @return the competition
 	 */
@@ -94,7 +96,8 @@ public class League extends BaseEntity {
 	}
 
 	/**
-	 * @param competition the competition to set
+	 * @param competition
+	 *            the competition to set
 	 */
 	public void setCompetition(Competition competition) {
 		this.competition = competition;
@@ -103,20 +106,8 @@ public class League extends BaseEntity {
 	/**
 	 * @return the pendingChallengers
 	 */
-	public Set<Challenge> getPendingChallengers() {
+	public Set<Challenger> getPendingChallengers() {
 		return pendingChallengers;
 	}
 
-	/**
-	 * @param pendingChallengers the pendingChallengers to set
-	 */
-	public void setPendingChallengers(Set<Challenge> pendingChallengers) {
-		this.pendingChallengers = pendingChallengers;
-	}
-
-	public static void main(String[] args) {
-		String str = "20131003";
-		DateTime dateTime= new DateTime(str);
-		System.out.println(dateTime);
-	}
 }

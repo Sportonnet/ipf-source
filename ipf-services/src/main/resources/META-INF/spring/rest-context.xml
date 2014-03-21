@@ -6,7 +6,7 @@
   http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd
   http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd
   http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd">
-	
+
 	<!-- cxf bus -->
 	<cxf:bus id="cxfBus1">
 		<cxf:features>
@@ -15,9 +15,8 @@
 	</cxf:bus>
 
 	<!-- jaxrs service beans references -->
-	<jaxrs:server address="/" id="someRestService">
+	<jaxrs:server address="/" id="sportfreaks">
 		<jaxrs:serviceBeans>
-			<ref bean="helloServiceRestImpl" />
 			<ref bean="createLeagueRestService" />
 			<ref bean="userAuthenticationRestService" />
 			<ref bean="createUserRestService" />
@@ -28,12 +27,9 @@
 
 
 	<!-- Implementation of the rest service -->
-	<bean id="helloServiceRestImpl" class="com.iplfreaks.services.rest.impl.HelloServiceRestImpl">
-		<property name="helloService" ref="helloServiceImpl" />  <!--Points to the reference below -->
-	</bean>
 	<bean id="createLeagueRestService"
 		class="com.iplfreaks.services.rest.impl.CreateLeagueRestServiceImpl">
-		<property name="creteLeagueService" ref="createLeagueService" />
+		<property name="createLeagueService" ref="createLeagueService" />
 	</bean>
 	<bean id="userAuthenticationRestService"
 		class="com.iplfreaks.services.rest.impl.UserAuthenticationRestServiceImpl">
