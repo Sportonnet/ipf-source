@@ -13,6 +13,7 @@ import com.iplfreaks.core.Competition;
 import com.iplfreaks.core.League;
 import com.iplfreaks.dao.api.ILeagueDao;
 import com.iplfreaks.dao.api.IUserDao;
+import com.iplfreaks.dao.api.IUserLeaguesDao;
 import com.iplfreaks.services.api.ICreateLeagueService;
 import com.iplfreaks.user.User;
 
@@ -20,12 +21,13 @@ public class CreateLeagueServiceImpl implements ICreateLeagueService {
 
 	private ILeagueDao leagueDao;
 	private IUserDao userDao;
+	private IUserLeaguesDao userLeagueDao;
 
 	@Override
 	public void createLeague(String leagueName, String leagueOwner,
 			String competitionName, String competitionSport) {
 
-		// creating user
+		// creating user who is the league owner
 		final User user = new User();
 		user.setEmail(leagueOwner);
 
@@ -34,12 +36,14 @@ public class CreateLeagueServiceImpl implements ICreateLeagueService {
 		competition.setName(competitionName);
 		competition.setSport(competitionSport);
 
+		// create the league
 		final League league = new League();
 		league.setName(leagueName);
 		league.setLeagueOwner(user);
 		league.setLeagueStartDate(new DateTime());
 		league.setCompetition(competition);
 
+		// save the league
 		this.leagueDao.createLeague(league);
 
 	}
@@ -53,7 +57,8 @@ public class CreateLeagueServiceImpl implements ICreateLeagueService {
 		final List<Challenger> leagueChallengers = new ArrayList<Challenger>();
 		final List<Challenger> pendingChallengers = new ArrayList<Challenger>();
 
-		for (String challenger : challengers) {
+		// filtering existing users and pending users from list of challengers
+		for (final String challenger : challengers) {
 
 			final Challenger challenger2 = new Challenger();
 			final User user = new User();
@@ -70,12 +75,20 @@ public class CreateLeagueServiceImpl implements ICreateLeagueService {
 		league.addChallengers(leagueChallengers);
 		league.addPendingChallengers(pendingChallengers);
 
+		// adding challengers to the league
+		this.leagueDao.addChallengersToLeague(league);
+
+		// adding league challenges to userleague mapping
+		for (final Challenger challeger : leagueChallengers) {
+			this.userLeagueDao.addUserLeague(challeger.getUser().getEmail(),
+					leagueName);
+		}
+
+		// result
 		Map<String, Object> result = new HashMap<String, Object>();
 
 		result.put(Status.SUCCESS.name(), leagueChallengers);
 		result.put(Status.ERROR.name(), pendingChallengers);
-
-		this.leagueDao.addChallengersToLeague(league);
 
 		return result;
 	}
@@ -108,6 +121,21 @@ public class CreateLeagueServiceImpl implements ICreateLeagueService {
 	 */
 	public void setUserDao(IUserDao userDao) {
 		this.userDao = userDao;
+	}
+
+	/**
+	 * @return the userLeagueDao
+	 */
+	public IUserLeaguesDao getUserLeagueDao() {
+		return userLeagueDao;
+	}
+
+	/**
+	 * @param userLeagueDao
+	 *            the userLeagueDao to set
+	 */
+	public void setUserLeagueDao(IUserLeaguesDao userLeagueDao) {
+		this.userLeagueDao = userLeagueDao;
 	}
 
 }

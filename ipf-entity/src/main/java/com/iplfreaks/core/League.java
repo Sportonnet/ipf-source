@@ -52,38 +52,90 @@ public class League extends BaseEntity {
 		this.leagueOwner = leagueOwner;
 	}
 
-	public String getName() {
-		return name;
+	/**
+	 * adds the collection of challengers to the set
+	 * 
+	 * @param challenger
+	 */
+	public void addChallengers(List<Challenger> challengers) {
+		this.challengers.addAll(challengers);
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	/**
+	 * adds a single challenger to the set
+	 * 
+	 * @param challenger
+	 */
+	public void addChallenger(Challenger challenger) {
+		this.challengers.add(challenger);
 	}
 
-	public Set<Challenger> getChallengers() {
-		return challengers;
-	}
-
-	public void addChallengers(List<Challenger> challenger) {
-		this.challengers.addAll(challenger);
-	}
-
+	/**
+	 * adds the collection of pending challengers to the set
+	 * 
+	 * @param pendingChallengers
+	 */
 	public void addPendingChallengers(List<Challenger> pendingChallengers) {
 		this.pendingChallengers.addAll(pendingChallengers);
 	}
 
+	/**
+	 * adds a single pending challenger to the set
+	 * 
+	 * @param pendingChallenger
+	 */
+	public void addPendingChallenger(Challenger pendingChallenger) {
+		this.pendingChallengers.add(pendingChallenger);
+	}
+
+	/**
+	 * @return the name
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * @param name
+	 *            the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	/**
+	 * @return the challengers
+	 */
+	public Set<Challenger> getChallengers() {
+		return challengers;
+	}
+
+	/**
+	 * @return the leagueStartDate
+	 */
 	public DateTime getLeagueStartDate() {
 		return leagueStartDate;
 	}
 
+	/**
+	 * @param leagueStartDate
+	 *            the leagueStartDate to set
+	 */
 	public void setLeagueStartDate(DateTime leagueStartDate) {
 		this.leagueStartDate = leagueStartDate;
 	}
 
+	/**
+	 * @return the leagueOwner
+	 */
 	public User getLeagueOwner() {
 		return leagueOwner;
 	}
 
+	/**
+	 * @param leagueOwner
+	 *            the leagueOwner to set
+	 */
 	public void setLeagueOwner(User leagueOwner) {
 		this.leagueOwner = leagueOwner;
 	}

@@ -73,6 +73,8 @@
 	</bean>
 
 	<bean id="userLeagueDao" class="com.iplfreaks.dao.impl.UserLeaguesDaoImpl">
+		<property name="mongoTemplate" ref="mongoTemplate" />
+		<property name="userLeagueRepository" ref="userLeagueRepository" />
 	</bean>
 
 	<bean id="leagueDao" class="com.iplfreaks.dao.impl.LeagueDaoImpl">
@@ -84,6 +86,7 @@
 	<bean id="createLeagueService" class="com.iplfreaks.services.impl.CreateLeagueServiceImpl">
 		<property name="leagueDao" ref="leagueDao" />
 		<property name="userDao" ref="userDao" />
+		<property name="userLeagueDao" ref="userLeagueDao" />
 	</bean>
 
 	<bean id="userAuthenticationService"
