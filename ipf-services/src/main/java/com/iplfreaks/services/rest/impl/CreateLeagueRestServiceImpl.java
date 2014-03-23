@@ -3,6 +3,7 @@ package com.iplfreaks.services.rest.impl;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
 import org.springframework.dao.DuplicateKeyException;
 
 import com.google.gson.Gson;
@@ -18,13 +19,8 @@ import com.iplfreaks.services.rest.api.ICreateLeagueRestService;
  */
 public class CreateLeagueRestServiceImpl implements ICreateLeagueRestService {
 
+	private Logger logger = Logger.getLogger(CreateLeagueRestServiceImpl.class);
 	private ICreateLeagueService createLeagueService;
-
-	/*
-	 * @Override public String createLeague(String competition, String
-	 * leagueName) { return creteLeagueService.createLeague(competition,
-	 * leagueName); }
-	 */
 
 	/**
 	 * @return the createLeagueService
@@ -54,9 +50,11 @@ public class CreateLeagueRestServiceImpl implements ICreateLeagueRestService {
 					null);
 
 		} catch (DuplicateKeyException e) {
+			this.logger.error("league name'" + leagueName + "'already exists");
 			response = new RestServiceResponse(Status.ERROR.name(),
 					"league name already exists", null);
 		} catch (Exception e) {
+			this.logger.error(e.getMessage());
 			response = new RestServiceResponse(Status.ERROR.name(),
 					"System is temperorily down, please try again later", null);
 		}
@@ -74,7 +72,7 @@ public class CreateLeagueRestServiceImpl implements ICreateLeagueRestService {
 			response = new RestServiceResponse(Status.SUCCESS.name(), null,
 					result);
 		} catch (Exception e) {
-			e.printStackTrace();
+			this.logger.error(e.getMessage());
 			response = new RestServiceResponse(Status.ERROR.name(),
 					e.getMessage(), null);
 		}

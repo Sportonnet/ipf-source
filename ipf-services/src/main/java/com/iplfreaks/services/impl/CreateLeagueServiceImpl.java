@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
 
 import com.iplfreaks.common.Status;
@@ -19,6 +20,7 @@ import com.iplfreaks.user.User;
 
 public class CreateLeagueServiceImpl implements ICreateLeagueService {
 
+	private Logger logger = Logger.getLogger(CreateLeagueServiceImpl.class);
 	private ILeagueDao leagueDao;
 	private IUserDao userDao;
 	private IUserLeaguesDao userLeagueDao;
@@ -26,6 +28,9 @@ public class CreateLeagueServiceImpl implements ICreateLeagueService {
 	@Override
 	public void createLeague(String leagueName, String leagueOwner,
 			String competitionName, String competitionSport) {
+
+		this.logger.info("creating league " + leagueName + "for user"
+				+ leagueOwner);
 
 		// creating user who is the league owner
 		final User user = new User();
@@ -46,11 +51,14 @@ public class CreateLeagueServiceImpl implements ICreateLeagueService {
 		// save the league
 		this.leagueDao.createLeague(league);
 
+		this.logger.info("successfully created league " + leagueName);
+
 	}
 
 	@Override
 	public Map<String, Object> addChallengersToLeague(String leagueName,
 			List<String> challengers) {
+		this.logger.info("adding " + challengers + "to league " + leagueName);
 
 		final League league = this.leagueDao.fetchLeague(leagueName);
 
@@ -78,11 +86,18 @@ public class CreateLeagueServiceImpl implements ICreateLeagueService {
 		// adding challengers to the league
 		this.leagueDao.addChallengersToLeague(league);
 
-		// adding league challenges to userleague mapping
+		this.logger.info("successfully added " + leagueChallengers.size()
+				+ " challengers out of " + challengers.size());
+
+		this.logger.info("adding league challengers to user-league mapping");
+		
+		// adding league challengers to user-league mapping
 		for (final Challenger challeger : leagueChallengers) {
 			this.userLeagueDao.addUserLeague(challeger.getUser().getEmail(),
 					leagueName);
 		}
+		this.logger
+				.info("successfully added league challengers to user-league mapping");
 
 		// result
 		Map<String, Object> result = new HashMap<String, Object>();
