@@ -2,6 +2,7 @@ package com.iplfreaks.services.impl;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -84,18 +85,26 @@ public class CreateLeagueServiceImpl implements ICreateLeagueService {
 		league.addPendingChallengers(pendingChallengers);
 
 		// adding challengers to the league
-		this.leagueDao.addChallengersToLeague(league);
+		this.leagueDao.addChallengersToLeague(leagueName,
+				new HashSet<Challenger>(leagueChallengers));
+		this.leagueDao.addPendingChallengersToLeague(leagueName,
+				new HashSet<Challenger>(pendingChallengers));
 
 		this.logger.info("successfully added " + leagueChallengers.size()
 				+ " challengers out of " + challengers.size());
 
 		this.logger.info("adding league challengers to user-league mapping");
-		
+
 		// adding league challengers to user-league mapping
-		for (final Challenger challeger : leagueChallengers) {
-			this.userLeagueDao.addUserLeague(challeger.getUser().getEmail(),
-					leagueName);
+		for (final Challenger leagueChalleger : leagueChallengers) {
+			this.userLeagueDao.addUserLeague(leagueChalleger.getUser()
+					.getEmail(), leagueName);
 		}
+		for (final Challenger pendingChalleger : pendingChallengers) {
+			this.userLeagueDao.addUserLeague(pendingChalleger.getUser()
+					.getEmail(), leagueName);
+		}
+
 		this.logger
 				.info("successfully added league challengers to user-league mapping");
 

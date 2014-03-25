@@ -8,6 +8,10 @@ public class RestServiceResponse {
 	private String errorMessage;
 	private Map<String, Object> result;
 
+	public RestServiceResponse() {
+		super();
+	}
+
 	/**
 	 * 
 	 * @param status
@@ -19,16 +23,9 @@ public class RestServiceResponse {
 	 */
 	public RestServiceResponse(String status, String errorMessage,
 			Map<String, Object> result) {
-		setStatus(status);
-		setErrorMessage(errorMessage);
-		setResult(result);
-	}
-
-	/**
-	 * default constructor
-	 */
-	public RestServiceResponse() {
-
+		this.status = status;
+		this.errorMessage = errorMessage;
+		this.result = result;
 	}
 
 	/**

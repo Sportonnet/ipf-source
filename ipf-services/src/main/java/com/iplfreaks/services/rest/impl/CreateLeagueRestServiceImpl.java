@@ -56,7 +56,7 @@ public class CreateLeagueRestServiceImpl implements ICreateLeagueRestService {
 		} catch (Exception e) {
 			this.logger.error(e.getMessage());
 			response = new RestServiceResponse(Status.ERROR.name(),
-					"System is temperorily down, please try again later", null);
+					"System is temporarily down, please try again later", null);
 		}
 		return new Gson().toJson(response);
 	}

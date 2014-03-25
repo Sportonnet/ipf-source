@@ -44,5 +44,5 @@ public interface ICreateLeagueRestService {
 	@Path("/addChallengersToLeague")
 	public String addChallengersToLeague(
 			@FormParam("leagueName") String leagueName,
-			@FormParam("challenger") List<String> challengers);
+			@FormParam("challengers") List<String> challengers);
 }
