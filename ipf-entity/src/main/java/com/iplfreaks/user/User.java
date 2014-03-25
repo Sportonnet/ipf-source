@@ -11,7 +11,7 @@ import com.iplfreaks.base.BaseEntity;
  *
  */
 @Document
-@TypeAlias(value="User")
+@TypeAlias(value="user")
 public class User extends BaseEntity {
 
 	/**
