@@ -3,6 +3,9 @@
  */
 package com.iplfreaks.dao.impl;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import org.joda.time.DateTime;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,6 +17,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.google.gson.Gson;
+import com.iplfreaks.core.Challenger;
 import com.iplfreaks.core.League;
 import com.iplfreaks.game.Team;
 import com.iplfreaks.user.User;
@@ -41,6 +45,28 @@ public class LeagueDaoImplTest {
 	@Test
 	public void testCreateLeague() {
 		this.leagueDaoImpl.createLeague(createLeague());
+	}
+	
+	@Test
+	public void testAddChallengersToLeague() {
+		final Set<Challenger> challengers = new HashSet<Challenger>();
+		final Challenger challenger1 = new Challenger();
+		challenger1.setName("c1");
+		final User u1 = new User();
+		u1.setEmail("a1");
+		challenger1.setUser(u1);
+		
+		//challengers.add(challenger1);
+		
+		final Challenger challenger2 = new Challenger();
+		challenger2.setName("c2");
+		final User u2 = new User();
+		u2.setEmail("a2");
+		challenger2.setUser(u2);
+		
+		challengers.add(challenger2);
+		
+		this.leagueDaoImpl.addChallengersToLeague("l1", challengers);
 	}
 	
 	private League createLeague()

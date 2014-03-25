@@ -3,6 +3,9 @@
  */
 package com.iplfreaks.dao.api;
 
+import java.util.Set;
+
+import com.iplfreaks.core.Challenger;
 import com.iplfreaks.core.League;
 
 /**
@@ -15,6 +18,8 @@ public interface ILeagueDao {
 	
 	public void createLeague(final League league);
 	
-	public void addChallengersToLeague(final League league);
+	public void addChallengersToLeague(final String leagueName, final Set<Challenger> challengers);
+	
+	public void addPendingChallengersToLeague(final String leagueName, final Set<Challenger> challengers);
 
 }
