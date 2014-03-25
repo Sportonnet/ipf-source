@@ -3,23 +3,43 @@
  */
 package com.iplfreaks.core;
 
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
+
+import org.springframework.data.annotation.TypeAlias;
+import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
  * @author jayeshm3
  *
  */
+@Document
+@TypeAlias(value="leagueScoreDetails")
 public class LeagueScoreDetails {
 	
+	@Indexed(unique=true, sparse=true)
 	private String leagueName;
 	
-	private List<FixturePrediction> fixturePredictionList;
+	private final Set<FixturePrediction> fixturePredictionList = new HashSet<FixturePrediction>();
 	
-	public void addFixturePrediction(final FixturePrediction fixturePrediction)
+	public LeagueScoreDetails() {
+	}
+	
+	public LeagueScoreDetails(final String leagueName)
 	{
+		this.leagueName = leagueName;
+	}
+	
+	public void addFixturePrediction(final FixturePrediction fixturePrediction){
 		getFixturePredictionList().add(fixturePrediction);
 	}
-
+	
+	public void addAllFixturePrediction(final Set<FixturePrediction> fixturePredictions)
+	{
+		getFixturePredictionList().addAll(fixturePredictions);
+	}
+	
 	/**
 	 * @return the leagueName
 	 */
@@ -37,15 +57,7 @@ public class LeagueScoreDetails {
 	/**
 	 * @return the fixturePredictionList
 	 */
-	public List<FixturePrediction> getFixturePredictionList() {
+	public Set<FixturePrediction> getFixturePredictionList() {
 		return fixturePredictionList;
 	}
-
-	/**
-	 * @param fixturePredictionList the fixturePredictionList to set
-	 */
-	public void setFixturePredictionList(List<FixturePrediction> fixturePredictionList) {
-		this.fixturePredictionList = fixturePredictionList;
-	}
-
 }

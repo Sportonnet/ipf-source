@@ -3,7 +3,9 @@
  */
 package com.iplfreaks.core;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author jayeshm3
@@ -13,7 +15,7 @@ public class FixturePrediction {
 	
 	private String fixtureName;
 	
-	private List<Prediction> fixturePredictionList;
+	private final Set<Prediction> fixturePredictionList = new HashSet<Prediction>();
 
 	/**
 	 * @return the fixtureName
@@ -32,17 +34,10 @@ public class FixturePrediction {
 	/**
 	 * @return the fixturePredictionList
 	 */
-	public List<Prediction> getFixturePredictionList() {
+	public Set<Prediction> getFixturePredictionList() {
 		return fixturePredictionList;
 	}
 
-	/**
-	 * @param fixturePredictionList the fixturePredictionList to set
-	 */
-	public void setFixturePredictionList(List<Prediction> fixturePredictionList) {
-		this.fixturePredictionList = fixturePredictionList;
-	}
-	
 	public void addFixturePrediction(final Prediction prediction)
 	{
 		getFixturePredictionList().add(prediction);
