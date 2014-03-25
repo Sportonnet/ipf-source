@@ -38,6 +38,8 @@
 			mongo-template-ref="mongoTemplate" />
 		<mongo:repository id="fixtureRepository"
 			mongo-template-ref="mongoTemplate" />
+		<mongo:repository id="leagueScoreDetailsRepository"
+			mongo-template-ref="mongoTemplate" />
 	</mongo:repositories>
 
 	<bean id="userCredentials" class="org.springframework.data.authentication.UserCredentials">
@@ -80,6 +82,11 @@
 	<bean id="leagueDao" class="com.iplfreaks.dao.impl.LeagueDaoImpl">
 		<property name="mongoTemplate" ref="mongoTemplate" />
 		<property name="leagueRepository" ref="leagueRepository" />
+	</bean>
+	
+	<bean id="leagueScoreDetailsDao" class="com.iplfreaks.dao.impl.LeagueScoreDetailsDaoImpl">
+		<property name="mongoTemplate" ref="mongoTemplate" />
+		<property name="leagueScoreDetailsRepository" ref="leagueScoreDetailsRepository" />
 	</bean>
 
 	<!-- services -->
