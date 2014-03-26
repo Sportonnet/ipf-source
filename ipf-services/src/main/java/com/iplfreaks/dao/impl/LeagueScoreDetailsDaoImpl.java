@@ -9,7 +9,7 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 
-import com.iplfreaks.core.FixturePrediction;
+import com.iplfreaks.core.Challenge;
 import com.iplfreaks.core.LeagueScoreDetails;
 import com.iplfreaks.core.Prediction;
 import com.iplfreaks.dao.api.ILeagueScoreDetailsDao;
@@ -35,10 +35,10 @@ public class LeagueScoreDetailsDaoImpl implements ILeagueScoreDetailsDao {
 
 	@Override
 	public void createNewLeagueScoreDetails(String leagueName,
-			Set<FixturePrediction> fixturePredictionSet) {
+			Set<Challenge> challenges) {
 		
 		final LeagueScoreDetails leagueScoreDetails = new LeagueScoreDetails(leagueName);
-		leagueScoreDetails.addAllFixturePrediction(fixturePredictionSet);
+		leagueScoreDetails.addAllFixturePrediction(challenges);
 		this.mongoTemplate.insert(leagueScoreDetails);
 	}
 
