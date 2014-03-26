@@ -1,5 +1,6 @@
 package com.iplfreaks.game.cricket;
 
+import com.iplfreaks.core.BonusEntity;
 import com.iplfreaks.game.Fixture;
 
 /**
@@ -15,15 +16,24 @@ public class CricketFixture extends Fixture {
 	
 
 
-	private String bonusQuestion;
+	private BonusEntity bonus;
+
+
+
+	/**
+	 * @return the bonus
+	 */
+	public BonusEntity getBonus() {
+		return bonus;
+	}
+
+
+
+	/**
+	 * @param bonus the bonus to set
+	 */
+	public void setBonus(BonusEntity bonus) {
+		this.bonus = bonus;
+	}
 	
-
-	public String getBonusQuestion() {
-		return bonusQuestion;
-	}
-
-	public void setBonusQuestion(String bonusQuestion) {
-		this.bonusQuestion = bonusQuestion;
-	}
-
 }
