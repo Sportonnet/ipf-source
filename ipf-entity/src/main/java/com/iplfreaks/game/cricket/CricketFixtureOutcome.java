@@ -1,17 +1,19 @@
+/**
+ * 
+ */
 package com.iplfreaks.game.cricket;
 
 import com.iplfreaks.core.BonusEntity;
-import com.iplfreaks.core.Prediction;
+import com.iplfreaks.game.FixtureOutcome;
 import com.iplfreaks.game.Player;
 import com.iplfreaks.game.Team;
 
-public class CricketPrediction extends Prediction {
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -4265890238381673149L;
-
+/**
+ * @author jayeshm3
+ *
+ */
+public class CricketFixtureOutcome extends FixtureOutcome {
+	
 	private Player bestBowler;
 	
 	private Player bestBatsman;
@@ -21,7 +23,7 @@ public class CricketPrediction extends Prediction {
 	private Team winnerTeam;
 	
 	private BonusEntity bonus;
-	
+
 	public Player getBestBowler() {
 		return bestBowler;
 	}
