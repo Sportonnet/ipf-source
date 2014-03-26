@@ -21,7 +21,7 @@ public class LeagueScoreDetails {
 	@Indexed(unique=true, sparse=true)
 	private String leagueName;
 	
-	private final Set<FixturePrediction> fixturePredictionList = new HashSet<FixturePrediction>();
+	private final Set<Challenge> challenges = new HashSet<Challenge>();
 	
 	public LeagueScoreDetails() {
 	}
@@ -31,13 +31,13 @@ public class LeagueScoreDetails {
 		this.leagueName = leagueName;
 	}
 	
-	public void addFixturePrediction(final FixturePrediction fixturePrediction){
-		getFixturePredictionList().add(fixturePrediction);
+	public void addFixturePrediction(final Challenge challenge){
+		getFixturePredictionList().add(challenge);
 	}
 	
-	public void addAllFixturePrediction(final Set<FixturePrediction> fixturePredictions)
+	public void addAllFixturePrediction(final Set<Challenge> challenges)
 	{
-		getFixturePredictionList().addAll(fixturePredictions);
+		getFixturePredictionList().addAll(challenges);
 	}
 	
 	/**
@@ -57,7 +57,7 @@ public class LeagueScoreDetails {
 	/**
 	 * @return the fixturePredictionList
 	 */
-	public Set<FixturePrediction> getFixturePredictionList() {
-		return fixturePredictionList;
+	public Set<Challenge> getFixturePredictionList() {
+		return challenges;
 	}
 }

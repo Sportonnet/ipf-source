@@ -1,5 +1,6 @@
 package com.iplfreaks.core;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import com.iplfreaks.base.BaseEntity;
@@ -14,7 +15,7 @@ public class Challenge extends BaseEntity {
 	//Unique identifier for the fixture
 	private String fixtureId;
 	
-	private Set<Prediction> predictions;
+	private Set<Prediction> predictions = new HashSet<Prediction>();
 	
 	public String getFixtureId() {
 		return fixtureId;
