@@ -1,6 +1,8 @@
 package com.iplfreaks.game;
 
 import org.joda.time.DateTime;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 
 import com.iplfreaks.base.BaseEntity;
 import com.iplfreaks.game.Team;
@@ -20,6 +22,10 @@ public class Fixture extends BaseEntity {
 	/**
 	 * Simple name for this fixture
 	 */
+	
+	@Indexed(unique=true, sparse=true)
+	private String fixtureId;
+	
 	private String fixtureName;
 
 	private Team homeTeam;
@@ -90,6 +96,25 @@ public class Fixture extends BaseEntity {
 	 */
 	public void setOutcome(FixtureOutcome outcome) {
 		this.outcome = outcome;
+	}
+
+	/**
+	 * @return the fixtureId
+	 */
+	public String getFixtureId() {
+		
+		if(fixtureId != null)
+		{
+			return fixtureId;
+		}
+		return getFixtureName() + " @ " + getDateTime(); 
+	}
+
+	/**
+	 * @param fixtureId the fixtureId to set
+	 */
+	public void setFixtureId(String fixtureId) {
+		this.fixtureId = fixtureId;
 	}
 
 }

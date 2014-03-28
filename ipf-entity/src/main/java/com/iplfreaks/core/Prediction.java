@@ -4,7 +4,7 @@ import org.joda.time.DateTime;
 
 import com.iplfreaks.base.BaseEntity;
 
-public abstract class Prediction extends BaseEntity {
+public class Prediction extends BaseEntity {
 
 	/**
 	 * 
