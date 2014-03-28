@@ -17,11 +17,15 @@ public interface ILeagueScoreDetailsDao {
 	
 	public void createNewLeagueScoreDetails(final String leagueName);
 	
+	public void createNewLeagueScoreDetails(final LeagueScoreDetails leagueScoreDetails);
+	
 	public void createNewLeagueScoreDetails(String leagueName,
 			Set<Challenge> challenges);
 	
-	public void addChallengerPrediction(final String leagueName, final String fixtureName, final Prediction prediction);
+	public void addChallengerPrediction(final String leagueName, final String fixtureId, final Prediction prediction);
 	
 	public LeagueScoreDetails fetchLeagueScoreDetails(final String leagueName);
+	
+	public LeagueScoreDetails fetchUserChallenge(final String leagueName, final String fixtureId, final String email);
 
 }

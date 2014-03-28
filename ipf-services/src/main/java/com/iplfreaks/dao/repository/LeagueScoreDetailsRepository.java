@@ -16,5 +16,7 @@ import com.iplfreaks.core.LeagueScoreDetails;
 public interface LeagueScoreDetailsRepository extends MongoRepository<LeagueScoreDetails, String> {
 	
 	public List<LeagueScoreDetails> findByleagueName(final String leagueName);
+	
+	public List<LeagueScoreDetails> findByleagueNameAndChallengesFixtureIdAndChallengesPredictionsChallengerUserEmail(final String leagueName, final String fixtureId, final String email);
 
 }
