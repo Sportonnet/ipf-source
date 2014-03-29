@@ -15,13 +15,14 @@
 	</cxf:bus>
 
 	<!-- jaxrs service beans references -->
-	<jaxrs:server address="/" id="sportfreaks">
+	<jaxrs:server address="/" id="sportFreaks">
 		<jaxrs:serviceBeans>
 			<ref bean="createLeagueRestService" />
 			<ref bean="userAuthenticationRestService" />
 			<ref bean="createUserRestService" />
 			<ref bean="fixtureRestService" />
 			<ref bean="teamDetailsRestService" />
+			<ref bean="savePredictionRestService" />
 		</jaxrs:serviceBeans>
 	</jaxrs:server>
 
@@ -47,6 +48,10 @@
 	<bean id="teamDetailsRestService"
 		class="com.iplfreaks.services.rest.impl.TeamDetailsRestServiceImpl">
 		<property name="teamDetailsService" ref="teamDetailsService" />
+	</bean>
+	<bean id="savePredictionRestService"
+		class="com.iplfreaks.services.rest.impl.SavePredictionRestServiceImpl">
+		<property name="savePredictionService" ref="savePredictionService" />
 	</bean>
 
 	<!-- 4 -->

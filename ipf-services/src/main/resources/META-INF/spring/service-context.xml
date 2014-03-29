@@ -83,7 +83,7 @@
 		<property name="mongoTemplate" ref="mongoTemplate" />
 		<property name="leagueRepository" ref="leagueRepository" />
 	</bean>
-	
+
 	<bean id="leagueScoreDetailsDao" class="com.iplfreaks.dao.impl.LeagueScoreDetailsDaoImpl">
 		<property name="mongoTemplate" ref="mongoTemplate" />
 		<property name="leagueScoreDetailsRepository" ref="leagueScoreDetailsRepository" />
@@ -94,6 +94,8 @@
 		<property name="leagueDao" ref="leagueDao" />
 		<property name="userDao" ref="userDao" />
 		<property name="userLeagueDao" ref="userLeagueDao" />
+		<property name="leagueScoreDetailsDao" ref="leagueScoreDetailsDao" />
+		<property name="competitionRepository" ref="competitionRepository"/>
 	</bean>
 
 	<bean id="userAuthenticationService"
@@ -113,4 +115,7 @@
 		<property name="teamDao" ref="teamDao" />
 	</bean>
 
+	<bean id="savePredictionService" class="com.iplfreaks.services.impl.SavePredictionServiceImpl">
+		<property name="leagueScoreDetailsDao" ref="leagueScoreDetailsDao" />
+	</bean>
 </beans>
