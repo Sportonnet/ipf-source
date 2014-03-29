@@ -14,6 +14,21 @@ public class Player extends BaseEntity {
 	private Skill skill;
 
 	// TODO associate stats of the player
+	/**
+	 * default constructor
+	 */
+	public Player() {
+
+	}
+
+	/**
+	 * name of the player
+	 * 
+	 * @param name
+	 */
+	public Player(String name) {
+		setName(name);
+	}
 
 	public String getName() {
 		return name;
