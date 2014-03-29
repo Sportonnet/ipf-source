@@ -51,7 +51,7 @@ public class User extends BaseEntity {
 	 *            email id of the user
 	 */
 	public User(String emailId) {
-		setEmail(emailId.toLowerCase());
+		setEmail(emailId);
 	}
 
 	/**
@@ -69,7 +69,7 @@ public class User extends BaseEntity {
 			String password) {
 		setFirstName(firstName);
 		setLastName(lastName);
-		setEmail(emailId.toLowerCase());
+		setEmail(emailId);
 		setPassword(password);
 	}
 
@@ -102,7 +102,7 @@ public class User extends BaseEntity {
 	}
 
 	public void setEmail(String email) {
-		this.email = email;
+		this.email = email.toLowerCase();
 	}
 
 }

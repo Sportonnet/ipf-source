@@ -100,7 +100,7 @@ public class League extends BaseEntity {
 	 *            the name to set
 	 */
 	public void setName(String name) {
-		this.name = name;
+		this.name = name.toLowerCase();
 	}
 
 	/**

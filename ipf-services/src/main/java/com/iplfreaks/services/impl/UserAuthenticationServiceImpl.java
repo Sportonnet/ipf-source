@@ -17,7 +17,7 @@ public class UserAuthenticationServiceImpl implements
 		this.logger.info("authenticating user : " + emailId + password);
 
 		final User user = new User();
-		user.setEmail(emailId.toLowerCase());
+		user.setEmail(emailId);
 		user.setPassword(password);
 
 		return userDao.authenticateUser(user);

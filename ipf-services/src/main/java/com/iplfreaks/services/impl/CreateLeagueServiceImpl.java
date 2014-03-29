@@ -42,7 +42,7 @@ public class CreateLeagueServiceImpl implements ICreateLeagueService {
 
 		// creating user who is the league owner
 		final User user = new User();
-		user.setEmail(leagueOwner.toLowerCase());
+		user.setEmail(leagueOwner);
 
 		// creating competition
 		final Competition competition = new Competition();
@@ -95,7 +95,7 @@ public class CreateLeagueServiceImpl implements ICreateLeagueService {
 
 			final Challenger challenger2 = new Challenger();
 			final User user = new User();
-			user.setEmail(challenger.toLowerCase());
+			user.setEmail(challenger);
 			challenger2.setUser(user);
 
 			if (this.userDao.isUserPresent(challenger)) {
