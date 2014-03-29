@@ -5,17 +5,22 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
 
 import com.iplfreaks.common.Status;
+import com.iplfreaks.core.Challenge;
 import com.iplfreaks.core.Challenger;
 import com.iplfreaks.core.Competition;
 import com.iplfreaks.core.League;
 import com.iplfreaks.dao.api.ILeagueDao;
+import com.iplfreaks.dao.api.ILeagueScoreDetailsDao;
 import com.iplfreaks.dao.api.IUserDao;
 import com.iplfreaks.dao.api.IUserLeaguesDao;
+import com.iplfreaks.dao.repository.CompetitionRepository;
+import com.iplfreaks.game.Fixture;
 import com.iplfreaks.services.api.ICreateLeagueService;
 import com.iplfreaks.user.User;
 
@@ -25,6 +30,8 @@ public class CreateLeagueServiceImpl implements ICreateLeagueService {
 	private ILeagueDao leagueDao;
 	private IUserDao userDao;
 	private IUserLeaguesDao userLeagueDao;
+	private ILeagueScoreDetailsDao leagueScoreDetailsDao;
+	private CompetitionRepository competitionRepository;
 
 	@Override
 	public void createLeague(String leagueName, String leagueOwner,
@@ -35,23 +42,40 @@ public class CreateLeagueServiceImpl implements ICreateLeagueService {
 
 		// creating user who is the league owner
 		final User user = new User();
-		user.setEmail(leagueOwner);
+		user.setEmail(leagueOwner.toLowerCase());
 
 		// creating competition
 		final Competition competition = new Competition();
 		competition.setName(competitionName);
 		competition.setSport(competitionSport);
 
-		// create the league
+		// create the league object
 		final League league = new League();
 		league.setName(leagueName);
 		league.setLeagueOwner(user);
 		league.setLeagueStartDate(new DateTime());
 		league.setCompetition(competition);
 
-		// save the league
+		// create the league
 		this.leagueDao.createLeague(league);
 
+		// add mapping in user-mapping
+		this.userLeagueDao.addUserLeague(leagueOwner, leagueName);
+
+		List<Competition> competitions = this.competitionRepository
+				.findByNameAndSport(competitionName, competitionSport);
+
+		if (competitions != null && !competitions.isEmpty()) {
+
+			Set<Fixture> fixtures = competitions.get(0).getFixtures();
+
+			// get default challenges for the league
+			Set<Challenge> challenges = getDefaultChallengesForLeague(fixtures);
+
+			// creating score details for the league created
+			this.leagueScoreDetailsDao.createNewLeagueScoreDetails(leagueName,
+					challenges);
+		}
 		this.logger.info("successfully created league " + leagueName);
 
 	}
@@ -71,7 +95,7 @@ public class CreateLeagueServiceImpl implements ICreateLeagueService {
 
 			final Challenger challenger2 = new Challenger();
 			final User user = new User();
-			user.setEmail(challenger);
+			user.setEmail(challenger.toLowerCase());
 			challenger2.setUser(user);
 
 			if (this.userDao.isUserPresent(challenger)) {
@@ -117,6 +141,18 @@ public class CreateLeagueServiceImpl implements ICreateLeagueService {
 		return result;
 	}
 
+	private Set<Challenge> getDefaultChallengesForLeague(Set<Fixture> fixtures) {
+		Set<Challenge> challenges = new HashSet<Challenge>();
+
+		for (Fixture fixture : fixtures) {
+			Challenge challenge = new Challenge();
+			challenge.setFixtureId(fixture.getFixtureId());
+			challenges.add(challenge);
+		}
+
+		return challenges;
+	}
+
 	/**
 	 * @return the leagueDao
 	 */
@@ -160,6 +196,38 @@ public class CreateLeagueServiceImpl implements ICreateLeagueService {
 	 */
 	public void setUserLeagueDao(IUserLeaguesDao userLeagueDao) {
 		this.userLeagueDao = userLeagueDao;
+	}
+
+	/**
+	 * @return the leagueScoreDetailsDao
+	 */
+	public ILeagueScoreDetailsDao getLeagueScoreDetailsDao() {
+		return leagueScoreDetailsDao;
+	}
+
+	/**
+	 * @param leagueScoreDetailsDao
+	 *            the leagueScoreDetailsDao to set
+	 */
+	public void setLeagueScoreDetailsDao(
+			ILeagueScoreDetailsDao leagueScoreDetailsDao) {
+		this.leagueScoreDetailsDao = leagueScoreDetailsDao;
+	}
+
+	/**
+	 * @return the competitionRepository
+	 */
+	public CompetitionRepository getCompetitionRepository() {
+		return competitionRepository;
+	}
+
+	/**
+	 * @param competitionRepository
+	 *            the competitionRepository to set
+	 */
+	public void setCompetitionRepository(
+			CompetitionRepository competitionRepository) {
+		this.competitionRepository = competitionRepository;
 	}
 
 }

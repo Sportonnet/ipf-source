@@ -19,7 +19,7 @@ public class CreateUserServiceImpl implements ICreateUserService {
 
 		final User user = new User();
 		user.setFirstName(name);
-		user.setEmail(emailId);
+		user.setEmail(emailId.toLowerCase());
 		user.setPassword(password);
 		return this.userDao.createUser(user);
 	}
