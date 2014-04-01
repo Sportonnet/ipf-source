@@ -1,0 +1,253 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 5.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<title>IPL Freaks</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="author" content="Tomas Bagdanavicius, http://www.lwis.net/free-css-drop-down-menu/" />
+<meta name="keywords" content="html5, css3, form, switch, animation, :target, pseudo-class, css, dropdowns, dropdown menu, drop-down, menu, navigation, nav, horizontal, vertical left-to-right, vertical right-to-left, horizontal linear, horizontal upwards, cross browser, internet explorer, ie, firefox, safari, opera, browser, lwis" />
+<meta name="description" content="Clean, standards-friendly, modular framework for dropdown menus" />
+
+
+<link id="core-styles3" href="@routes.Assets.at("stylesheets/helper.css")" rel="stylesheet">
+<link id="core-styles1" href="@routes.Assets.at("stylesheets/dropdown.css")" rel="stylesheet">
+<link id="core-styles2" href="@routes.Assets.at("stylesheets/default.advanced.css")" rel="stylesheet">
+<link id="core-styles4" href="@routes.Assets.at("stylesheets/horizontal-centering.css")" rel="stylesheet">
+<link id="core-styles1" href="@routes.Assets.at("stylesheets/dashboard1.css")" rel="stylesheet">
+		<script src="@routes.Assets.at("javascripts/jquery-1.9.0.min.js")"></script>
+		<script src="@routes.Assets.at("javascripts/dashboard.js")"></script>
+		
+<!-- / END -->
+
+</head>
+<body >
+<div class="wrapper">
+
+	<div class="container">
+		<p><a href="/logout" class="main-site">Log Out</a></p>
+
+		<h2><img src="images/adobe.com/24ipl.jpg" alt="Adobe.com" height="30" width="30" /> IPL Freaks </h2>
+
+		<!-- Beginning of compulsory code below -->
+
+		<div class="horizontal-centering"><div><div>
+
+			<ul id="nav" class="dropdown dropdown-horizontal">
+				<li><a href="./">Home</a></li>
+				<li><a href="/createLeague">Create League</a></li>
+				<li><a class = "fgfgf" href="#">My League</a></li>
+				
+			</ul>
+
+		</div></div></div>
+		
+
+		<!-- / END -->
+
+	</div>
+	
+
+</div>
+
+<div class="container2">
+	<section>
+		<div  id = "container_play">
+
+			<div id="wrapper2">
+				<div id="allfixtures"  class="animate form">
+                            
+                                <h1>Fixtures</h1>
+								<div class="CSSTableGenerator" >
+                <table id = "match_details" align="right">
+                    <tr>
+                        <td style="padding:7px 10px;" >
+                            Sr No.
+                        </td>
+                        <td style="padding:7px 30px;" >
+                            Matches
+                        </td>
+                        <td style="padding:7px 30px;" >
+                            Location
+                        </td>
+						<td style="padding:7px 10px;" >
+                            Action
+                        </td>
+                    </tr>
+                    <tr>
+                        <td >
+                            1
+                        </td>
+                        <td>
+                            Mumbai Indians (MI) vs Delhi Daredevils (DD)
+                        </td>
+                        <td>
+                            Mumbai. 13:00 IST
+                        </td>
+						<td>
+                            <a id = "0" href="#" class="to_register">play</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td >
+                            2
+                        </td>
+                        <td>
+                            Kolkata Knight Riders (KKR) vs Chennai Super Kings (CSK)
+                        </td>
+                        <td>
+                            Chennai. 19:00 IST
+                        </td>
+						<td>
+                            <a id = "1" href="#" class="to_register">play</a>
+                        </td>
+                    </tr>
+                    
+                </table>
+            </div>
+								
+            </div>
+			
+			<div id="fixturedetails" style="display:none;" class="animate form">
+                            
+                    <div  >  <a href="#" id = "Bck_Mth_Lst" >Back to Match List</a>          
+                                
+					<h1> Playyyy!!! </h1> 	
+					<div id="leftcolumn">		
+								<div class="CSSTableGenerator" style="width:97%;">
+                <table>
+                    <tr>
+                        <td style="padding:7px 30px;" >
+                            Player Name.
+                        </td>
+                        <td style="padding:7px 30px;" >
+                            Max. Run Scorer
+                        </td>
+                        <td style="padding:7px 30px;" >
+                            Max Wicket Taker
+                        </td>
+						<td style="padding:7px 30px;" >
+                            Man of the Match
+                        </td>
+						<td style="padding:7px 30px;" >
+                            Match Winner
+                        </td>
+						<td style="padding:7px 30px;" >
+                            Submit
+                        </td>
+                    </tr>
+                    <tr>
+                        <td >
+                            Hiren
+                        </td>
+                        <td>
+                            <div  id = "maxRun" ondragenter="return dragEnter(event)" ondrop="return dragDrop(event)" ondragover="return dragOver(event)">Drag Player here </div>
+                        </td>
+                        <td>
+                            <div id = "maxWct" ondragenter="return dragEnter(event)" ondrop="return dragDrop(event)" ondragover="return dragOver(event)">Drag Player here </div>
+                        </td>
+						<td>
+                            <div  id = "MofM" ondragenter="return dragEnter(event)" ondrop="return dragDrop(event)" ondragover="return dragOver(event)">Drag Player here </div>
+                        </td>
+						<td>
+                            
+                        </td>
+						<td>
+                            <a href="#" id = "submitRes" >Submit</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td >
+                            Aniket
+                        </td>
+                        <td>
+                            
+                        </td>
+                        <td>
+                            
+                        </td>
+						<td>
+                            
+                        </td>
+						<td>
+                            
+                        </td>
+						<td>
+                            
+                        </td>
+                    </tr>
+					<tr>
+                        <td >
+                            Jayesh
+                        </td>
+                        <td>
+                            
+                        </td>
+                        <td>
+                            
+                        </td>
+						<td>
+                            
+                        </td>
+						<td>
+                            
+                        </td>
+						<td>
+                            
+                        </td>
+                    </tr>
+					<tr>
+                        <td >
+                            DP
+                        </td>
+                        <td>
+                            
+                        </td>
+                        <td>
+                            
+                        </td>
+						<td>
+                            
+                        </td>
+						<td>
+                            
+                        </td>
+						<td>
+                            
+                        </td>
+                    </tr>
+                    
+                </table>
+				
+				
+    
+				
+            </div>
+            </div>
+            <div id="rightcolumn">
+            <div style="display: inline; white-space: nowrap;" class="header1"><img src="@routes.Assets.at("images/1395333942_129.png")" alt="plus image" /><span></span>
+			</div>
+				<div id = "players1" style="border:2px solid #ccc; width:170px; height: 100px; overflow-y: scroll; display: none; ">
+					    
+					     
+				</div>
+				
+			<div style="display: inline; white-space: nowrap;" class="header2"><img src="@routes.Assets.at("images/1395333942_129.png")" alt="plus image" /><span></span>
+			</div>
+				<div id = "players2" style="border:2px solid #ccc; width:170px; height: 100px; overflow-y: scroll; display: none;">
+					    
+					     
+				</div>
+
+    		</div>
+                    
+			</div>
+			
+                          
+                            
+            </div>
+			</div>
+		</div>
+	</section>
+</div>
+	
+</body>
+</html>

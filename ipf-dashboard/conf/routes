@@ -1,0 +1,21 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Home page
+GET     /                           controllers.Application.index()
+
+
+# Map static resources from the /public folder to the /assets URL path
+GET     /assets/*file               controllers.Assets.at(path="/public", file)
+
+GET         /createLeague                                                                                                                                   controllers.Application.createLeague()
+
+POST        /leagueRegistration/submitLeague/:competetionType/:leagueName                                                                                   controllers.LeagueCreateEditService.submitLeague(competetionType:String, leagueName:String)
+POST  		/loginAuthenticate/login/:uname/:password																										controllers.LoginController.authenticate(uname:String, password:String)
+POST		/loginAuthenticate/signup/:uname/:email/:password																								controllers.LoginController.signUp(uname:String, email:String, password:String)
+GET			/loginSuccess																																			controllers.LoginController.goToDashboard()
+GET			/logout																																			controllers.LoginController.logOut()
+
+
+GET  		/getAllPlayers/:match																										controllers.Dashboard.getPlayers(match:String)					

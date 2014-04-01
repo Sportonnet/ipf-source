@@ -1,0 +1,112 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+
+		<link id="core-styles" href="@routes.Assets.at("stylesheets/ge-bootstrap.css")" rel="stylesheet">
+		<link id="theme-styles" href="@routes.Assets.at("stylesheets/hds-lights-on.css")" rel="stylesheet">
+		<link id="custom-styles" href="@routes.Assets.at("stylesheets/custom-on.css")" rel="stylesheet">
+		
+		<script src="@routes.Assets.at("javascripts/jquery-1.9.0.min.js")"></script>
+		<script src="@routes.Assets.at("javascripts/createLeague.js")"></script>
+<title>Insert title here</title>
+</head>
+<body >
+         <div class="container" style="min-width: 940px">
+         <div class="registration page" id="registration_page" >
+         
+						<h1>Create new League</h1>
+						<div class="row">
+		<div id="content" class="span9">
+		<ul id="completionUserReg" class="user">
+			<li id="completed-league-details" class="first active">1</li>
+			<li id="completed-add-members">2</li>
+			<li id="completed-confirmation" class="last">3</li>
+		</ul>
+		<div id="createLeague_ErrorMsg" style="display : none;color: red; font-size: 15;">
+        </div>
+		<div id="dvLoading" style="display : none;" ></div>
+		<section class="module" id="league-details">
+			<header>
+				<h2><span class="numbadge">1</span>League Details</h2>
+			</header>
+			<div class="module-content">
+			<div id="orgStruct_ErrorMsg" style="display : none;color: red; font-size: 15;"></div>
+				<div id="acctdetails_ErrorMsg" style="display : none;color: red; font-size: 15;"></div>
+				<br>
+				<div class="row">
+					<div class="control-group span4">
+					<label>Game Name*</label>
+					<select name="game-name" class="names required" id="game_name">
+							<option value="cricket" >Cricket</option> </select>
+					</div>
+				</div>
+				<div class="row">
+					<div class="control-group span4">
+					<label>Competetion type*</label>
+						<select name="competetion-type" class="names required" id="competetion-type">
+							<option value="IPL" >IPL</option> </select>
+					</div>
+				</div>
+				<div class="row">
+
+					<div class="control-group last span4 textarea-group">
+						<label for="leaguename">League name*:</label>
+						<input type="text"  class="required" style='width:60%;height:26px' name="league-name" id="league-name" />
+					</div>
+				</div>
+			</div>
+			<footer>
+				<a class="btn btn-next btn-primary">Next</a>
+			</footer>
+		</section>
+		<section class="module closed" id="add-member">
+			<header>
+				<h2><span class="numbadge">2</span>Add Members</h2>
+			</header>
+			<!-- control-group span4 last module-content slim first -->
+			<div class="module-content slim first">
+			<div id="addMember_ErrorMsg" style="display : none;color: red; font-size: 15;"></div>
+			<br>
+							<div id="league_ConfirmMsg" style="display : none;color: red; font-size: 15;"></div>
+							<div>Enter email id of Members<label id="memberName" style= "font-size: 20px;font-weight: bold;line-height: 18px;"></label>
+				      		</div>
+							<div id='emailIdGroup'>
+								<div id="emailIdDiv1">
+									<label>Email Id #1 : </label><input type='textbox' id='textbox1' >
+								</div>
+								</div>
+								<input type='button' value='Add Button' id='addButton'>
+								<input type='button' value='Remove Button' id='removeButton'>
+				             <br/>
+					        </div>
+					   
+
+					
+			<footer>
+				<a class="btn btn-next btn-primary">Next</a>
+			</footer>
+		</section>
+		<section class="module closed" id="confirmation">
+			<header>
+				<h2><span class="numbadge">3</span>Confirmation</h2>
+			</header>
+			<div class="module-content">
+				<h2>Thanks for Creating League.. Have Fun</h2>
+				<p>An confirmation email will be sent to all members.</strong></p>
+
+				<p>Thanks,<br />
+				<strong><em>The DIS Team</em></strong></p>
+			</div>
+			<footer>
+				<a href = "./" class="btn btn-back">Back to Dashboard</a>
+			</footer>
+		</section>
+	<p>Email service provided by Dcompany</p>
+</div>
+</div>
+</div>
+</div>
+
+</body>
+</html>
