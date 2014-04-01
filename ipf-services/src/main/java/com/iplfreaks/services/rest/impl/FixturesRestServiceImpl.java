@@ -17,8 +17,9 @@ public class FixturesRestServiceImpl implements IFixturesRestService {
 	private IFixturesService fixtureService;
 
 	@Override
-	public String getFixtures() {
-		List<Fixture> fixtures = this.fixtureService.getFixtures();
+	public String getFixtures(String competitionSport, String competitionName) {
+		List<Fixture> fixtures = this.fixtureService.getFixtures(
+				competitionSport, competitionName);
 
 		String jsonResponse = new Gson().toJson(fixtures);
 
@@ -26,8 +27,10 @@ public class FixturesRestServiceImpl implements IFixturesRestService {
 	}
 
 	@Override
-	public String getPastFixtures() {
-		List<Fixture> fixtures = this.fixtureService.getPastFixtures();
+	public String getPastFixtures(String competitionSport,
+			String competitionName) {
+		List<Fixture> fixtures = this.fixtureService.getPastFixtures(
+				competitionSport, competitionName);
 
 		String jsonResponse = new Gson().toJson(fixtures);
 
@@ -35,8 +38,10 @@ public class FixturesRestServiceImpl implements IFixturesRestService {
 	}
 
 	@Override
-	public String getUpcomingFixtures() {
-		List<Fixture> fixtures = this.fixtureService.getUpcomingFixtures();
+	public String getUpcomingFixtures(String competitionSport,
+			String competitionName) {
+		List<Fixture> fixtures = this.fixtureService.getUpcomingFixtures(
+				competitionSport, competitionName);
 		String jsonResponse = new Gson().toJson(fixtures);
 
 		return jsonResponse;
