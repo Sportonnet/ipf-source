@@ -11,9 +11,7 @@ import java.util.Map;
 import com.iplfreaks.cache.services.api.ICacheService;
 import com.iplfreaks.core.Competition;
 import com.iplfreaks.dao.api.ITeamDao;
-import com.iplfreaks.dao.impl.TeamDaoImpl;
 import com.iplfreaks.dao.repository.CompetitionRepository;
-import com.iplfreaks.dao.repository.TeamRepository;
 import com.iplfreaks.game.Fixture;
 import com.iplfreaks.game.Team;
 
@@ -27,16 +25,45 @@ public class CacheServiceImpl implements ICacheService {
 	private CompetitionRepository competitionRepository;
 	private ITeamDao teamDao;
 
+	public void init() {
+		// cache fixtures
+		createFixturesCache();
+		// cache team details
+		createTeamDetailCache();
+	}
+
+	private void createTeamDetailCache() {
+		final List<Team> teams = this.teamDao.getAllTeams();
+
+		for (final Team team : teams) {
+			put(generateKey(team.getName()), team);
+		}
+	}
+
+	private void createFixturesCache() {
+		final List<Competition> competitions = this.competitionRepository
+				.findAll();
+
+		for (final Competition competition : competitions) {
+			if (competition.isActive()) {
+
+				put(generateKey(competition.getSport(), competition.getName()),
+						new ArrayList<Fixture>(competition.getFixtures()));
+			}
+		}
+	}
+
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Fixture> getFixtures(String competitionSport,
 			String competitionName) {
-		final String key = competitionSport + "," + competitionName;
+		final String key = generateKey(competitionSport, competitionName);
 		return (List<Fixture>) this.cache.get(key);
 	}
 
 	@Override
-	public Team getTeam(String key) {
-
+	public Team getTeam(String teamName) {
+		final String key = generateKey(teamName);
 		return (Team) this.cache.get(key);
 	}
 
@@ -45,22 +72,19 @@ public class CacheServiceImpl implements ICacheService {
 		this.cache.put(key, value);
 	}
 
-	public void init() {
-		final List<Competition> competitions = this.competitionRepository
-				.findAll();
+	@Override
+	public String generateKey(String... keyParams) {
 
-		for (final Competition competition : competitions) {
-			if (competition.isActive()) {
-				put(competition.getSport() + "," + competition.getName(),
-						new ArrayList<Fixture>(competition.getFixtures()));
-			}
+		String key = "";
+
+		if (keyParams.length == 1)
+			return keyParams[0];
+
+		for (int i = 0; i < keyParams.length; i++) {
+			key = key + keyParams[i] + ".";
 		}
 
-		final List<Team> teams = this.teamDao.getAllTeams();
-
-		for (final Team team : teams) {
-			put(team.getName(), team);
-		}
+		return key.substring(0, key.lastIndexOf('.'));
 	}
 
 	/**

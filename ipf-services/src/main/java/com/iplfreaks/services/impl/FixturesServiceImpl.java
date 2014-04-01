@@ -25,11 +25,19 @@ public class FixturesServiceImpl implements IFixturesService {
 			String competitionName) {
 		List<Fixture> fixtures = this.cacheService.getFixtures(
 				competitionSport, competitionName);
+
 		if (fixtures == null) {
 			List<Competition> competitions = this.competitionRepository
 					.findByNameAndSport(competitionName, competitionSport);
 			fixtures = new ArrayList<Fixture>(competitions.get(0).getFixtures());
+
+			if (fixtures != null && !fixtures.isEmpty()) {
+				final String key = this.cacheService.generateKey(
+						competitionSport, competitionName);
+				this.cacheService.put(key, fixtures);
+			}
 		}
+
 		final List<Fixture> todaysFixtures = new ArrayList<Fixture>();
 
 		for (final Fixture fixture : fixtures) {
@@ -37,8 +45,10 @@ public class FixturesServiceImpl implements IFixturesService {
 					.getDayOfMonth();
 			final int month = fixture.getDateTime().toLocalDateTime()
 					.getMonthOfYear();
+			final int year = fixture.getDateTime().toLocalDateTime().getYear();
 			final LocalDate today = new DateTime().toLocalDate();
-			if (day == today.getDayOfMonth() && month == today.getMonthOfYear()) {
+			if (year == today.getYear() && day == today.getDayOfMonth()
+					&& month == today.getMonthOfYear()) {
 				todaysFixtures.add(fixture);
 			}
 		}
@@ -56,6 +66,12 @@ public class FixturesServiceImpl implements IFixturesService {
 			List<Competition> competitions = this.competitionRepository
 					.findByNameAndSport(competitionName, competitionSport);
 			fixtures = new ArrayList<Fixture>(competitions.get(0).getFixtures());
+
+			if (fixtures != null && !fixtures.isEmpty()) {
+				final String key = this.cacheService.generateKey(
+						competitionSport, competitionName);
+				this.cacheService.put(key, fixtures);
+			}
 		}
 		final List<Fixture> pastFixtures = new ArrayList<Fixture>();
 
@@ -86,6 +102,12 @@ public class FixturesServiceImpl implements IFixturesService {
 			List<Competition> competitions = this.competitionRepository
 					.findByNameAndSport(competitionName, competitionSport);
 			fixtures = new ArrayList<Fixture>(competitions.get(0).getFixtures());
+
+			if (fixtures != null && !fixtures.isEmpty()) {
+				final String key = this.cacheService.generateKey(
+						competitionSport, competitionName);
+				this.cacheService.put(key, fixtures);
+			}
 		}
 
 		final List<Fixture> upcomingFixtures = new ArrayList<Fixture>();

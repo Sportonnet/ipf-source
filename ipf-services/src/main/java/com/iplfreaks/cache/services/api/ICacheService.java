@@ -34,6 +34,8 @@ public interface ICacheService {
 	public Team getTeam(String teamName);
 
 	/**
+	 * Implement generateKey method to generate the key to put the key-value in
+	 * cache
 	 * 
 	 * @param key
 	 *            key
@@ -42,4 +44,11 @@ public interface ICacheService {
 	 */
 	public void put(String key, Object value);
 
+	/**
+	 * 
+	 * @param keyParams
+	 *            key params to generate key
+	 * @return
+	 */
+	public String generateKey(String... keyParams);
 }
