@@ -12,13 +12,14 @@ import com.iplfreaks.game.Team;
 public class TeamDaoImpl implements ITeamDao {
 
 	private MongoTemplate mongoTemplate;
-	//private static final String TEAM_COLLECTION = "teams";
-	
+	// private static final String TEAM_COLLECTION = "teams";
+
 	@Autowired
 	private TeamRepository teamRepository;
 
 	/**
-	 * @param teamRepository the teamRepository to set
+	 * @param teamRepository
+	 *            the teamRepository to set
 	 */
 	public void setTeamRepository(TeamRepository teamRepository) {
 		this.teamRepository = teamRepository;
@@ -27,21 +28,21 @@ public class TeamDaoImpl implements ITeamDao {
 	@Override
 	public Team getTeamDetails(String teamName) {
 
-		/*final Query teamDetailsQuery = new Query(Criteria.where("name").is(
-				teamName));
+		/*
+		 * final Query teamDetailsQuery = new Query(Criteria.where("name").is(
+		 * teamName));
+		 * 
+		 * final Team team = this.mongoTemplate.findOne(teamDetailsQuery,
+		 * Team.class, TEAM_COLLECTION);
+		 */
 
-		final Team team = this.mongoTemplate.findOne(teamDetailsQuery,
-				Team.class, TEAM_COLLECTION);*/
-		
-		if(teamName == null)
-		{
+		if (teamName == null) {
 			throw new IllegalArgumentException("Team name cannot be NULL");
 		}
-		
+
 		final List<Team> teamList = teamRepository.findByName(teamName.trim());
-		
-		if(teamList == null || teamList.isEmpty())
-		{
+
+		if (teamList == null || teamList.isEmpty()) {
 			return null;
 		}
 
@@ -54,6 +55,11 @@ public class TeamDaoImpl implements ITeamDao {
 
 	public void setMongoTemplate(MongoTemplate mongoTemplate) {
 		this.mongoTemplate = mongoTemplate;
+	}
+
+	@Override
+	public List<Team> getAllTeams() {
+		return this.teamRepository.findAll();
 	}
 
 }
