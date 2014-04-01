@@ -95,7 +95,7 @@
 		<property name="userDao" ref="userDao" />
 		<property name="userLeagueDao" ref="userLeagueDao" />
 		<property name="leagueScoreDetailsDao" ref="leagueScoreDetailsDao" />
-		<property name="competitionRepository" ref="competitionRepository"/>
+		<property name="competitionRepository" ref="competitionRepository" />
 	</bean>
 
 	<bean id="userAuthenticationService"
@@ -108,7 +108,8 @@
 	</bean>
 
 	<bean id="fixtureService" class="com.iplfreaks.services.impl.FixturesServiceImpl">
-		<property name="fixtureDao" ref="fixtureDao" />
+		<property name="competitionRepository" ref="competitionRepository" />
+		<property name="cacheService" ref="cacheService" />
 	</bean>
 
 	<bean id="teamDetailsService" class="com.iplfreaks.services.impl.TeamDetailsServiceImpl">
@@ -117,5 +118,11 @@
 
 	<bean id="savePredictionService" class="com.iplfreaks.services.impl.SavePredictionServiceImpl">
 		<property name="leagueScoreDetailsDao" ref="leagueScoreDetailsDao" />
+	</bean>
+
+	<bean id="cacheService" class="com.iplfreaks.cache.services.impl.CacheServiceImpl"
+		init-method="init">
+		<property name="competitionRepository" ref="competitionRepository" />
+		<property name="teamDao" ref="teamDao" />
 	</bean>
 </beans>
