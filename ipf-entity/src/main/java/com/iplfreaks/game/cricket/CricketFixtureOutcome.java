@@ -3,6 +3,8 @@
  */
 package com.iplfreaks.game.cricket;
 
+import java.util.List;
+
 import com.iplfreaks.core.BonusEntity;
 import com.iplfreaks.game.FixtureOutcome;
 import com.iplfreaks.game.Player;
@@ -22,7 +24,7 @@ public class CricketFixtureOutcome extends FixtureOutcome {
 	
 	private Team winnerTeam;
 	
-	private BonusEntity bonus;
+	private List<BonusEntity> bonus;
 
 	public Player getBestBowler() {
 		return bestBowler;
@@ -59,14 +61,15 @@ public class CricketFixtureOutcome extends FixtureOutcome {
 	/**
 	 * @return the bonus
 	 */
-	public BonusEntity getBonus() {
+	public List<BonusEntity> getBonus() {
 		return bonus;
 	}
 
 	/**
 	 * @param bonus the bonus to set
 	 */
-	public void setBonus(BonusEntity bonus) {
+	public void setBonus(List<BonusEntity> bonus) {
 		this.bonus = bonus;
 	}
+
 }

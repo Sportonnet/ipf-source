@@ -24,6 +24,8 @@ public class Competition extends BaseEntity{
 	private Set<Fixture> fixtures;
 	
 	private String season;
+	
+	private boolean isActive;
 
 	public Set<Fixture> getFixtures() {
 		return fixtures;
@@ -67,6 +69,20 @@ public class Competition extends BaseEntity{
 	 */
 	public void setSeason(String season) {
 		this.season = season;
+	}
+
+	/**
+	 * @return the isActive
+	 */
+	public boolean isActive() {
+		return isActive;
+	}
+
+	/**
+	 * @param isActive the isActive to set
+	 */
+	public void setActive(boolean isActive) {
+		this.isActive = isActive;
 	}
 	
 }
