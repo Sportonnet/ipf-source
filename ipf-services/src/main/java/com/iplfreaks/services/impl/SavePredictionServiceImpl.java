@@ -3,6 +3,9 @@
  */
 package com.iplfreaks.services.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
 
@@ -46,8 +49,10 @@ public class SavePredictionServiceImpl implements ISavePredictionService {
 		final Player bestBatsman = new Player(bestBatsmanName);
 		final Player manOfTheMatch = new Player(manOfTheMatchName);
 
+		final List<BonusEntity> bonusAnswers = new ArrayList<BonusEntity>();
 		final BonusEntity bonus = new BonusEntity();
 		bonus.setBonusAnswer(bonusAnswer);
+		bonusAnswers.add(bonus);
 
 		final Team winner = new Team();
 		winner.setName(winnerTeam);
@@ -55,7 +60,7 @@ public class SavePredictionServiceImpl implements ISavePredictionService {
 		prediction.setBestBatsman(bestBatsman);
 		prediction.setBestBowler(bestBowler);
 		prediction.setManOfTheMatch(manOfTheMatch);
-		prediction.setBonus(bonus);
+		prediction.setBonus(bonusAnswers);
 		prediction.setWinnerTeam(winner);
 
 		prediction.setTime(new DateTime());
