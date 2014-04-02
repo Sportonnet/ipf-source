@@ -12,7 +12,7 @@ import com.iplfreaks.base.BaseEntity;
  */
 @Document
 @TypeAlias(value = "user")
-public class User extends BaseEntity {
+public class User {
 
 	/**
 	 * 
@@ -103,6 +103,41 @@ public class User extends BaseEntity {
 
 	public void setEmail(String email) {
 		this.email = email.toLowerCase();
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((email == null) ? 0 : email.hashCode());
+		return result;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		User other = (User) obj;
+		if (email == null) {
+			if (other.email != null)
+				return false;
+		} else if (!email.equals(other.email))
+			return false;
+		return true;
 	}
 
 }

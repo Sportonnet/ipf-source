@@ -1,6 +1,5 @@
 package com.iplfreaks.core;
 
-import com.iplfreaks.base.BaseEntity;
 import com.iplfreaks.user.User;
 
 /**
@@ -9,7 +8,7 @@ import com.iplfreaks.user.User;
  *         These are users participating in the league
  * 
  */
-public class Challenger extends BaseEntity {
+public class Challenger {
 
 	/**
 	 * 
@@ -45,6 +44,48 @@ public class Challenger extends BaseEntity {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + ((user == null) ? 0 : user.hashCode());
+		return result;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Challenger other = (Challenger) obj;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		if (user == null) {
+			if (other.user != null)
+				return false;
+		} else if (!user.equals(other.user))
+			return false;
+
+		return true;
 	}
 
 }

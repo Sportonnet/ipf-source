@@ -3,8 +3,6 @@
  */
 package com.iplfreaks.dao.impl;
 
-
-
 import org.joda.time.DateTime;
 import org.junit.Assert;
 import org.junit.Rule;
@@ -20,51 +18,46 @@ import com.iplfreaks.user.User;
 
 /**
  * @author jayeshm3
- *
+ * 
  */
-
-
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:/META-INF/spring/spring-config-test.xml")
 public class UserDaoImplTest {
-	
+
 	@Autowired
 	private UserDao userDao;
-	
+
 	@Rule
 	public ExpectedException exception = ExpectedException.none();
-	
-	@Test//(expected=Exception.class)
-	public void testCreateUser()
-	{
+
+	@Test
+	// (expected=Exception.class)
+	public void testCreateUser() {
 		final User user = createUser();
-		
+
 		exception.expect(DuplicateKeyException.class);
 		final boolean isSuccess = this.userDao.createUser(user);
 		Assert.assertTrue(isSuccess);
 	}
-	
+
 	@Test
-	public void testAuthenticateUser()
-	{
+	public void testAuthenticateUser() {
 		final boolean isSuccess = this.userDao.authenticateUser(createUser());
 		Assert.assertTrue(isSuccess);
 	}
-	
+
 	@Test
-	public void testIsUserPresent()
-	{
-		final boolean isSuccess = this.userDao.isUserPresent("testuser@gmail.com");
+	public void testIsUserPresent() {
+		final boolean isSuccess = this.userDao
+				.isUserPresent("testuser@gmail.com");
 		Assert.assertTrue(isSuccess);
 	}
-	
-	private User createUser()
-	{
+
+	private User createUser() {
 		final User user = new User();
 		user.setEmail("testuser@gmail.com");
 		user.setPassword("testpassword");
-		user.setCreatedDate(new DateTime());
 		return user;
 	}
 

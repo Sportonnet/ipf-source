@@ -62,7 +62,12 @@ public class CreateLeagueServiceImpl implements ICreateLeagueService {
 		// add mapping in user-mapping
 		this.userLeagueDao.addUserLeague(leagueOwner, leagueName);
 
-		List<Competition> competitions = this.competitionRepository
+		// adding league owner to the list of challengers
+		final List<String> challengers = new ArrayList<String>();
+		challengers.add(leagueOwner);
+		addChallengersToLeague(leagueName, challengers);
+
+		final List<Competition> competitions = this.competitionRepository
 				.findByNameAndSport(competitionName, competitionSport);
 
 		if (competitions != null && !competitions.isEmpty()) {
@@ -87,8 +92,8 @@ public class CreateLeagueServiceImpl implements ICreateLeagueService {
 
 		final League league = this.leagueDao.fetchLeague(leagueName);
 
-		final List<Challenger> leagueChallengers = new ArrayList<Challenger>();
-		final List<Challenger> pendingChallengers = new ArrayList<Challenger>();
+		final Set<Challenger> leagueChallengers = new HashSet<Challenger>();
+		final Set<Challenger> pendingChallengers = new HashSet<Challenger>();
 
 		// filtering existing users and pending users from list of challengers
 		for (final String challenger : challengers) {
@@ -105,14 +110,14 @@ public class CreateLeagueServiceImpl implements ICreateLeagueService {
 			}
 		}
 
-		league.addChallengers(leagueChallengers);
-		league.addPendingChallengers(pendingChallengers);
+		league.addChallengers(new ArrayList<Challenger>(leagueChallengers));
+		league.addPendingChallengers(new ArrayList<Challenger>(
+				pendingChallengers));
 
 		// adding challengers to the league
-		this.leagueDao.addChallengersToLeague(leagueName,
-				new HashSet<Challenger>(leagueChallengers));
+		this.leagueDao.addChallengersToLeague(leagueName, leagueChallengers);
 		this.leagueDao.addPendingChallengersToLeague(leagueName,
-				new HashSet<Challenger>(pendingChallengers));
+				pendingChallengers);
 
 		this.logger.info("successfully added " + leagueChallengers.size()
 				+ " challengers out of " + challengers.size());
