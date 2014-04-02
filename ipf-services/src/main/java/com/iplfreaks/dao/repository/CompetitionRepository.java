@@ -18,7 +18,11 @@ import com.iplfreaks.core.Competition;
  *
  */
 public interface CompetitionRepository extends MongoRepository<Competition, String> {
+	
+	List<Competition> findByIsActive(final boolean isActive);
 
+	List<Competition> findByNameAndSportAndIsActive(final String name, final String sport, final boolean isActive);
+	
 	List<Competition> findByNameAndSport(final String name, final String sport);
 	
 	List<Competition> findByNameAndSportAndSeason(final String name, final String sport, final String season);

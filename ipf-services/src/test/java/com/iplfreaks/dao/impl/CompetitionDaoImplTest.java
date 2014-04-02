@@ -44,6 +44,23 @@ public class CompetitionDaoImplTest {
 	@Autowired
 	private CompetitionRepository competitionRepository;
 	
+	@Autowired
+	private CompetitionDaoImpl competitionDaoImpl;
+	
+	@Test
+	public void testFetchAllActiveCompetitions()
+	{
+		final List<Competition> competitions = this.competitionDaoImpl.getActiveCompetitions();
+		Assert.notEmpty(competitions);
+	}
+	
+	@Test
+	public void testFetchCompetitionFixture()
+	{
+		final Competition competition = this.competitionDaoImpl.getCompetitionFixtures("Indian Premier League", "Cricket");
+		Assert.notNull(competition);
+	}
+	
 	@Test
 	public void testFindFixtures()
 	{
@@ -99,7 +116,7 @@ public class CompetitionDaoImplTest {
 		}
 	}
 	
-	@Test
+	//@Test
 	public void testFetchCompetition()
 	{
 		final List<Competition> competitions = this.competitionRepository.findByNameAndSportAndSeason("Indian Premier League", "Cricket", "IPL 2014");
@@ -118,6 +135,7 @@ public class CompetitionDaoImplTest {
 		competition.setName("Indian Premier League");
 		competition.setSport("Cricket");
 		competition.setSeason("IPL 2014");
+		competition.setActive(true);
 		competition.setFixtures(getFixtures());
 		
 		return competition;
@@ -196,5 +214,19 @@ public class CompetitionDaoImplTest {
 	 */
 	public void setMongoTemplate(MongoTemplate mongoTemplate) {
 		this.mongoTemplate = mongoTemplate;
+	}
+
+	/**
+	 * @return the competitionDaoImpl
+	 */
+	public CompetitionDaoImpl getCompetitionDaoImpl() {
+		return competitionDaoImpl;
+	}
+
+	/**
+	 * @param competitionDaoImpl the competitionDaoImpl to set
+	 */
+	public void setCompetitionDaoImpl(CompetitionDaoImpl competitionDaoImpl) {
+		this.competitionDaoImpl = competitionDaoImpl;
 	}
 }

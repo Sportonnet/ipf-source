@@ -68,5 +68,10 @@
 		<property name="mongoTemplate" ref="mongoTemplate" />
 		<property name="leagueScoreDetailsRepository" ref="leagueScoreDetailsRepository" />
 	</bean>
+	
+	<bean id="competitionDao" class="com.iplfreaks.dao.impl.CompetitionDaoImpl">
+		<property name="mongoTemplate" ref="mongoTemplate" />
+		<property name="competitionRepository" ref="competitionRepository" />
+	</bean>
 
 </beans>
