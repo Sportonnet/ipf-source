@@ -4,7 +4,6 @@
 package com.iplfreaks.dao.impl;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import org.junit.Test;
@@ -19,7 +18,6 @@ import com.iplfreaks.core.Challenge;
 import com.iplfreaks.core.Challenger;
 import com.iplfreaks.core.LeagueScoreDetails;
 import com.iplfreaks.core.Prediction;
-import com.iplfreaks.dao.repository.LeagueScoreDetailsRepository;
 import com.iplfreaks.game.Player;
 import com.iplfreaks.game.Team;
 import com.iplfreaks.game.cricket.CricketPrediction;
