@@ -83,11 +83,21 @@ public class LeagueDaoImpl implements ILeagueDao {
 		
 		final Query query = new Query(Criteria.where("name").is(leagueName));
 		
+		final League league = fetchLeague(leagueName);
+		
+		final Set<Challenger> challengersList = league.getPendingChallengers();
+		
+		if(challengersList != null)
+		{
+			challengers.addAll(challengersList);
+		}
+		
 		final Update update = new Update();
-		for(final Challenger challenger : challengers)
+		update.set("pendingChallengers", challengers);
+		/*for(final Challenger challenger : challengers)
 		{
 			update.addToSet("pendingChallengers", challenger);
-		}
+		}*/
 		
 		this.mongoTemplate.updateFirst(query, update, LEAGUE_COLLECTION);
 	}
