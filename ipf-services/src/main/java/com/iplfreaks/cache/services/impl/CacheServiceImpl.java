@@ -11,7 +11,7 @@ import java.util.Map;
 import com.iplfreaks.cache.services.api.ICacheService;
 import com.iplfreaks.core.Competition;
 import com.iplfreaks.dao.api.ITeamDao;
-import com.iplfreaks.dao.repository.CompetitionRepository;
+import com.iplfreaks.dao.repository.CricketCompetitionRepository;
 import com.iplfreaks.game.Fixture;
 import com.iplfreaks.game.Team;
 
@@ -22,7 +22,7 @@ import com.iplfreaks.game.Team;
 public class CacheServiceImpl implements ICacheService {
 
 	private final Map<String, Object> cache = new HashMap<String, Object>();
-	private CompetitionRepository competitionRepository;
+	private CricketCompetitionRepository competitionRepository;
 	private ITeamDao teamDao;
 
 	public void init() {
@@ -90,7 +90,7 @@ public class CacheServiceImpl implements ICacheService {
 	/**
 	 * @return the competitionRepository
 	 */
-	public CompetitionRepository getCompetitionRepository() {
+	public CricketCompetitionRepository getCompetitionRepository() {
 		return competitionRepository;
 	}
 
@@ -99,7 +99,7 @@ public class CacheServiceImpl implements ICacheService {
 	 *            the competitionRepository to set
 	 */
 	public void setCompetitionRepository(
-			CompetitionRepository competitionRepository) {
+			CricketCompetitionRepository competitionRepository) {
 		this.competitionRepository = competitionRepository;
 	}
 

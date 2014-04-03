@@ -8,13 +8,13 @@ import org.joda.time.LocalDate;
 
 import com.iplfreaks.cache.services.api.ICacheService;
 import com.iplfreaks.core.Competition;
-import com.iplfreaks.dao.repository.CompetitionRepository;
+import com.iplfreaks.dao.repository.CricketCompetitionRepository;
 import com.iplfreaks.game.Fixture;
 import com.iplfreaks.services.api.IFixturesService;
 
 public class FixturesServiceImpl implements IFixturesService {
 
-	private CompetitionRepository competitionRepository;
+	private CricketCompetitionRepository competitionRepository;
 	private ICacheService cacheService;
 
 	public void init() {
@@ -132,7 +132,7 @@ public class FixturesServiceImpl implements IFixturesService {
 	/**
 	 * @return the competitionRepository
 	 */
-	public CompetitionRepository getCompetitionRepository() {
+	public CricketCompetitionRepository getCompetitionRepository() {
 		return competitionRepository;
 	}
 
@@ -141,7 +141,7 @@ public class FixturesServiceImpl implements IFixturesService {
 	 *            the competitionRepository to set
 	 */
 	public void setCompetitionRepository(
-			CompetitionRepository competitionRepository) {
+			CricketCompetitionRepository competitionRepository) {
 		this.competitionRepository = competitionRepository;
 	}
 

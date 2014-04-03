@@ -19,7 +19,7 @@ import com.iplfreaks.dao.api.ILeagueDao;
 import com.iplfreaks.dao.api.ILeagueScoreDetailsDao;
 import com.iplfreaks.dao.api.IUserDao;
 import com.iplfreaks.dao.api.IUserLeaguesDao;
-import com.iplfreaks.dao.repository.CompetitionRepository;
+import com.iplfreaks.dao.repository.CricketCompetitionRepository;
 import com.iplfreaks.game.Fixture;
 import com.iplfreaks.services.api.ICreateLeagueService;
 import com.iplfreaks.user.User;
@@ -31,7 +31,7 @@ public class CreateLeagueServiceImpl implements ICreateLeagueService {
 	private IUserDao userDao;
 	private IUserLeaguesDao userLeagueDao;
 	private ILeagueScoreDetailsDao leagueScoreDetailsDao;
-	private CompetitionRepository competitionRepository;
+	private CricketCompetitionRepository competitionRepository;
 
 	@Override
 	public void createLeague(String leagueName, String leagueOwner,
@@ -222,7 +222,7 @@ public class CreateLeagueServiceImpl implements ICreateLeagueService {
 	/**
 	 * @return the competitionRepository
 	 */
-	public CompetitionRepository getCompetitionRepository() {
+	public CricketCompetitionRepository getCompetitionRepository() {
 		return competitionRepository;
 	}
 
@@ -231,7 +231,7 @@ public class CreateLeagueServiceImpl implements ICreateLeagueService {
 	 *            the competitionRepository to set
 	 */
 	public void setCompetitionRepository(
-			CompetitionRepository competitionRepository) {
+			CricketCompetitionRepository competitionRepository) {
 		this.competitionRepository = competitionRepository;
 	}
 

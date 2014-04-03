@@ -22,10 +22,10 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.Assert;
 
-import com.iplfreaks.core.Competition;
-import com.iplfreaks.dao.repository.CompetitionRepository;
-import com.iplfreaks.game.Fixture;
+import com.iplfreaks.dao.repository.CricketCompetitionRepository;
 import com.iplfreaks.game.Team;
+import com.iplfreaks.game.cricket.CricketCompetition;
+import com.iplfreaks.game.cricket.CricketFixture;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
 import com.mongodb.DBObject;
@@ -36,28 +36,28 @@ import com.mongodb.DBObject;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:/META-INF/spring/spring-config-test.xml")
-public class CompetitionDaoImplTest {
+public class CricketCompetitionDaoImplTest {
 
 	@Autowired
 	private MongoTemplate mongoTemplate;
 	
 	@Autowired
-	private CompetitionRepository competitionRepository;
+	private CricketCompetitionRepository competitionRepository;
 	
 	@Autowired
-	private CompetitionDaoImpl competitionDaoImpl;
+	private CricketCompetitionDaoImpl competitionDaoImpl;
 	
 	@Test
 	public void testFetchAllActiveCompetitions()
 	{
-		final List<Competition> competitions = this.competitionDaoImpl.getActiveCompetitions();
+		final List<CricketCompetition> competitions = this.competitionDaoImpl.getActiveCompetitions();
 		Assert.notEmpty(competitions);
 	}
 	
 	@Test
 	public void testFetchCompetitionFixture()
 	{
-		final Competition competition = this.competitionDaoImpl.getCompetitionFixtures("Indian Premier League", "Cricket");
+		final CricketCompetition competition = this.competitionDaoImpl.getCompetitionFixtures("Indian Premier League", "Cricket");
 		Assert.notNull(competition);
 	}
 	
@@ -78,6 +78,16 @@ public class CompetitionDaoImplTest {
 		query.fields().include("fixtures.$");
 		//query.addCriteria(new Criteria().)
 		
+		final Criteria ct = new Criteria().andOperator(Criteria.where("name").is("Indian Premier League"), Criteria.where("sport").is("Cricket"), Criteria.where("fixtures").elemMatch(Criteria.where("homeTeam.name").is("Mumbai Indians (MI)")));
+		
+		final Query q = new Query(ct);
+		
+		System.out.println(q);
+		
+		List<CricketCompetition> competitionList = this.mongoTemplate.find(q, CricketCompetition.class);
+		
+		System.out.println(competitionList.get(0).getFixtures().size());
+		
 		//List<Competition> competitions = this.mongoTemplate.find(query, Competition.class);
 		
 		//final Query query = new Query(Criteria.where("name").is("Indian Premier League").and("sport").is("Cricket").and("fixtures.dateTime").gt(dm2));
@@ -89,7 +99,7 @@ public class CompetitionDaoImplTest {
 		
 		final DBObject fields = new BasicDBObject("fixtures.$", 1);
 		
-		final DBCollection competitionCollection = this.mongoTemplate.getCollection("competition");
+		final DBCollection competitionCollection = this.mongoTemplate.getCollection("cricketCompetition");
 		
 		//final Competition competition = (Competition) competitionCollection.findOne(query, fields);
 		/*final DBCursor cursor = competitionCollection.find(query, fields);
@@ -104,11 +114,11 @@ public class CompetitionDaoImplTest {
 		
 		final Sort sort = new Sort(Direction.ASC, "fixtures.dateTime");
 		
-		final List<Competition> competitions = this.competitionRepository.findQuery("Indian Premier League", "Cricket", dm1, dm2);
+		final List<CricketCompetition> competitions = this.competitionRepository.findQuery("Indian Premier League", "Cricket", dm1, dm2);
 		//final List<Competition> competitions = this.competitionRepository.findByNameAndSportAndFixturesDateTimeBetween("Indian Premier League", "Cricket", dm1, dm2, sort);
-		final Competition c = competitions.get(0);
-		final Set<Fixture> fixtures = c.getFixtures();
-		for(final Fixture fixture: fixtures)
+		final CricketCompetition c = competitions.get(0);
+		final Set<CricketFixture> fixtures = c.getFixtures();
+		for(final CricketFixture fixture: fixtures)
 		{
 			System.out.println(fixture.getFixtureName());
 			System.out.println(fixture.getFixtureId());
@@ -119,7 +129,7 @@ public class CompetitionDaoImplTest {
 	//@Test
 	public void testFetchCompetition()
 	{
-		final List<Competition> competitions = this.competitionRepository.findByNameAndSportAndSeason("Indian Premier League", "Cricket", "IPL 2014");
+		final List<CricketCompetition> competitions = this.competitionRepository.findByNameAndSportAndSeason("Indian Premier League", "Cricket", "IPL 2014");
 		Assert.notEmpty(competitions);
 	}
 	
@@ -129,9 +139,9 @@ public class CompetitionDaoImplTest {
 		this.mongoTemplate.insert(getCompetition(), "competition");
 	}
 	
-	private Competition getCompetition()
+	private CricketCompetition getCompetition()
 	{
-		final Competition competition = new Competition();
+		final CricketCompetition competition = new CricketCompetition();
 		competition.setName("Indian Premier League");
 		competition.setSport("Cricket");
 		competition.setSeason("IPL 2014");
@@ -141,11 +151,11 @@ public class CompetitionDaoImplTest {
 		return competition;
 	}
 	
-	private Set<Fixture> getFixtures()
+	private Set<CricketFixture> getFixtures()
 	{
-		final Set<Fixture> fixtures = new HashSet<Fixture>();
+		final Set<CricketFixture> fixtures = new HashSet<CricketFixture>();
 		
-		final Fixture fixture1 = new Fixture();
+		final CricketFixture fixture1 = new CricketFixture();
 		fixture1.setFixtureName("MI vs DD");
 		
 		final Team mi = new Team();
@@ -165,7 +175,7 @@ public class CompetitionDaoImplTest {
 		fixtures.add(fixture1);
 		
 		
-		final Fixture fixture2 = new Fixture();
+		final CricketFixture fixture2 = new CricketFixture();
 		fixture2.setFixtureName("RCB vs DD");
 		
 		fixture2.setHomeTeam(rcb);
@@ -175,7 +185,7 @@ public class CompetitionDaoImplTest {
 		
 		fixtures.add(fixture2);
 		
-		final Fixture fixture3 = new Fixture();
+		final CricketFixture fixture3 = new CricketFixture();
 		fixture3.setFixtureName("MI vs RCB");
 		
 		fixture3.setHomeTeam(mi);
@@ -191,14 +201,14 @@ public class CompetitionDaoImplTest {
 	/**
 	 * @return the competitionRepository
 	 */
-	public CompetitionRepository getCompetitionRepository() {
+	public CricketCompetitionRepository getCompetitionRepository() {
 		return competitionRepository;
 	}
 
 	/**
 	 * @param competitionRepository the competitionRepository to set
 	 */
-	public void setCompetitionRepository(CompetitionRepository competitionRepository) {
+	public void setCompetitionRepository(CricketCompetitionRepository competitionRepository) {
 		this.competitionRepository = competitionRepository;
 	}
 
@@ -219,14 +229,14 @@ public class CompetitionDaoImplTest {
 	/**
 	 * @return the competitionDaoImpl
 	 */
-	public CompetitionDaoImpl getCompetitionDaoImpl() {
+	public CricketCompetitionDaoImpl getCompetitionDaoImpl() {
 		return competitionDaoImpl;
 	}
 
 	/**
 	 * @param competitionDaoImpl the competitionDaoImpl to set
 	 */
-	public void setCompetitionDaoImpl(CompetitionDaoImpl competitionDaoImpl) {
+	public void setCompetitionDaoImpl(CricketCompetitionDaoImpl competitionDaoImpl) {
 		this.competitionDaoImpl = competitionDaoImpl;
 	}
 }

@@ -96,7 +96,7 @@
 		<property name="cricketLeagueScoreRepository" ref="cricketLeagueScoreRepository" />
 	</bean>
 	
-	<bean id="competitionDao" class="com.iplfreaks.dao.impl.CompetitionDaoImpl">
+	<bean id="competitionDao" class="com.iplfreaks.dao.impl.CricketCompetitionDaoImpl">
 		<property name="mongoTemplate" ref="mongoTemplate" />
 		<property name="competitionRepository" ref="competitionRepository" />
 	</bean>

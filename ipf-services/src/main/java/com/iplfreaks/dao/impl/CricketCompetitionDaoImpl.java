@@ -8,26 +8,26 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 
-import com.iplfreaks.core.Competition;
-import com.iplfreaks.dao.api.ICompetitionDao;
-import com.iplfreaks.dao.repository.CompetitionRepository;
+import com.iplfreaks.dao.api.ICricketCompetitionDao;
+import com.iplfreaks.dao.repository.CricketCompetitionRepository;
+import com.iplfreaks.game.cricket.CricketCompetition;
 
 /**
  * @author jayeshm3
  *
  */
-public class CompetitionDaoImpl implements ICompetitionDao {
+public class CricketCompetitionDaoImpl implements ICricketCompetitionDao {
 	
 	@Autowired
 	private MongoTemplate mongoTemplate;
 	
 	@Autowired
-	private CompetitionRepository competitionRepository;
+	private CricketCompetitionRepository competitionRepository;
 
 	@Override
-	public Competition getCompetitionFixtures(final String name, final String sport) {
+	public CricketCompetition getCompetitionFixtures(final String name, final String sport) {
 		
-		final List<Competition> competitions = getCompetitionRepository().findByNameAndSportAndIsActive(name, sport, true);
+		final List<CricketCompetition> competitions = getCompetitionRepository().findByNameAndSportAndIsActive(name, sport, true);
 		
 		if(competitions == null || competitions.isEmpty())
 		{
@@ -37,7 +37,7 @@ public class CompetitionDaoImpl implements ICompetitionDao {
 	}
 
 	@Override
-	public List<Competition> getActiveCompetitions() {
+	public List<CricketCompetition> getActiveCompetitions() {
 		return getCompetitionRepository().findByIsActive(true);
 	}
 	
@@ -59,14 +59,14 @@ public class CompetitionDaoImpl implements ICompetitionDao {
 	/**
 	 * @return the competitionRepository
 	 */
-	public CompetitionRepository getCompetitionRepository() {
+	public CricketCompetitionRepository getCompetitionRepository() {
 		return competitionRepository;
 	}
 
 	/**
 	 * @param competitionRepository the competitionRepository to set
 	 */
-	public void setCompetitionRepository(CompetitionRepository competitionRepository) {
+	public void setCompetitionRepository(CricketCompetitionRepository competitionRepository) {
 		this.competitionRepository = competitionRepository;
 	}
 }
