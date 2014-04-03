@@ -1,12 +1,9 @@
 package com.iplfreaks.core;
 
-import java.util.Set;
-
 import org.springframework.data.annotation.TypeAlias;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.iplfreaks.base.BaseEntity;
-import com.iplfreaks.game.Fixture;
 
 @Document
 @TypeAlias(value="competition")
@@ -21,19 +18,9 @@ public class Competition extends BaseEntity{
 	
 	private String sport;
 	
-	private Set<Fixture> fixtures;
-	
 	private String season;
 	
 	private boolean isActive;
-
-	public Set<Fixture> getFixtures() {
-		return fixtures;
-	}
-
-	public void setFixtures(Set<Fixture> fixtures) {
-		this.fixtures = fixtures;
-	}
 
 	public String getName() {
 		return name;

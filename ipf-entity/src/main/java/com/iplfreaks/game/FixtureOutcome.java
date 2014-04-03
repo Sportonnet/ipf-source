@@ -9,20 +9,20 @@ package com.iplfreaks.game;
  */
 public class FixtureOutcome {
 	
-	private Team winner;
+	private Team winnerTeam;
 
 	/**
 	 * @return the winner
 	 */
 	public Team getWinner() {
-		return winner;
+		return winnerTeam;
 	}
 
 	/**
 	 * @param winner the winner to set
 	 */
 	public void setWinner(Team winner) {
-		this.winner = winner;
+		this.winnerTeam = winner;
 	}
 
 }
