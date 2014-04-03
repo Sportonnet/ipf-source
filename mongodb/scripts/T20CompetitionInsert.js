@@ -14,7 +14,7 @@ db.cricketCompetition.update({"name":"T20 World Cup 2014"},{"$addToSet":{"fixtur
                         "venue" : "Shere Bangla National Stadium, Mirpur",
 						"bonus" : [
                                 {
-                                        "bonusQuestion" : "Which player will score the maximum runs in the match?"
+                                        "bonusQuestion" : "Who will be the bowler with the most expensive over in the match?"
                                 },
                                 {
                                         "bonusQuestion" : "What will be the distance of longest six in the match?"
@@ -32,7 +32,7 @@ db.cricketCompetition.update({"name":"T20 World Cup 2014"},{"$addToSet":{"fixtur
                                 },
                                 "bonus" : [
                                         {
-                                                "bonusQuestion" : "Which player will score the maximum runs in the match?",
+                                                "bonusQuestion" : "Who will be the bowler with the most expensive over in the match?",
                                                 "bonusAnswer" : ""
                                         },
                                         {
@@ -58,7 +58,7 @@ db.cricketCompetition.update({"name":"T20 World Cup 2014"},{"$addToSet":{"fixtur
                         "venue" : "Shere Bangla National Stadium, Mirpur",
 						"bonus" : [
                                 {
-                                        "bonusQuestion" : "Which player will hit maximum sixes?"
+                                        "bonusQuestion" : "What will be the total number of sixes hit in the match?"
                                 }                                
                         ],
                         "outcome" : {
@@ -73,7 +73,7 @@ db.cricketCompetition.update({"name":"T20 World Cup 2014"},{"$addToSet":{"fixtur
                                 },
                                 "bonus" : [
                                         {
-                                                "bonusQuestion" : "Which player will hit maximum sixes?",
+                                                "bonusQuestion" : "What will be the total number of sixes hit in the match?",
                                                 "bonusAnswer" : ""
                                         }
                                 ],
