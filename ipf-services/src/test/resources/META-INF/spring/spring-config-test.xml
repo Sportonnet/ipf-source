@@ -35,7 +35,7 @@
 		<mongo:repository id="teamRepository" mongo-template-ref="mongoTemplate"/>
 		<mongo:repository id="userLeagueRepository" mongo-template-ref="mongoTemplate" />
 		<mongo:repository id="leagueRepository" mongo-template-ref="mongoTemplate" />
-		<mongo:repository id="competitionRepository"
+		<mongo:repository id="cricketCompetitionRepository"
 			mongo-template-ref="mongoTemplate" />
 		<mongo:repository id="fixtureRepository"
 			mongo-template-ref="mongoTemplate" />
@@ -73,7 +73,7 @@
 	
 	<bean id="competitionDao" class="com.iplfreaks.dao.impl.CricketCompetitionDaoImpl">
 		<property name="mongoTemplate" ref="mongoTemplate" />
-		<property name="competitionRepository" ref="competitionRepository" />
+		<property name="competitionRepository" ref="cricketCompetitionRepository" />
 	</bean>
 	
 	<bean id="cricketLeagueScoreDao" class="com.iplfreaks.dao.impl.CricketLeagueScoreDaoImpl">
