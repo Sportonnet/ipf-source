@@ -11,7 +11,7 @@ import org.joda.time.DateTime;
 
 import com.iplfreaks.core.BonusEntity;
 import com.iplfreaks.core.Challenger;
-import com.iplfreaks.dao.api.ILeagueScoreDetailsDao;
+import com.iplfreaks.dao.api.ICricketLeagueScoreDao;
 import com.iplfreaks.game.Player;
 import com.iplfreaks.game.Team;
 import com.iplfreaks.game.cricket.CricketPrediction;
@@ -25,7 +25,7 @@ import com.iplfreaks.user.User;
 public class SavePredictionServiceImpl implements ISavePredictionService {
 
 	private Logger logger = Logger.getLogger(SavePredictionServiceImpl.class);
-	private ILeagueScoreDetailsDao leagueScoreDetailsDao;
+	private ICricketLeagueScoreDao cricketLeagueScoreDao;
 
 	@Override
 	public void saveCricketPrediction(String leagueName, String fixtureId,
@@ -66,26 +66,27 @@ public class SavePredictionServiceImpl implements ISavePredictionService {
 		prediction.setTime(new DateTime());
 
 		// adding prediction of the challenger
-		this.leagueScoreDetailsDao.addChallengerPrediction(leagueName,
+		this.cricketLeagueScoreDao.addChallengerPrediction(leagueName,
 				fixtureId, prediction);
+
 		this.logger.info("succesfullly saved prediction for fixture : "
 				+ fixtureId + " by user : " + challengerEmailId);
 	}
 
 	/**
-	 * @return the leagueScoreDetailsDao
+	 * @return the cricketLeagueScoreDao
 	 */
-	public ILeagueScoreDetailsDao getLeagueScoreDetailsDao() {
-		return leagueScoreDetailsDao;
+	public ICricketLeagueScoreDao getCricketLeagueScoreDao() {
+		return cricketLeagueScoreDao;
 	}
 
 	/**
-	 * @param leagueScoreDetailsDao
-	 *            the leagueScoreDetailsDao to set
+	 * @param cricketLeagueScoreDao
+	 *            the cricketLeagueScoreDao to set
 	 */
-	public void setLeagueScoreDetailsDao(
-			ILeagueScoreDetailsDao leagueScoreDetailsDao) {
-		this.leagueScoreDetailsDao = leagueScoreDetailsDao;
+	public void setCricketLeagueScoreDao(
+			ICricketLeagueScoreDao cricketLeagueScoreDao) {
+		this.cricketLeagueScoreDao = cricketLeagueScoreDao;
 	}
 
 }

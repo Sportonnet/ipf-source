@@ -55,7 +55,6 @@ public class Challenger {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((user == null) ? 0 : user.hashCode());
 		return result;
 	}
@@ -74,11 +73,6 @@ public class Challenger {
 		if (getClass() != obj.getClass())
 			return false;
 		Challenger other = (Challenger) obj;
-		if (name == null) {
-			if (other.name != null)
-				return false;
-		} else if (!name.equals(other.name))
-			return false;
 		if (user == null) {
 			if (other.user != null)
 				return false;

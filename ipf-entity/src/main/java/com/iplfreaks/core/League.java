@@ -7,6 +7,7 @@ import java.util.Set;
 import org.joda.time.DateTime;
 import org.springframework.data.annotation.TypeAlias;
 import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.iplfreaks.base.BaseEntity;
@@ -36,6 +37,7 @@ public class League extends BaseEntity {
 
 	private User leagueOwner;
 
+	@DBRef
 	private Competition competition;
 
 	public League(String name, User leagueOwner, String startDate) {

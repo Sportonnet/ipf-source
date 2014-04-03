@@ -3,6 +3,11 @@ package com.iplfreaks.services.rest.impl;
 import java.util.List;
 import java.util.Map;
 
+import javax.ws.rs.FormParam;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+
 import org.apache.log4j.Logger;
 import org.springframework.dao.DuplicateKeyException;
 
@@ -17,9 +22,13 @@ import com.iplfreaks.services.rest.api.ICreateLeagueRestService;
  * @author aniketd2
  * 
  */
-public class CreateLeagueRestServiceImpl implements ICreateLeagueRestService {
+@Path("/cricketleagues")
+@Produces({ "application/json" })
+public class CreateCricketLeagueRestServiceImpl implements
+		ICreateLeagueRestService {
 
-	private Logger logger = Logger.getLogger(CreateLeagueRestServiceImpl.class);
+	private Logger logger = Logger
+			.getLogger(CreateCricketLeagueRestServiceImpl.class);
 	private ICreateLeagueService createLeagueService;
 
 	/**
@@ -37,13 +46,17 @@ public class CreateLeagueRestServiceImpl implements ICreateLeagueRestService {
 		this.createLeagueService = createLeagueService;
 	}
 
+	@POST
+	@Path("/createLeague")
 	@Override
-	public String createLeague(String leagueName, String leagueOwner,
-			String competitionName, String competitionSport) {
+	public String createLeague(@FormParam("leagueName") String leagueName,
+			@FormParam("leagueOwnerId") String leagueOwnerId,
+			@FormParam("competitionName") String competitionName,
+			@FormParam("competitionSport") String competitionSport) {
 		RestServiceResponse response = null;
 		try {
 
-			this.createLeagueService.createLeague(leagueName, leagueOwner,
+			this.createLeagueService.createLeague(leagueName, leagueOwnerId,
 					competitionName, competitionSport);
 
 			response = new RestServiceResponse(Status.SUCCESS.name(), null,
@@ -61,6 +74,8 @@ public class CreateLeagueRestServiceImpl implements ICreateLeagueRestService {
 		return new Gson().toJson(response);
 	}
 
+	@POST
+	@Path("/addChallengersToLeague")
 	@Override
 	public String addChallengersToLeague(String leagueName,
 			List<String> challengers) {

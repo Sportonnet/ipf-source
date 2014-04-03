@@ -17,10 +17,10 @@
 	<!-- jaxrs service beans references -->
 	<jaxrs:server address="/" id="sportFreaks">
 		<jaxrs:serviceBeans>
-			<ref bean="createLeagueRestService" />
+			<ref bean="createCricketLeagueRestService" />
 			<ref bean="userAuthenticationRestService" />
 			<ref bean="createUserRestService" />
-			<ref bean="fixtureRestService" />
+			<ref bean="cricketFixtureRestService" />
 			<ref bean="teamDetailsRestService" />
 			<ref bean="savePredictionRestService" />
 		</jaxrs:serviceBeans>
@@ -28,9 +28,9 @@
 
 
 	<!-- Implementation of the rest service -->
-	<bean id="createLeagueRestService"
-		class="com.iplfreaks.services.rest.impl.CreateLeagueRestServiceImpl">
-		<property name="createLeagueService" ref="createLeagueService" />
+	<bean id="createCricketLeagueRestService"
+		class="com.iplfreaks.services.rest.impl.CreateCricketLeagueRestServiceImpl">
+		<property name="createLeagueService" ref="createCricketLeagueService" />
 	</bean>
 	<bean id="userAuthenticationRestService"
 		class="com.iplfreaks.services.rest.impl.UserAuthenticationRestServiceImpl">
@@ -41,9 +41,9 @@
 		<property name="createUserService" ref="createUserService" />
 	</bean>
 
-	<bean id="fixtureRestService"
-		class="com.iplfreaks.services.rest.impl.FixturesRestServiceImpl">
-		<property name="fixtureService" ref="fixtureService" />
+	<bean id="cricketFixtureRestService"
+		class="com.iplfreaks.services.rest.impl.CricketFixturesRestServiceImpl">
+		<property name="fixtureService" ref="cricketFixtureService" />
 	</bean>
 	<bean id="teamDetailsRestService"
 		class="com.iplfreaks.services.rest.impl.TeamDetailsRestServiceImpl">

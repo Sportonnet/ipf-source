@@ -1,11 +1,9 @@
 package com.iplfreaks.game;
 
 import org.joda.time.DateTime;
-import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 
 import com.iplfreaks.base.BaseEntity;
-import com.iplfreaks.game.Team;
 
 /**
  * 

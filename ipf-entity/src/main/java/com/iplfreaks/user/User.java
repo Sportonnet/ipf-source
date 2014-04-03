@@ -4,8 +4,6 @@ import org.springframework.data.annotation.TypeAlias;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import com.iplfreaks.base.BaseEntity;
-
 /**
  * @author dhananjayp
  * 

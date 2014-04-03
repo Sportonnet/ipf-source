@@ -1,12 +1,5 @@
 package com.iplfreaks.services.rest.api;
 
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
-
-@Path("/fixtures")
-@Produces({ "application/json" })
 public interface IFixturesRestService {
 
 	/**
@@ -14,31 +7,24 @@ public interface IFixturesRestService {
 	 * 
 	 * @return
 	 */
-	@POST
-	@Path("/getFixtures")
-	public String getFixtures(
-			@QueryParam("competitionSport") String competitionSport,
-			@QueryParam("competitionName") String competitionName);
+
+	public String getFixtures(String competitionSport, String competitionName);
 
 	/**
 	 * Rest Service returns all the fixtures before today
 	 * 
 	 * @return
 	 */
-	@POST
-	@Path("/getPastFixtures")
-	public String getPastFixtures(
-			@QueryParam("competitionSport") String competitionSport,
-			@QueryParam("competitionName") String competitionName);
+
+	public String getPastFixtures(String competitionSport,
+			String competitionName);
 
 	/**
 	 * Rest Service returns all the fixtures tomorrow onwards
 	 * 
 	 * @return
 	 */
-	@POST
-	@Path("/getUpcomingFixtures")
-	public String getUpcomingFixtures(
-			@QueryParam("competitionSport") String competitionSport,
-			@QueryParam("competitionName") String competitionName);
+
+	public String getUpcomingFixtures(String competitionSport,
+			String competitionName);
 }

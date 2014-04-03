@@ -7,14 +7,14 @@ import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 
 import com.iplfreaks.cache.services.api.ICacheService;
-import com.iplfreaks.core.Competition;
-import com.iplfreaks.dao.repository.CricketCompetitionRepository;
+import com.iplfreaks.dao.api.ICricketCompetitionDao;
 import com.iplfreaks.game.Fixture;
+import com.iplfreaks.game.cricket.CricketCompetition;
 import com.iplfreaks.services.api.IFixturesService;
 
-public class FixturesServiceImpl implements IFixturesService {
+public class CricketFixturesServiceImpl implements IFixturesService {
 
-	private CricketCompetitionRepository competitionRepository;
+	private ICricketCompetitionDao cricketCompetitionDao;
 	private ICacheService cacheService;
 
 	public void init() {
@@ -27,9 +27,10 @@ public class FixturesServiceImpl implements IFixturesService {
 				competitionSport, competitionName);
 
 		if (fixtures == null) {
-			List<Competition> competitions = this.competitionRepository
-					.findByNameAndSport(competitionName, competitionSport);
-			fixtures = new ArrayList<Fixture>(competitions.get(0).getFixtures());
+			final CricketCompetition competition = this.cricketCompetitionDao
+					.getCompetitionFixtures(competitionName, competitionSport);
+
+			fixtures = new ArrayList<Fixture>(competition.getFixtures());
 
 			if (fixtures != null && !fixtures.isEmpty()) {
 				final String key = this.cacheService.generateKey(
@@ -63,9 +64,9 @@ public class FixturesServiceImpl implements IFixturesService {
 				competitionSport, competitionName);
 
 		if (fixtures == null) {
-			List<Competition> competitions = this.competitionRepository
-					.findByNameAndSport(competitionName, competitionSport);
-			fixtures = new ArrayList<Fixture>(competitions.get(0).getFixtures());
+			final CricketCompetition competition = this.cricketCompetitionDao
+					.getCompetitionFixtures(competitionName, competitionSport);
+			fixtures = new ArrayList<Fixture>(competition.getFixtures());
 
 			if (fixtures != null && !fixtures.isEmpty()) {
 				final String key = this.cacheService.generateKey(
@@ -99,9 +100,10 @@ public class FixturesServiceImpl implements IFixturesService {
 				competitionSport, competitionName);
 
 		if (fixtures == null) {
-			List<Competition> competitions = this.competitionRepository
-					.findByNameAndSport(competitionName, competitionSport);
-			fixtures = new ArrayList<Fixture>(competitions.get(0).getFixtures());
+			final CricketCompetition competition = this.cricketCompetitionDao
+					.getCompetitionFixtures(competitionName, competitionSport);
+
+			fixtures = new ArrayList<Fixture>(competition.getFixtures());
 
 			if (fixtures != null && !fixtures.isEmpty()) {
 				final String key = this.cacheService.generateKey(
@@ -130,19 +132,19 @@ public class FixturesServiceImpl implements IFixturesService {
 	}
 
 	/**
-	 * @return the competitionRepository
+	 * @return the cricketCompetitionDao
 	 */
-	public CricketCompetitionRepository getCompetitionRepository() {
-		return competitionRepository;
+	public ICricketCompetitionDao getCricketCompetitionDao() {
+		return cricketCompetitionDao;
 	}
 
 	/**
-	 * @param competitionRepository
-	 *            the competitionRepository to set
+	 * @param cricketCompetitionDao
+	 *            the cricketCompetitionDao to set
 	 */
-	public void setCompetitionRepository(
-			CricketCompetitionRepository competitionRepository) {
-		this.competitionRepository = competitionRepository;
+	public void setCricketCompetitionDao(
+			ICricketCompetitionDao cricketCompetitionDao) {
+		this.cricketCompetitionDao = cricketCompetitionDao;
 	}
 
 	/**

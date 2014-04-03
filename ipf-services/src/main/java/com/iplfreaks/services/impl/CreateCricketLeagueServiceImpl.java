@@ -7,31 +7,35 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.ws.rs.FormParam;
+
 import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
 
 import com.iplfreaks.common.Status;
-import com.iplfreaks.core.Challenge;
 import com.iplfreaks.core.Challenger;
-import com.iplfreaks.core.Competition;
 import com.iplfreaks.core.League;
+import com.iplfreaks.dao.api.ICricketCompetitionDao;
+import com.iplfreaks.dao.api.ICricketLeagueScoreDao;
 import com.iplfreaks.dao.api.ILeagueDao;
-import com.iplfreaks.dao.api.ILeagueScoreDetailsDao;
 import com.iplfreaks.dao.api.IUserDao;
 import com.iplfreaks.dao.api.IUserLeaguesDao;
-import com.iplfreaks.dao.repository.CricketCompetitionRepository;
 import com.iplfreaks.game.Fixture;
+import com.iplfreaks.game.cricket.CricketChallenge;
+import com.iplfreaks.game.cricket.CricketCompetition;
+import com.iplfreaks.game.cricket.CricketFixture;
 import com.iplfreaks.services.api.ICreateLeagueService;
 import com.iplfreaks.user.User;
 
-public class CreateLeagueServiceImpl implements ICreateLeagueService {
+public class CreateCricketLeagueServiceImpl implements ICreateLeagueService {
 
-	private Logger logger = Logger.getLogger(CreateLeagueServiceImpl.class);
+	private Logger logger = Logger
+			.getLogger(CreateCricketLeagueServiceImpl.class);
 	private ILeagueDao leagueDao;
 	private IUserDao userDao;
 	private IUserLeaguesDao userLeagueDao;
-	private ILeagueScoreDetailsDao leagueScoreDetailsDao;
-	private CricketCompetitionRepository competitionRepository;
+	private ICricketLeagueScoreDao cricketLeagueScoreDao;
+	private ICricketCompetitionDao cricketCompetitionDao;
 
 	@Override
 	public void createLeague(String leagueName, String leagueOwner,
@@ -45,9 +49,8 @@ public class CreateLeagueServiceImpl implements ICreateLeagueService {
 		user.setEmail(leagueOwner);
 
 		// creating competition
-		final Competition competition = new Competition();
-		competition.setName(competitionName);
-		competition.setSport(competitionSport);
+		final CricketCompetition competition = this.cricketCompetitionDao
+				.getCompetitionFixtures(competitionName, competitionSport);
 
 		// create the league object
 		final League league = new League();
@@ -67,18 +70,15 @@ public class CreateLeagueServiceImpl implements ICreateLeagueService {
 		challengers.add(leagueOwner);
 		addChallengersToLeague(leagueName, challengers);
 
-		final List<Competition> competitions = this.competitionRepository
-				.findByNameAndSport(competitionName, competitionSport);
+		if (competition != null) {
 
-		if (competitions != null && !competitions.isEmpty()) {
-
-			Set<Fixture> fixtures = competitions.get(0).getFixtures();
+			final Set<CricketFixture> fixtures = competition.getFixtures();
 
 			// get default challenges for the league
-			Set<Challenge> challenges = getDefaultChallengesForLeague(fixtures);
+			Set<CricketChallenge> challenges = getDefaultChallengesForLeague(fixtures);
 
 			// creating score details for the league created
-			this.leagueScoreDetailsDao.createNewLeagueScoreDetails(leagueName,
+			this.cricketLeagueScoreDao.createNewCricketLeagueScore(leagueName,
 					challenges);
 		}
 		this.logger.info("successfully created league " + leagueName);
@@ -86,8 +86,9 @@ public class CreateLeagueServiceImpl implements ICreateLeagueService {
 	}
 
 	@Override
-	public Map<String, Object> addChallengersToLeague(String leagueName,
-			List<String> challengers) {
+	public Map<String, Object> addChallengersToLeague(
+			@FormParam("leagueName") String leagueName,
+			@FormParam("challengers") List<String> challengers) {
 		this.logger.info("adding " + challengers + "to league " + leagueName);
 
 		final League league = this.leagueDao.fetchLeague(leagueName);
@@ -98,15 +99,19 @@ public class CreateLeagueServiceImpl implements ICreateLeagueService {
 		// filtering existing users and pending users from list of challengers
 		for (final String challenger : challengers) {
 
-			final Challenger challenger2 = new Challenger();
-			final User user = new User();
-			user.setEmail(challenger);
-			challenger2.setUser(user);
+			if (challenger != null && challenger.trim() != null
+					&& !challenger.trim().isEmpty()) {
 
-			if (this.userDao.isUserPresent(challenger)) {
-				leagueChallengers.add(challenger2);
-			} else {
-				pendingChallengers.add(challenger2);
+				final Challenger challenger2 = new Challenger();
+				final User user = new User();
+				user.setEmail(challenger);
+				challenger2.setUser(user);
+
+				if (this.userDao.isUserPresent(challenger)) {
+					leagueChallengers.add(challenger2);
+				} else {
+					pendingChallengers.add(challenger2);
+				}
 			}
 		}
 
@@ -146,11 +151,12 @@ public class CreateLeagueServiceImpl implements ICreateLeagueService {
 		return result;
 	}
 
-	private Set<Challenge> getDefaultChallengesForLeague(Set<Fixture> fixtures) {
-		Set<Challenge> challenges = new HashSet<Challenge>();
+	private Set<CricketChallenge> getDefaultChallengesForLeague(
+			Set<CricketFixture> fixtures) {
+		Set<CricketChallenge> challenges = new HashSet<CricketChallenge>();
 
-		for (Fixture fixture : fixtures) {
-			Challenge challenge = new Challenge();
+		for (final Fixture fixture : fixtures) {
+			final CricketChallenge challenge = new CricketChallenge();
 			challenge.setFixtureId(fixture.getFixtureId());
 			challenges.add(challenge);
 		}
@@ -204,35 +210,35 @@ public class CreateLeagueServiceImpl implements ICreateLeagueService {
 	}
 
 	/**
-	 * @return the leagueScoreDetailsDao
+	 * @return the cricketLeagueScoreDao
 	 */
-	public ILeagueScoreDetailsDao getLeagueScoreDetailsDao() {
-		return leagueScoreDetailsDao;
+	public ICricketLeagueScoreDao getCricketLeagueScoreDao() {
+		return cricketLeagueScoreDao;
 	}
 
 	/**
-	 * @param leagueScoreDetailsDao
-	 *            the leagueScoreDetailsDao to set
+	 * @param cricketLeagueScoreDao
+	 *            the cricketLeagueScoreDao to set
 	 */
-	public void setLeagueScoreDetailsDao(
-			ILeagueScoreDetailsDao leagueScoreDetailsDao) {
-		this.leagueScoreDetailsDao = leagueScoreDetailsDao;
+	public void setCricketLeagueScoreDao(
+			ICricketLeagueScoreDao cricketLeagueScoreDao) {
+		this.cricketLeagueScoreDao = cricketLeagueScoreDao;
 	}
 
 	/**
-	 * @return the competitionRepository
+	 * @return the cricketCompetitionDao
 	 */
-	public CricketCompetitionRepository getCompetitionRepository() {
-		return competitionRepository;
+	public ICricketCompetitionDao getCricketCompetitionDao() {
+		return cricketCompetitionDao;
 	}
 
 	/**
-	 * @param competitionRepository
-	 *            the competitionRepository to set
+	 * @param cricketCompetitionDao
+	 *            the cricketCompetitionDao to set
 	 */
-	public void setCompetitionRepository(
-			CricketCompetitionRepository competitionRepository) {
-		this.competitionRepository = competitionRepository;
+	public void setCricketCompetitionDao(
+			ICricketCompetitionDao cricketCompetitionDao) {
+		this.cricketCompetitionDao = cricketCompetitionDao;
 	}
 
 }

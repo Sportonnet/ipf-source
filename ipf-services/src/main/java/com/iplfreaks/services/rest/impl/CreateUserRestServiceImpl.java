@@ -21,9 +21,11 @@ public class CreateUserRestServiceImpl implements ICreateUserRestService {
 			response = new RestServiceResponse(Status.SUCCESS.name(), null,
 					null);
 		} catch (DuplicateKeyException e) {
+			e.printStackTrace();
 			response = new RestServiceResponse(Status.ERROR.name(),
 					"user already exists", null);
 		} catch (Exception e) {
+			e.printStackTrace();
 			response = new RestServiceResponse(Status.ERROR.name(),
 					"System is temporarily down, please try again later", null);
 		}

@@ -90,24 +90,25 @@
 		<property name="mongoTemplate" ref="mongoTemplate" />
 		<property name="leagueScoreDetailsRepository" ref="leagueScoreDetailsRepository" />
 	</bean>
-	
+
 	<bean id="cricketLeagueScoreDao" class="com.iplfreaks.dao.impl.CricketLeagueScoreDaoImpl">
 		<property name="mongoTemplate" ref="mongoTemplate" />
 		<property name="cricketLeagueScoreRepository" ref="cricketLeagueScoreRepository" />
 	</bean>
-	
-	<bean id="competitionDao" class="com.iplfreaks.dao.impl.CricketCompetitionDaoImpl">
+
+	<bean id="cricketCompetitionDao" class="com.iplfreaks.dao.impl.CricketCompetitionDaoImpl">
 		<property name="mongoTemplate" ref="mongoTemplate" />
 		<property name="competitionRepository" ref="cricketCompetitionRepository" />
 	</bean>
 
 	<!-- services -->
-	<bean id="createLeagueService" class="com.iplfreaks.services.impl.CreateLeagueServiceImpl">
+	<bean id="createCricketLeagueService"
+		class="com.iplfreaks.services.impl.CreateCricketLeagueServiceImpl">
 		<property name="leagueDao" ref="leagueDao" />
 		<property name="userDao" ref="userDao" />
 		<property name="userLeagueDao" ref="userLeagueDao" />
-		<property name="leagueScoreDetailsDao" ref="leagueScoreDetailsDao" />
-		<property name="competitionRepository" ref="cricketCompetitionRepository" />
+		<property name="cricketLeagueScoreDao" ref="cricketLeagueScoreDao" />
+		<property name="cricketCompetitionDao" ref="cricketCompetitionDao" />
 	</bean>
 
 	<bean id="userAuthenticationService"
@@ -119,8 +120,8 @@
 		<property name="userDao" ref="userDao" />
 	</bean>
 
-	<bean id="fixtureService" class="com.iplfreaks.services.impl.FixturesServiceImpl">
-		<property name="competitionRepository" ref="cricketCompetitionRepository" />
+	<bean id="cricketFixtureService" class="com.iplfreaks.services.impl.CricketFixturesServiceImpl">
+		<property name="cricketCompetitionDao" ref="cricketCompetitionDao" />
 		<property name="cacheService" ref="cacheService" />
 	</bean>
 
@@ -129,12 +130,12 @@
 	</bean>
 
 	<bean id="savePredictionService" class="com.iplfreaks.services.impl.SavePredictionServiceImpl">
-		<property name="leagueScoreDetailsDao" ref="leagueScoreDetailsDao" />
+		<property name="cricketLeagueScoreDao" ref="cricketLeagueScoreDao" />
 	</bean>
 
 	<bean id="cacheService" class="com.iplfreaks.cache.services.impl.CacheServiceImpl"
 		init-method="init">
-		<property name="competitionRepository" ref="cricketCompetitionRepository" />
+		<property name="cricketCompetitionDao" ref="cricketCompetitionDao" />
 		<property name="teamDao" ref="teamDao" />
 	</bean>
 </beans>

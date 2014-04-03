@@ -2,13 +2,6 @@ package com.iplfreaks.services.rest.api;
 
 import java.util.List;
 
-import javax.ws.rs.FormParam;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-
-@Path("/leagues")
-@Produces({ "application/json" })
 public interface ICreateLeagueRestService {
 
 	/**
@@ -24,12 +17,8 @@ public interface ICreateLeagueRestService {
 	 * @return true or false depending on league creation was successful or
 	 *         unsuccessful
 	 */
-	@POST
-	@Path("/createLeague")
-	public String createLeague(@FormParam("leagueName") String leagueName,
-			@FormParam("leagueOwnerId") String leagueOwner,
-			@FormParam("competitionName") String competitionName,
-			@FormParam("competitionSport") String competitionSport);
+	public String createLeague(String leagueName, String leagueOwner,
+			String competitionName, String competitionSport);
 
 	/**
 	 * 
@@ -40,9 +29,6 @@ public interface ICreateLeagueRestService {
 	 *            list of challengers for the league
 	 * @return
 	 */
-	@POST
-	@Path("/addChallengersToLeague")
-	public String addChallengersToLeague(
-			@FormParam("leagueName") String leagueName,
-			@FormParam("challengers") List<String> challengers);
+	public String addChallengersToLeague(String leagueName,
+			List<String> challengers);
 }
