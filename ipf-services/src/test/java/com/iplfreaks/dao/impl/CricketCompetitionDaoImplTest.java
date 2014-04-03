@@ -3,6 +3,7 @@
  */
 package com.iplfreaks.dao.impl;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -22,10 +23,13 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.Assert;
 
+import com.iplfreaks.core.BonusEntity;
 import com.iplfreaks.dao.repository.CricketCompetitionRepository;
+import com.iplfreaks.game.Player;
 import com.iplfreaks.game.Team;
 import com.iplfreaks.game.cricket.CricketCompetition;
 import com.iplfreaks.game.cricket.CricketFixture;
+import com.iplfreaks.game.cricket.CricketFixtureOutcome;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
 import com.mongodb.DBObject;
@@ -136,15 +140,15 @@ public class CricketCompetitionDaoImplTest {
 	//@Test
 	public void testInsertCompetition()
 	{
-		this.mongoTemplate.insert(getCompetition(), "competition");
+		this.mongoTemplate.insert(getCompetition(), "cricketCompetition");
 	}
 	
 	private CricketCompetition getCompetition()
 	{
 		final CricketCompetition competition = new CricketCompetition();
-		competition.setName("Indian Premier League");
+		competition.setName("T20 World Cup 2014");
 		competition.setSport("Cricket");
-		competition.setSeason("IPL 2014");
+		competition.setSeason("T20 2014");
 		competition.setActive(true);
 		competition.setFixtures(getFixtures());
 		
@@ -154,6 +158,15 @@ public class CricketCompetitionDaoImplTest {
 	private Set<CricketFixture> getFixtures()
 	{
 		final Set<CricketFixture> fixtures = new HashSet<CricketFixture>();
+		
+		final List<BonusEntity> bonus = new ArrayList<BonusEntity>();
+		final BonusEntity be1 = new BonusEntity();
+		be1.setBonusQuestion("Which player will score the maximum runs in the match?");
+		bonus.add(be1);
+		
+		final BonusEntity be2 = new BonusEntity();
+		be2.setBonusQuestion("What will be the distance of longest six in the match?");
+		bonus.add(be2);
 		
 		final CricketFixture fixture1 = new CricketFixture();
 		fixture1.setFixtureName("MI vs DD");
@@ -172,6 +185,29 @@ public class CricketCompetitionDaoImplTest {
 		
 		fixture1.setDateTime(new DateTime("2014-03-25").plusHours(12));
 		
+		fixture1.setVenue("Wankhede Stadium");
+		fixture1.setBonus(bonus);
+		
+		final List<BonusEntity> bonusOutcome = new ArrayList<BonusEntity>();
+		final BonusEntity beo1 = new BonusEntity();
+		beo1.setBonusQuestion("Which player will score the maximum runs in the match?");
+		beo1.setBonusAnswer("Rahul Sharma");
+		bonusOutcome.add(beo1);
+		
+		final BonusEntity beo2 = new BonusEntity();
+		beo2.setBonusQuestion("What will be the distance of longest six in the match?");
+		beo2.setBonusAnswer("80 - 85 metres");
+		bonusOutcome.add(beo2);
+		
+		final CricketFixtureOutcome cfo = new CricketFixtureOutcome();
+		cfo.setBestBatsman(new Player("Sachin Tendulkar"));
+		cfo.setBestBowler(new Player("Lasith Malinga"));
+		cfo.setManOfTheMatch(new Player("Sachin Tendulkar"));
+		cfo.setWinner(mi);
+		cfo.setBonus(bonusOutcome);
+		
+		fixture1.setOutcome(cfo);
+		
 		fixtures.add(fixture1);
 		
 		
@@ -183,6 +219,30 @@ public class CricketCompetitionDaoImplTest {
 		
 		fixture2.setDateTime(new DateTime("2014-03-26").plusHours(12));
 		
+		fixture2.setVenue("FerozShah Kotla Ground");
+		fixture2.setBonus(bonus);
+		
+		final List<BonusEntity> bonusOutcome2 = new ArrayList<BonusEntity>();
+		final BonusEntity beo3 = new BonusEntity();
+		beo3.setBonusQuestion("Which player will score the maximum runs in the match?");
+		beo3.setBonusAnswer("Virat Kohli");
+		bonusOutcome2.add(beo3);
+
+		final BonusEntity beo4 = new BonusEntity();
+		beo4.setBonusQuestion("What will be the distance of longest six in the match?");
+		beo4.setBonusAnswer("90 - 95 metres");
+		bonusOutcome2.add(beo4);
+
+		final CricketFixtureOutcome cfo2 = new CricketFixtureOutcome();
+		cfo2.setBestBatsman(new Player("Virat Kohli"));
+		cfo2.setBestBowler(new Player("Chris Gayle"));
+		cfo2.setManOfTheMatch(new Player("Virat Kohli"));
+		cfo2.setWinner(rcb);
+		cfo2.setBonus(bonusOutcome2);
+		
+		fixture2.setOutcome(cfo2);
+		
+		
 		fixtures.add(fixture2);
 		
 		final CricketFixture fixture3 = new CricketFixture();
@@ -193,7 +253,7 @@ public class CricketCompetitionDaoImplTest {
 		
 		fixture3.setDateTime(new DateTime("2014-03-27").plusHours(12));
 		
-		fixtures.add(fixture3);
+		//fixtures.add(fixture3);
 		
 		return fixtures;
 	}
