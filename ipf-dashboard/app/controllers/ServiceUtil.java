@@ -73,11 +73,11 @@ public class ServiceUtil {
         /*if (accessToken != null && !accessToken.isEmpty()) {
                 requestHolder.setHeader(AUTHORIZATION_HEADER_NAME, accessToken);
         }*/
-        /*if (queryParameters != null) {
+        if (queryParameters != null) {
             for (Map.Entry<String, String> entry : queryParameters.entrySet()) {
                 requestHolder.setQueryParameter(entry.getKey(), entry.getValue());
             }
-        }*/
+        }
 
 		Promise<WS.Response> wsResponse = null;
 		try {
