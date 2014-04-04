@@ -37,9 +37,6 @@ public class League extends BaseEntity {
 
 	private User leagueOwner;
 
-	@DBRef
-	private Competition competition;
-
 	public League(String name, User leagueOwner, String startDate) {
 		this.name = name;
 		this.leagueOwner = leagueOwner;
@@ -140,21 +137,6 @@ public class League extends BaseEntity {
 	 */
 	public void setLeagueOwner(User leagueOwner) {
 		this.leagueOwner = leagueOwner;
-	}
-
-	/**
-	 * @return the competition
-	 */
-	public Competition getCompetition() {
-		return competition;
-	}
-
-	/**
-	 * @param competition
-	 *            the competition to set
-	 */
-	public void setCompetition(Competition competition) {
-		this.competition = competition;
 	}
 
 	/**
