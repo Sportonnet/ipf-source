@@ -8,7 +8,7 @@ public interface IFixturesRestService {
 	 * @return
 	 */
 
-	public String getFixtures(String competitionSport, String competitionName);
+	public String getFixtures(String leagueName);
 
 	/**
 	 * Rest Service returns all the fixtures before today
@@ -16,8 +16,7 @@ public interface IFixturesRestService {
 	 * @return
 	 */
 
-	public String getPastFixtures(String competitionSport,
-			String competitionName);
+	public String getPastFixtures(String leagueName);
 
 	/**
 	 * Rest Service returns all the fixtures tomorrow onwards
@@ -25,6 +24,5 @@ public interface IFixturesRestService {
 	 * @return
 	 */
 
-	public String getUpcomingFixtures(String competitionSport,
-			String competitionName);
+	public String getUpcomingFixtures(String leagueName);
 }
