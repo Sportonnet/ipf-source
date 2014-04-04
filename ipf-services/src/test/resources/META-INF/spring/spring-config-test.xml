@@ -34,7 +34,7 @@
 		<mongo:repository id="userRepository" mongo-template-ref="mongoTemplate"/>
 		<mongo:repository id="teamRepository" mongo-template-ref="mongoTemplate"/>
 		<mongo:repository id="userLeagueRepository" mongo-template-ref="mongoTemplate" />
-		<mongo:repository id="leagueRepository" mongo-template-ref="mongoTemplate" />
+		<mongo:repository id="cricketLeagueRepository" mongo-template-ref="mongoTemplate" />
 		<mongo:repository id="cricketCompetitionRepository"
 			mongo-template-ref="mongoTemplate" />
 		<mongo:repository id="fixtureRepository"

@@ -7,30 +7,30 @@ import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 
 import com.iplfreaks.cache.services.api.ICacheService;
-import com.iplfreaks.core.Competition;
-import com.iplfreaks.core.League;
 import com.iplfreaks.dao.api.ICricketCompetitionDao;
-import com.iplfreaks.dao.api.ILeagueDao;
+import com.iplfreaks.dao.impl.CricketLeagueDaoImpl;
 import com.iplfreaks.game.Fixture;
 import com.iplfreaks.game.cricket.CricketCompetition;
+import com.iplfreaks.game.cricket.CricketLeague;
 import com.iplfreaks.services.api.IFixturesService;
 
 public class CricketFixturesServiceImpl implements IFixturesService {
 
-	private ILeagueDao leagueDao;
+	private CricketLeagueDaoImpl cricketLeagueDao;
 	private ICacheService cacheService;
 	private ICricketCompetitionDao cricketCompetitionDao;
-
-	public void init() {
-	}
 
 	@Override
 	public List<Fixture> getFixtures(final String leagueName) {
 
-		final League league = this.leagueDao.fetchLeague(leagueName);
+		final CricketLeague league = this.cricketLeagueDao
+				.fetchLeague(leagueName);
 
-		final Competition competition = league.getCompetition();
+		final CricketCompetition competition = league.getCompetition();
 
+		if (competition == null || !competition.isActive()) {
+			return null;
+		}
 		List<Fixture> fixtures = this.cacheService.getFixtures(
 				competition.getSport(), competition.getName());
 
@@ -69,9 +69,14 @@ public class CricketFixturesServiceImpl implements IFixturesService {
 	@Override
 	public List<Fixture> getPastFixtures(final String leagueName) {
 
-		final League league = this.leagueDao.fetchLeague(leagueName);
+		final CricketLeague league = this.cricketLeagueDao
+				.fetchLeague(leagueName);
 
-		final Competition competition = league.getCompetition();
+		final CricketCompetition competition = league.getCompetition();
+
+		if (competition == null || !competition.isActive()) {
+			return null;
+		}
 
 		List<Fixture> fixtures = this.cacheService.getFixtures(
 				competition.getSport(), competition.getName());
@@ -109,10 +114,15 @@ public class CricketFixturesServiceImpl implements IFixturesService {
 
 	@Override
 	public List<Fixture> getUpcomingFixtures(final String leagueName) {
-		final League league = this.leagueDao.fetchLeague(leagueName);
 
-		final Competition competition = league.getCompetition();
+		final CricketLeague league = this.cricketLeagueDao
+				.fetchLeague(leagueName);
 
+		final CricketCompetition competition = league.getCompetition();
+
+		if (competition == null || !competition.isActive()) {
+			return null;
+		}
 		List<Fixture> fixtures = this.cacheService.getFixtures(
 				competition.getSport(), competition.getName());
 
@@ -149,6 +159,21 @@ public class CricketFixturesServiceImpl implements IFixturesService {
 	}
 
 	/**
+	 * @return the cricketLeagueDao
+	 */
+	public CricketLeagueDaoImpl getCricketLeagueDao() {
+		return cricketLeagueDao;
+	}
+
+	/**
+	 * @param cricketLeagueDao
+	 *            the cricketLeagueDao to set
+	 */
+	public void setCricketLeagueDao(CricketLeagueDaoImpl cricketLeagueDao) {
+		this.cricketLeagueDao = cricketLeagueDao;
+	}
+
+	/**
 	 * @return the cricketCompetitionDao
 	 */
 	public ICricketCompetitionDao getCricketCompetitionDao() {
@@ -162,21 +187,6 @@ public class CricketFixturesServiceImpl implements IFixturesService {
 	public void setCricketCompetitionDao(
 			ICricketCompetitionDao cricketCompetitionDao) {
 		this.cricketCompetitionDao = cricketCompetitionDao;
-	}
-
-	/**
-	 * @return the leagueDao
-	 */
-	public ILeagueDao getLeagueDao() {
-		return leagueDao;
-	}
-
-	/**
-	 * @param leagueDao
-	 *            the leagueDao to set
-	 */
-	public void setLeagueDao(ILeagueDao leagueDao) {
-		this.leagueDao = leagueDao;
 	}
 
 	/**

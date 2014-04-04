@@ -24,6 +24,7 @@ import com.iplfreaks.game.Fixture;
 import com.iplfreaks.game.cricket.CricketChallenge;
 import com.iplfreaks.game.cricket.CricketCompetition;
 import com.iplfreaks.game.cricket.CricketFixture;
+import com.iplfreaks.game.cricket.CricketLeague;
 import com.iplfreaks.services.api.ICreateLeagueService;
 import com.iplfreaks.user.User;
 
@@ -53,9 +54,7 @@ public class CreateCricketLeagueServiceImpl implements ICreateLeagueService {
 				.getCompetitionFixtures(competitionName, competitionSport);
 
 		// create the league object
-		final League league = new League();
-		league.setName(leagueName);
-		league.setLeagueOwner(user);
+		final CricketLeague league = new CricketLeague(leagueName, user);
 		league.setLeagueStartDate(new DateTime());
 		league.setCompetition(competition);
 

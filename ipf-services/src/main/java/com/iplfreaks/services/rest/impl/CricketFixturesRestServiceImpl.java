@@ -1,14 +1,18 @@
 package com.iplfreaks.services.rest.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.ws.rs.GET;
-import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 
 import com.google.gson.Gson;
+import com.iplfreaks.common.Keys;
+import com.iplfreaks.common.RestServiceResponse;
+import com.iplfreaks.common.Status;
 import com.iplfreaks.game.Fixture;
 import com.iplfreaks.services.api.IFixturesService;
 import com.iplfreaks.services.rest.api.IFixturesRestService;
@@ -28,23 +32,60 @@ public class CricketFixturesRestServiceImpl implements IFixturesRestService {
 	@GET
 	@Path("/getFixtures")
 	public String getFixtures(@QueryParam("leagueName") String leagueName) {
-		List<Fixture> fixtures = this.fixtureService.getFixtures(leagueName);
 
-		String jsonResponse = new Gson().toJson(fixtures);
+		RestServiceResponse response = null;
 
-		return jsonResponse;
+		try {
+			Map<String, Object> result = new HashMap<String, Object>();
+			List<Fixture> fixtures = this.fixtureService
+					.getFixtures(leagueName);
+			if (fixtures != null) {
+				result.put(Keys.FIXTURES.name(), fixtures);
+			} else {
+				result.put(Status.ERROR.name(),
+						"There are no active competitions");
+			}
+
+			response = new RestServiceResponse(Status.SUCCESS.name(), null,
+					result);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			response = new RestServiceResponse(Status.ERROR.name(),
+					"System is temporarily down, please try again later", null);
+		}
+
+		return new Gson().toJson(response);
 	}
 
 	@Override
 	@GET
 	@Path("/getPastFixtures")
 	public String getPastFixtures(@QueryParam("leagueName") String leagueName) {
-		List<Fixture> fixtures = this.fixtureService
-				.getPastFixtures(leagueName);
+		RestServiceResponse response = null;
 
-		String jsonResponse = new Gson().toJson(fixtures);
+		try {
+			Map<String, Object> result = new HashMap<String, Object>();
+			List<Fixture> fixtures = this.fixtureService
+					.getPastFixtures(leagueName);
 
-		return jsonResponse;
+			if (fixtures != null) {
+				result.put(Keys.FIXTURES.name(), fixtures);
+			} else {
+				result.put(Status.ERROR.name(),
+						"There are no active competitions");
+			}
+
+			response = new RestServiceResponse(Status.SUCCESS.name(), null,
+					result);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			response = new RestServiceResponse(Status.ERROR.name(),
+					"System is temporarily down, please try again later", null);
+		}
+
+		return new Gson().toJson(response);
 	}
 
 	@Override
@@ -52,11 +93,30 @@ public class CricketFixturesRestServiceImpl implements IFixturesRestService {
 	@Path("/getUpcomingFixtures")
 	public String getUpcomingFixtures(
 			@QueryParam("leagueName") String leagueName) {
-		List<Fixture> fixtures = this.fixtureService
-				.getUpcomingFixtures(leagueName);
-		String jsonResponse = new Gson().toJson(fixtures);
+		RestServiceResponse response = null;
 
-		return jsonResponse;
+		try {
+			Map<String, Object> result = new HashMap<String, Object>();
+			List<Fixture> fixtures = this.fixtureService
+					.getUpcomingFixtures(leagueName);
+
+			if (fixtures != null) {
+				result.put(Keys.FIXTURES.name(), fixtures);
+			} else {
+				result.put(Status.ERROR.name(),
+						"There are no active competitions");
+			}
+
+			response = new RestServiceResponse(Status.SUCCESS.name(), null,
+					result);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			response = new RestServiceResponse(Status.ERROR.name(),
+					"System is temporarily down, please try again later", null);
+		}
+
+		return new Gson().toJson(response);
 	}
 
 	public IFixturesService getFixtureService() {

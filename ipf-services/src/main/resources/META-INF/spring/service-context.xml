@@ -32,7 +32,7 @@
 			mongo-template-ref="mongoTemplate" />
 		<mongo:repository id="userLeagueRepository"
 			mongo-template-ref="mongoTemplate" />
-		<mongo:repository id="leagueRepository"
+		<mongo:repository id="cricketLeagueRepository"
 			mongo-template-ref="mongoTemplate" />
 		<mongo:repository id="cricketCompetitionRepository"
 			mongo-template-ref="mongoTemplate" />
@@ -81,9 +81,9 @@
 		<property name="userLeagueRepository" ref="userLeagueRepository" />
 	</bean>
 
-	<bean id="leagueDao" class="com.iplfreaks.dao.impl.CricketLeagueDaoImpl">
+	<bean id="cricketLeagueDao" class="com.iplfreaks.dao.impl.CricketLeagueDaoImpl">
 		<property name="mongoTemplate" ref="mongoTemplate" />
-		<property name="leagueRepository" ref="leagueRepository" />
+		<property name="leagueRepository" ref="cricketLeagueRepository" />
 	</bean>
 
 	<bean id="leagueScoreDetailsDao" class="com.iplfreaks.dao.impl.LeagueScoreDetailsDaoImpl">
@@ -104,7 +104,7 @@
 	<!-- services -->
 	<bean id="createCricketLeagueService"
 		class="com.iplfreaks.services.impl.CreateCricketLeagueServiceImpl">
-		<property name="leagueDao" ref="leagueDao" />
+		<property name="leagueDao" ref="cricketLeagueDao" />
 		<property name="userDao" ref="userDao" />
 		<property name="userLeagueDao" ref="userLeagueDao" />
 		<property name="cricketLeagueScoreDao" ref="cricketLeagueScoreDao" />
@@ -123,7 +123,7 @@
 	<bean id="cricketFixtureService" class="com.iplfreaks.services.impl.CricketFixturesServiceImpl">
 		<property name="cricketCompetitionDao" ref="cricketCompetitionDao" />
 		<property name="cacheService" ref="cacheService" />
-		<property name="leagueDao" ref="leagueDao" />
+		<property name="cricketLeagueDao" ref="cricketLeagueDao" />
 	</bean>
 
 	<bean id="teamDetailsService" class="com.iplfreaks.services.impl.TeamDetailsServiceImpl">
