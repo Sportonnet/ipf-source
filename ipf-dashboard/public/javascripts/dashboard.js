@@ -108,6 +108,18 @@ $(document).ready(function(){
 
 	});
 	
+	$("#future").click(function () {  
+
+			alert('Hello');
+	     });
+	
+	$(".myLeague").click(function(e){
+
+		$('#match_details tr:last').after('<tr><td >1</td><td>Mumbai Indians (MI) vs Delhi Daredevils (DD)</td><td>Mumbai. 13:00 IST</td><td><a id = "0" href="#" class="to_register">play</a></td></tr>');
+		$('#match_details tr:last').after('<tr><td >2</td><td>Kolkata Knight Riders (KKR) vs Chennai Super Kings (CSK)</td><td>Chennai. 19:00 IST</td><td><a id = "1" href="#" class="to_register">play</a></td></tr>');
+		$("#allfixtures").show();
+	   });
+	
 });	
 function dragStart(ev) {
 	   ev.dataTransfer.effectAllowed='move';

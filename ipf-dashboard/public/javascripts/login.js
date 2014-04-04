@@ -25,7 +25,7 @@ $(document).ready(function(){
 	
 	$('#signUp').click(function () {
 		
-		var requestPath = '/loginAuthenticate/login/';
+		var requestPath = '/loginAuthenticate/signup/';
 		var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
 		var valid = true;
 		
@@ -35,6 +35,7 @@ $(document).ready(function(){
 		var passwordsignupconfirm = $('#passwordsignup_confirm').val();
 		
 		$("#signUp_ErrorMsg").html('')
+		$("#signUp_SuccessMsg").html('')
 		if(usernamesignup == '')
 			{
 				$("#signUp_ErrorMsg").html('<li>username is blank </li>');			
@@ -59,22 +60,33 @@ $(document).ready(function(){
 				$("#signUp_ErrorMsg").show();
 				valid = false;
 			}
-		
-
-		 var url = requestPath+loginName+'/'+password;
-		 console.log('requestPath = '+requestPath);
-		 $.post(url,'',function(data){
-			 console.log("response from userRegistration restservice "+data)	
-			 if(data!=null || data!=''){
-				 if(data == 'success')
+		if(valid)
+			{
+			var url = requestPath+usernamesignup+'/'+emailsignup+'/'+passwordsignup;
+			 console.log('requestPath = '+requestPath);
+			 $.post(url,'',function(data){
+				 console.log("response from userRegistration restservice "+data)	
+				 if(data!=null || data!=''){
+					 
+					 var jsonObj = eval( '(' +  unescape(data) + ')');
+					 if(jsonObj.status == 'SUCCESS')
 					 {
-					 window.location = '/loginSuccess'
-					 }else{
-						 	$("#login_ErrorMsg").html('Login failed.. Either email Id or password is wrong');			
-							$("#login_ErrorMsg").show();
+						 $('#usernamesignup').val('');	
+						 $('#emailsignup').val('');
+						 $('#passwordsignup').val('');
+						 $('#passwordsignup_confirm').val('');
+						 
+						 $("#signUp_SuccessMsg").html('User created Successfully..');			
+						 $("#signUp_SuccessMsg").show();
 					 }
-			 	}
-		 });
+					 else if(jsonObj.status == 'ERROR'){
+						 	$("#signUp_ErrorMsg").html(jsonObj.errorMessage);			
+							$("#signUp_ErrorMsg").show();
+						 }
+				 	}
+			 });
+			}
+		 
 		 
 		});
 	
