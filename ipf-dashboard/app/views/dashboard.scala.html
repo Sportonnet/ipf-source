@@ -34,7 +34,7 @@
 			<ul id="nav" class="dropdown dropdown-horizontal">
 				<li><a href="./">Home</a></li>
 				<li><a href="/createLeague">Create League</a></li>
-				<li><a class = "fgfgf" href="#">My League</a></li>
+				<li><a class = "myLeague" href="#">My League</a></li>
 				
 			</ul>
 
@@ -53,10 +53,30 @@
 		<div  id = "container_play">
 
 			<div id="wrapper2">
-				<div id="allfixtures"  class="animate form">
+				<div id="allfixtures"  class="animate form" style="display:none;">
                             
-                                <h1>Fixtures</h1>
-								<div class="CSSTableGenerator" >
+                                
+                                <div class="main_block">
+
+									 <div id = "future" class="inner_block">
+									  <img  src="@routes.Assets.at("images/future.png")" alt="future image" />
+									 </div>
+									
+									 <div id = "present" class="inner_block">
+									  <img src="@routes.Assets.at("images/present.jpg")" alt="present image" />
+									 </div>
+									 
+									 <div id = "past" class="inner_block">
+									  <img src="@routes.Assets.at("images/past.png")" alt="past image" />
+									 </div>
+									
+									</div>
+									<h1>Fixtures</h1>
+                                <!-- <div style="margin-left : 1000px;">
+                                <img height="20px" width="20px" src="@routes.Assets.at("images/past.png")" alt="past image" />
+                                <img height="20px" width="20px" src="@routes.Assets.at("images/past.png")" alt="past image" />
+								</div> -->
+								<div class="CSSTableGenerator" style="margin-left : 100px;" >
                 <table id = "match_details" align="right">
                     <tr>
                         <td style="padding:7px 10px;" >
@@ -72,36 +92,7 @@
                             Action
                         </td>
                     </tr>
-                    <tr>
-                        <td >
-                            1
-                        </td>
-                        <td>
-                            Mumbai Indians (MI) vs Delhi Daredevils (DD)
-                        </td>
-                        <td>
-                            Mumbai. 13:00 IST
-                        </td>
-						<td>
-                            <a id = "0" href="#" class="to_register">play</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td >
-                            2
-                        </td>
-                        <td>
-                            Kolkata Knight Riders (KKR) vs Chennai Super Kings (CSK)
-                        </td>
-                        <td>
-                            Chennai. 19:00 IST
-                        </td>
-						<td>
-                            <a id = "1" href="#" class="to_register">play</a>
-                        </td>
-                    </tr>
-                    
-                </table>
+			</table>
             </div>
 								
             </div>
@@ -130,6 +121,9 @@
 						<td style="padding:7px 30px;" >
                             Match Winner
                         </td>
+                        <td style="padding:7px 30px;" >
+                            Bonus Question
+                        </td>
 						<td style="padding:7px 30px;" >
                             Submit
                         </td>
@@ -150,8 +144,11 @@
 						<td>
                             
                         </td>
+                        <td>
+                            
+                        </td>
 						<td>
-                            <a href="#" id = "submitRes" >Submit</a>
+                            <a href="#" id = "submitRes" >Save</a>
                         </td>
                     </tr>
                     <tr>
@@ -168,6 +165,9 @@
                             
                         </td>
 						<td>
+                            
+                        </td>
+                        <td>
                             
                         </td>
 						<td>
@@ -190,6 +190,9 @@
 						<td>
                             
                         </td>
+                        <td>
+                            
+                        </td>
 						<td>
                             
                         </td>
@@ -208,6 +211,9 @@
                             
                         </td>
 						<td>
+                            
+                        </td>
+                        <td>
                             
                         </td>
 						<td>
