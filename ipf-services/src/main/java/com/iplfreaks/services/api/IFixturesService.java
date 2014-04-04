@@ -10,22 +10,19 @@ public interface IFixturesService {
 	 * 
 	 * @return list of fixtures on date
 	 */
-	public List<Fixture> getFixtures(String competitionSport,
-			String competitionName);
+	public List<Fixture> getFixtures(String leagueName);
 
 	/**
 	 * this method returns all the fixtures before today
 	 * 
 	 * @return
 	 */
-	public List<Fixture> getPastFixtures(String competitionSport,
-			String competitionName);
+	public List<Fixture> getPastFixtures(String leagueName);
 
 	/**
 	 * this method returns all the fixtures tomorrow onwards
 	 * 
 	 * @return
 	 */
-	public List<Fixture> getUpcomingFixtures(String competitionSport,
-			String competitionName);
+	public List<Fixture> getUpcomingFixtures(String leagueName);
 }
