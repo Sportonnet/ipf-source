@@ -3,7 +3,9 @@
  */
 package com.iplfreaks.game.cricket;
 
+import org.springframework.data.annotation.TypeAlias;
 import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.iplfreaks.core.League;
 import com.iplfreaks.user.User;
@@ -12,6 +14,9 @@ import com.iplfreaks.user.User;
  * @author jayeshm3
  *
  */
+
+@Document
+@TypeAlias(value = "cricketLeague")
 public class CricketLeague extends League {
 
 	/**
