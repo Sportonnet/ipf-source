@@ -77,8 +77,9 @@ public class CreateCricketLeagueRestServiceImpl implements
 	@POST
 	@Path("/addChallengersToLeague")
 	@Override
-	public String addChallengersToLeague(String leagueName,
-			List<String> challengers) {
+	public String addChallengersToLeague(
+			@FormParam("leagueName") String leagueName,
+			@FormParam("challengers") List<String> challengers) {
 		Map<String, Object> result = null;
 		RestServiceResponse response = null;
 		try {
