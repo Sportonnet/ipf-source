@@ -11,11 +11,12 @@ GET     /assets/*file               controllers.Assets.at(path="/public", file)
 
 GET         /createLeague                                                                                                                                   controllers.Application.createLeague()
 
-POST        /leagueRegistration/submitLeague/:competetionType/:leagueName                                                                                   controllers.LeagueCreateEditService.submitLeague(competetionType:String, leagueName:String)
+POST        /leagueRegistration/submitLeague/:competitionName/:leagueName/:competitionSport                                                                 controllers.LeagueCreateEditService.submitLeague(competitionName:String, leagueName:String, competitionSport:String)
+POST		/leagueRegistration/addChallengersToLeague/:challengers																							controllers.LeagueCreateEditService.addChallengersToLeague(challengers:String)
 POST  		/loginAuthenticate/login/:uname/:password																										controllers.LoginController.authenticate(uname:String, password:String)
 POST		/loginAuthenticate/signup/:uname/:email/:password																								controllers.LoginController.signUp(uname:String, email:String, password:String)
-GET			/loginSuccess																																			controllers.LoginController.goToDashboard()
+GET			/loginSuccess																																	controllers.LoginController.goToDashboard()
 GET			/logout																																			controllers.LoginController.logOut()
 
 
-GET  		/getAllPlayers/:match																										controllers.Dashboard.getPlayers(match:String)					
+GET  		/getAllPlayers/:match																															controllers.Dashboard.getPlayers(match:String)					

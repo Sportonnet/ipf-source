@@ -26,24 +26,34 @@ $(document).on('click', 'section footer a.btn-next', function(){
 	
 	if($(section).attr('id') == "add-member")
 	{
-		var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
-		var emailAddress = $("#textbox1").val();
-		if(emailAddress == ''){
-				$("#addMember_ErrorMsg").html('Please enter atleast one email address');			
+		var isErrorMsgPresent = true;
+		 $("div.emailDiv > input").each(function(i) {
+			var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+			var emailAddress = $( this ).val();
+			
+			alert("Email Address on Next"+emailAddress);
+			if(emailAddress == ''){
+				alert("Inside Error");
+					$("#addMember_ErrorMsg").html('Please enter email address');			
+					$("#addMember_ErrorMsg").show();
+					isErrorMsgPresent = false;
+					return false;
+			}
+			if(!emailReg.test(emailAddress)){
+				$("#addMember_ErrorMsg").html('Please enter valid email address');			
 				$("#addMember_ErrorMsg").show();
+				isErrorMsgPresent = false;
 				return false;
-		}
-		if(!emailReg.test(emailAddress)){
-			$("#addMember_ErrorMsg").html('Please enter valid email address');			
-			$("#addMember_ErrorMsg").show();
-			return false;
-		}
-		$("#completion li").removeClass("active");
-		$(completion_id).next().addClass("active");
-
-		$(section).addClass("closed");
-		$(section).next().removeClass("closed");
-		//createNewLeague();
+			}
+		 });
+		 if(isErrorMsgPresent == true){
+			 	$("#completion li").removeClass("active");
+				$(completion_id).next().addClass("active");
+	
+				$(section).addClass("closed");
+				$(section).next().removeClass("closed");
+				addMember();
+		 }
 	}
 				
 	});
@@ -62,7 +72,7 @@ $(document).on('click', 'section footer a.btn-next', function(){
 	});
 
 	$("#addButton").click(function () {  
- 
+		 
 		$("#addMember_ErrorMsg").hide();
 		var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
 		 var emailId = "#textbox"+(counter-1);
@@ -72,14 +82,13 @@ $(document).on('click', 'section footer a.btn-next', function(){
 				$("#addMember_ErrorMsg").show();
 			 return false;
 		 }
-		var newTextBoxDiv = $(document.createElement('div'))
-	     .attr("id", 'emailIdDiv' + counter);
- 
-		newTextBoxDiv.after().html('<label>Email Id #'+ counter + ' : </label>' +
+	
+		var html = '';
+		html += '<label>Email Id #'+ counter + ' : </label>' +
 	      '<input type="text" name="textbox' + counter + 
-	      '" id="textbox' + counter + '" value="" >');
+	      '" id="textbox' + counter + '" value="" >';
  
-		newTextBoxDiv.appendTo("#emailIdGroup");
+		$("#emailIdDiv1").append(html);
 		counter++;
      });
 	
@@ -100,9 +109,11 @@ $(document).on('click', 'section footer a.btn-next', function(){
 	 
 	 function createNewLeague(){
 		
-		 var gameName = $.trim($("#game_name").val());
-		 var competetionType = $.trim($("#competetion-type").val());
+		 var competitionSport = $.trim($("#game_name").val());
+		 var competitionName = $.trim($("#competetion-type").val());
 		 var leagueName = $.trim($("#league-name").val());
+		 //var leagueOwnerId = $.trim($("#textbox1").val());
+		 //alert($("#game_name").val());
 		 /*counter--;
 		 var emailIds = '';
 		 for(i=0;i<counter;i++)
@@ -115,18 +126,22 @@ $(document).on('click', 'section footer a.btn-next', function(){
 		 leagueConfStr=encodeURIComponent(leagueConfStr);*/
 		 
 		 var requestPath = '/leagueRegistration/submitLeague/';
-		 var url = requestPath+competetionType+'/'+leagueName;
-		 console.log('requestPath = '+requestPath);
+		 var url = requestPath+competitionName+'/'+leagueName+'/'+competitionSport;
+		 console.log('requestPath = '+url);
 		 $.post(url,'',function(data){
-			 console.log("response from userRegistration restservice "+data)	
+			 console.log("response from createLeague restservice "+data)	
 			 
 			 if(data!=null || data!=''){
 				 
+				// alert('data is '+data);
 				 var jsonObj = eval( '(' +  unescape(data) + ')');
-				 alert("The returned from service"+jsonObj.RestResponse.statusMessage);
-				 console.log("statusmessage "+jsonObj.RestResponse.statusMessage);
+				 //alert("The returned from service"+jsonObj.status);
+				 console.log("status "+jsonObj.status);
+				 /*if(jsonObj.status=='SUCCESS'){
+					 addMember();
+				 }*/
 				 
-				 if(jsonObj.RestResponse.statusMessage == 'Operation Failed')
+				 if(jsonObj.status == 'Operation Failed')
 					{
 
 						$("#createLeague_ErrorMsg").html('Error occured while registering the user.');			
@@ -134,9 +149,75 @@ $(document).on('click', 'section footer a.btn-next', function(){
 
 					}
 			 }
+			
+			
 		});
 	 };
 	 
+	 function addMember(){
+		alert("In Addmember");
+		var arr = new Array();
+				
+		 $("div.emailDiv > input").each(function(i) {
+			 var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+			 var emailaddress = $( this ).val();
+			 console.log("EmailAddress"+emailaddress);
+			 if(!emailReg.test(emailaddress) || emailaddress == '') {
+				 $("#addMember_ErrorMsg").html('Please enter valid email address');			
+					$("#addMember_ErrorMsg").show();
+				 return false;
+			 }
+			 else{
+				 if(emailaddress!=''){
+						console.log('arr...'+arr);
+						arr.push(emailaddress);
+					}else{
+						arr = '';
+					}
+					 console.log( i + ": " + $( this ).val() );
+				 
+			 }
+		});
+		 console.log("Email Array"+JSON.stringify(arr));
+		 var challengers= JSON.stringify(arr);
+		 challengersEncoded=encodeURIComponent(challengers);
+		 var requestPath = '/leagueRegistration/addChallengersToLeague/';
+		 var url = requestPath+challengersEncoded;
+		 console.log('requestPath = '+url);
+		 $.post(url,'',function(data){
+			 console.log("response from AddChallengers restservice "+data)	
+			 
+			 if(data!=null || data!=''){
+				 
+				// alert('data is '+data);
+				 var jsonObj = eval( '(' +  unescape(data) + ')');
+				 //alert("The returned from service"+jsonObj.status);
+				 console.log("status "+jsonObj.status);
+				 /*if(jsonObj.status=='SUCCESS'){
+					 addMember();
+				 }*/
+				 
+				 if(jsonObj.status == 'Operation Failed')
+					{
+
+						$("#addMember_ErrorMsg").html('Error occured while registering the user.');			
+						$("#addMember_ErrorMsg").show();
+
+					}
+				 else{
+
+						console.log("statusmessage "+jsonObj.RestResponse.statusMessage);
+						var statusmessage = jsonObj.RestResponse.statusMessage.split(":")[1];
+						console.log("statusmessage "+statusmessage);			
+						$("#userReg_ErrorMsg").html(statusmessage);			
+						$("#userReg_ErrorMsg").show();
+
+					}
+			 }
+			
+			
+		});
+	 };
 	 
 	/* function LeagueConfigObj(user){
 			this.LeagueConfig = user;
