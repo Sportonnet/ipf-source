@@ -59,7 +59,7 @@
 	<bean id="userLeagueDao" class="com.iplfreaks.dao.impl.UserLeaguesDaoImpl">
 	</bean>
 	
-	<bean id="leagueDao" class="com.iplfreaks.dao.impl.LeagueDaoImpl">
+	<bean id="leagueDao" class="com.iplfreaks.dao.impl.CricketLeagueDaoImpl">
 	</bean>
 
 	<bean id="fixtureDao" class="com.iplfreaks.dao.impl.FixturesDaoImpl">

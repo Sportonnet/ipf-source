@@ -11,15 +11,12 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.google.gson.Gson;
 import com.iplfreaks.core.Challenger;
 import com.iplfreaks.core.League;
-import com.iplfreaks.game.Team;
+import com.iplfreaks.game.cricket.CricketLeague;
 import com.iplfreaks.user.User;
 
 /**
@@ -34,11 +31,11 @@ public class LeagueDaoImplTest {
 	private MongoTemplate mongoTemplate;
 	
 	@Autowired
-	private LeagueDaoImpl leagueDaoImpl;
+	private CricketLeagueDaoImpl leagueDaoImpl;
 	
 	@Test
 	public void testFetchLeague() {
-		final League league = leagueDaoImpl.fetchLeague("iplfreaks");
+		final CricketLeague league = leagueDaoImpl.fetchLeague("iplfreaks");
 		System.out.println(league.getLeagueStartDate());
 	}
 	
@@ -69,11 +66,11 @@ public class LeagueDaoImplTest {
 		this.leagueDaoImpl.addChallengersToLeague("l1", challengers);
 	}
 	
-	private League createLeague()
+	private CricketLeague createLeague()
 	{
 		final User user = new User();
 		user.setEmail("a");
-		final League league = new League("iplfreaks", user);
+		final CricketLeague league = new CricketLeague("iplfreaks", user);
 		league.setLeagueStartDate(new DateTime());
 		
 		return league;
@@ -96,14 +93,14 @@ public class LeagueDaoImplTest {
 	/**
 	 * @return the leagueDaoImpl
 	 */
-	public LeagueDaoImpl getLeagueDaoImpl() {
+	public CricketLeagueDaoImpl getLeagueDaoImpl() {
 		return leagueDaoImpl;
 	}
 
 	/**
 	 * @param leagueDaoImpl the leagueDaoImpl to set
 	 */
-	public void setLeagueDaoImpl(LeagueDaoImpl leagueDaoImpl) {
+	public void setLeagueDaoImpl(CricketLeagueDaoImpl leagueDaoImpl) {
 		this.leagueDaoImpl = leagueDaoImpl;
 	}
 

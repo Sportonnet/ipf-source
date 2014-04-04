@@ -15,25 +15,26 @@ import org.springframework.data.mongodb.core.query.Update;
 import com.iplfreaks.core.Challenger;
 import com.iplfreaks.core.League;
 import com.iplfreaks.dao.api.ILeagueDao;
-import com.iplfreaks.dao.repository.LeagueRepository;
+import com.iplfreaks.dao.repository.CricketLeagueRepository;
+import com.iplfreaks.game.cricket.CricketLeague;
 
 /**
  * @author jayeshm3
  *
  */
-public class LeagueDaoImpl implements ILeagueDao {
+public class CricketLeagueDaoImpl implements ILeagueDao {
 	
 	@Autowired
 	private MongoTemplate mongoTemplate;
 	
 	@Autowired
-	private LeagueRepository leagueRepository;
+	private CricketLeagueRepository leagueRepository;
 	
 	private static final String LEAGUE_COLLECTION = "league";
 
 	@Override
-	public League fetchLeague(String leagueName) {
-		final List<League> leagueList = this.leagueRepository.findByName(leagueName);
+	public CricketLeague fetchLeague(String leagueName) {
+		final List<CricketLeague> leagueList = this.leagueRepository.findByName(leagueName);
 		
 		if(leagueList == null || leagueList.isEmpty())
 		{
@@ -119,14 +120,14 @@ public class LeagueDaoImpl implements ILeagueDao {
 	/**
 	 * @return the leagueRepository
 	 */
-	public LeagueRepository getLeagueRepository() {
+	public CricketLeagueRepository getLeagueRepository() {
 		return leagueRepository;
 	}
 
 	/**
 	 * @param leagueRepository the leagueRepository to set
 	 */
-	public void setLeagueRepository(LeagueRepository leagueRepository) {
+	public void setLeagueRepository(CricketLeagueRepository leagueRepository) {
 		this.leagueRepository = leagueRepository;
 	}
 }

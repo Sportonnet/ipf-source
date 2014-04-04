@@ -81,7 +81,7 @@
 		<property name="userLeagueRepository" ref="userLeagueRepository" />
 	</bean>
 
-	<bean id="leagueDao" class="com.iplfreaks.dao.impl.LeagueDaoImpl">
+	<bean id="leagueDao" class="com.iplfreaks.dao.impl.CricketLeagueDaoImpl">
 		<property name="mongoTemplate" ref="mongoTemplate" />
 		<property name="leagueRepository" ref="leagueRepository" />
 	</bean>

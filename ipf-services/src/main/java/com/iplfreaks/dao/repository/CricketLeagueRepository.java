@@ -8,13 +8,14 @@ import java.util.List;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 import com.iplfreaks.core.League;
+import com.iplfreaks.game.cricket.CricketLeague;
 
 /**
  * @author jayeshm3
  *
  */
-public interface LeagueRepository extends MongoRepository<League, String> {
+public interface CricketLeagueRepository extends MongoRepository<League, String> {
 	
-	List<League> findByName(final String name);
+	List<CricketLeague> findByName(final String name);
 
 }
