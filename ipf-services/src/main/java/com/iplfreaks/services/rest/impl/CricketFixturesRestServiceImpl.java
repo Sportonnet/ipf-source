@@ -2,6 +2,7 @@ package com.iplfreaks.services.rest.impl;
 
 import java.util.List;
 
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -24,13 +25,10 @@ public class CricketFixturesRestServiceImpl implements IFixturesRestService {
 	private IFixturesService fixtureService;
 
 	@Override
-	@POST
+	@GET
 	@Path("/getFixtures")
-	public String getFixtures(
-			@QueryParam("competitionSport") String competitionSport,
-			@QueryParam("competitionName") String competitionName) {
-		List<Fixture> fixtures = this.fixtureService.getFixtures(
-				competitionSport, competitionName);
+	public String getFixtures(@QueryParam("leagueName") String leagueName) {
+		List<Fixture> fixtures = this.fixtureService.getFixtures(leagueName);
 
 		String jsonResponse = new Gson().toJson(fixtures);
 
@@ -38,13 +36,11 @@ public class CricketFixturesRestServiceImpl implements IFixturesRestService {
 	}
 
 	@Override
-	@POST
+	@GET
 	@Path("/getPastFixtures")
-	public String getPastFixtures(
-			@QueryParam("competitionSport") String competitionSport,
-			@QueryParam("competitionName") String competitionName) {
-		List<Fixture> fixtures = this.fixtureService.getPastFixtures(
-				competitionSport, competitionName);
+	public String getPastFixtures(@QueryParam("leagueName") String leagueName) {
+		List<Fixture> fixtures = this.fixtureService
+				.getPastFixtures(leagueName);
 
 		String jsonResponse = new Gson().toJson(fixtures);
 
@@ -52,13 +48,12 @@ public class CricketFixturesRestServiceImpl implements IFixturesRestService {
 	}
 
 	@Override
-	@POST
+	@GET
 	@Path("/getUpcomingFixtures")
 	public String getUpcomingFixtures(
-			@QueryParam("competitionSport") String competitionSport,
-			@QueryParam("competitionName") String competitionName) {
-		List<Fixture> fixtures = this.fixtureService.getUpcomingFixtures(
-				competitionSport, competitionName);
+			@QueryParam("leagueName") String leagueName) {
+		List<Fixture> fixtures = this.fixtureService
+				.getUpcomingFixtures(leagueName);
 		String jsonResponse = new Gson().toJson(fixtures);
 
 		return jsonResponse;
