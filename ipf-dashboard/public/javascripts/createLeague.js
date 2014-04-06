@@ -14,12 +14,13 @@ $(document).ready(function () {
 				return;
 
 			}
+			createNewLeague();
 			$("#completion li").removeClass("active");
 			$(completion_id).next().addClass("active");
 
 			$(section).addClass("closed");
 			$(section).next().removeClass("closed");
-			createNewLeague();
+			
 		}
 
 		if ($(section).attr('id') == "add-member") {
@@ -107,19 +108,8 @@ $(document).ready(function () {
 		var competitionSport = $.trim($("#game_name").val());
 		var competitionName = $.trim($("#competetion-type").val());
 		var leagueName = $.trim($("#league-name").val());
-		//var leagueOwnerId = $.trim($("#textbox1").val());
-		//alert($("#game_name").val());
-/*counter--;
-		 var emailIds = '';
-		 for(i=0;i<counter;i++)
-		   {
-			 emailIds = emailIds+$.trim($("#textbox"+counter).val())+",";
-		   }
-		 var league = new League(gameName,competetionType,leagueName,emailIds);
-		 var leagueConf = new LeagueConfigObj(league);//Vishaln changed for JSON POST change
-		 var leagueConfStr= JSON.stringify(leagueConf);
-		 leagueConfStr=encodeURIComponent(leagueConfStr);*/
-
+		
+		var isErrorMsgPresent = true;
 		var requestPath = '/leagueRegistration/submitLeague/';
 		var url = requestPath + competitionName + '/' + leagueName + '/' + competitionSport;
 		console.log('requestPath = ' + url);
@@ -136,16 +126,21 @@ $(document).ready(function () {
 					 addMember();
 				 }*/
 
-				if (jsonObj.status == 'Operation Failed') {
-
-					$("#createLeague_ErrorMsg").html('Error occured while registering the user.');
+				if (jsonObj.status == 'ERROR') {
+					var statusMessage = jsonObj.errorMessage;
+					console.log("statusMessage " + jsonObj.errorMessage);
+					$("#createLeague_ErrorMsg").html(statusMessage);
 					$("#createLeague_ErrorMsg").show();
+					isErrorMsgPresent = false;
 
 				}
 			}
 
 
 		});
+		if(isErrorMsgPresent == false){
+			return false;
+		}
 	};
 
 	function addMember() {
@@ -186,20 +181,24 @@ $(document).ready(function () {
 				var jsonObj = eval('(' + unescape(data) + ')');
 				//alert("The returned from service"+jsonObj.status);
 				console.log("status " + jsonObj.status);
-/*if(jsonObj.status=='SUCCESS'){
-					 addMember();
-				 }*/
+				if(jsonObj.status=='SUCCESS'){
+					var statusmessage = jsonObj.result.ERROR.user;
+					console.log("statusmessage SUCCESS " + statusmessage)
+					$("#addMember_SuccessMsg").html('.');
+				 }
 
 				if (jsonObj.status == 'Operation Failed') {
 
 					$("#addMember_ErrorMsg").html('Error occured while registering the user.');
 					$("#addMember_ErrorMsg").show();
 
-				} else {
+				} 
+				
+				if(jsonObj.RestResponse.statusMessage !=null){
 
 					console.log("statusmessage " + jsonObj.RestResponse.statusMessage);
 					var statusmessage = jsonObj.RestResponse.statusMessage.split(":")[1];
-					console.log("statusmessage " + statusmessage);
+					console.log("statusmessage ERROR" + statusmessage);
 					$("#userReg_ErrorMsg").html(statusmessage);
 					$("#userReg_ErrorMsg").show();
 
