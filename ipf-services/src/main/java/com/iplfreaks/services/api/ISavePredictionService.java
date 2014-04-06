@@ -1,5 +1,7 @@
 package com.iplfreaks.services.api;
 
+import java.util.Date;
+
 public interface ISavePredictionService {
 
 	/**
@@ -24,4 +26,14 @@ public interface ISavePredictionService {
 	public void saveCricketPrediction(String leagueName, String fixtureId,
 			String challengerEmailId, String bestBowler, String bestBatsman,
 			String manOfTheMatch, String winnerTeam, String bonusAnswer);
+
+	/**
+	 * 
+	 * @param fixtureId
+	 *            fixture id
+	 * @param currenDateTime
+	 *            current time
+	 * @return true if fixture datetime is after current datetime else false
+	 */
+	public boolean canSavePrediction(String fixtureId, Date currentDateTime);
 }

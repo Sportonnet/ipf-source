@@ -4,6 +4,7 @@
 package com.iplfreaks.services.impl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -71,6 +72,20 @@ public class SavePredictionServiceImpl implements ISavePredictionService {
 
 		this.logger.info("succesfullly saved prediction for fixture : "
 				+ fixtureId + " by user : " + challengerEmailId);
+	}
+
+	@Override
+	public boolean canSavePrediction(String fixtureId, Date now) {
+
+		final DateTime fixtureDateTime = new DateTime(fixtureId.substring(
+				fixtureId.lastIndexOf("@")).trim());
+		final DateTime currentDateTime = new DateTime(now);
+
+		if (fixtureDateTime.minusMinutes(30).isAfter(currentDateTime)) {
+			return true;
+		}
+
+		return false;
 	}
 
 	/**
