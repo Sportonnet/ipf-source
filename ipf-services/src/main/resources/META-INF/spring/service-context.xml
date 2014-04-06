@@ -139,4 +139,10 @@
 		<property name="cricketCompetitionDao" ref="cricketCompetitionDao" />
 		<property name="teamDao" ref="teamDao" />
 	</bean>
+
+	<bean id="cricketChallengerService"
+		class="com.iplfreaks.services.impl.CricketChallengerServiceImpl">
+		<property name="cricketLeagueDao" ref="cricketLeagueDao" />
+		<property name="cricketLeagueScoreDao" ref="cricketLeagueScoreDao" />
+	</bean>
 </beans>

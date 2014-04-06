@@ -23,6 +23,7 @@
 			<ref bean="cricketFixtureRestService" />
 			<ref bean="teamDetailsRestService" />
 			<ref bean="savePredictionRestService" />
+			<ref bean="cricketChallengerRestService" />
 		</jaxrs:serviceBeans>
 	</jaxrs:server>
 
@@ -52,6 +53,10 @@
 	<bean id="savePredictionRestService"
 		class="com.iplfreaks.services.rest.impl.SavePredictionRestServiceImpl">
 		<property name="savePredictionService" ref="savePredictionService" />
+	</bean>
+	<bean id="cricketChallengerRestService"
+		class="com.iplfreaks.services.rest.impl.CricketChallengerRestServiceImpl">
+		<property name="challengerService" ref="cricketChallengerService" />
 	</bean>
 
 	<!-- 4 -->
