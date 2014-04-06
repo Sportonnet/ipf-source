@@ -12,7 +12,7 @@ import javax.ws.rs.FormParam;
 import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
 
-import com.iplfreaks.common.Status;
+import com.iplfreaks.common.Keys;
 import com.iplfreaks.core.Challenger;
 import com.iplfreaks.core.League;
 import com.iplfreaks.dao.api.ICricketCompetitionDao;
@@ -144,8 +144,8 @@ public class CreateCricketLeagueServiceImpl implements ICreateLeagueService {
 		// result
 		Map<String, Object> result = new HashMap<String, Object>();
 
-		result.put(Status.SUCCESS.name(), leagueChallengers);
-		result.put(Status.ERROR.name(), pendingChallengers);
+		result.put(Keys.CHALLENGERS.name(), leagueChallengers);
+		result.put(Keys.PENDING_CHALLENGERS.name(), pendingChallengers);
 
 		return result;
 	}
