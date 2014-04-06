@@ -20,7 +20,7 @@ public class LeagueCreateEditService extends Controller {
     	queryParameters.put("leagueName",leagueName);
     	queryParameters.put("leagueOwnerId",leagueOwnerId);
     	queryParameters.put("competitionSport",competitionSport);
-        String response = ServiceUtil.callPOST("/services/leagues/createLeague", null, queryParameters, 50000);
+        String response = ServiceUtil.callPOST("/services/cricketleagues/createLeague", null, queryParameters, 50000);
 		if( response.equals("")){
 			return ok("error");
 		}
@@ -47,7 +47,7 @@ public class LeagueCreateEditService extends Controller {
 			queryParameters.put("challengers", email);
 		}
 		
-        String response = ServiceUtil.callPOST("/services/leagues/addChallengersToLeague", null, queryParameters, 50000);
+        String response = ServiceUtil.callPOST("/services/cricketleagues/addChallengersToLeague", null, queryParameters, 50000);
         
 		if( response.equals("")){
 			return ok("error");
