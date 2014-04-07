@@ -3,10 +3,14 @@
  */
 package com.iplfreaks.dao.impl;
 
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.group;
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.match;
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.newAggregation;
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.unwind;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.joda.time.DateMidnight;
 import org.joda.time.DateTime;
@@ -14,9 +18,9 @@ import org.joda.time.DateTimeZone;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.aggregation.AggregationResults;
+import org.springframework.data.mongodb.core.aggregation.TypedAggregation;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.test.context.ContextConfiguration;
@@ -30,9 +34,6 @@ import com.iplfreaks.game.Team;
 import com.iplfreaks.game.cricket.CricketCompetition;
 import com.iplfreaks.game.cricket.CricketFixture;
 import com.iplfreaks.game.cricket.CricketFixtureOutcome;
-import com.mongodb.BasicDBObject;
-import com.mongodb.DBCollection;
-import com.mongodb.DBObject;
 
 /**
  * @author jayeshm3
@@ -90,7 +91,56 @@ public class CricketCompetitionDaoImplTest {
 		
 		List<CricketCompetition> competitionList = this.mongoTemplate.find(q, CricketCompetition.class);
 		
-		System.out.println(competitionList.get(0).getFixtures().size());
+		//System.out.println(competitionList.get(0).getFixtures().size());
+		
+		//Aggregation agg = Aggregation.newAggregation(Aggregation.match(Criteria.where("name").is("T20 World Cup 2014").andOperator(Criteria.where("sport").is("Cricket"))),Aggregation.unwind("fixtures"), Aggregation.match(Criteria.where("fixtures.fixtureName").is("India vs South Africa")), Aggregation.group("fixtures").push("fixtures"));
+		
+		/*TypedAggregation<CricketCompetition> typedAgg = new TypedAggregation<CricketCompetition>(CricketCompetition.class, 
+				Aggregation.newAggregation(Aggregation.match(Criteria.where("name").is("T20 World Cup 2014").andOperator(Criteria.where("sport").is("Cricket"))),
+						Aggregation.unwind("fixtures"), 
+						Aggregation.match(Criteria.where("fixtures.fixtureName").is("India vs South Africa")));//, Aggregation.group("fixtures").push("fixtures")));
+		
+		final AggregationOperation operations = Aggregation.newAggregation(Aggregation.match(Criteria.where("name").is("T20 World Cup 2014").andOperator(Criteria.where("sport").is("Cricket")));*/
+		
+		TypedAggregation<CricketCompetition> typedAggregation = newAggregation(CricketCompetition.class,
+				match(Criteria.where("name").is("T20 World Cup 2014").andOperator(Criteria.where("sport").is("Cricket"))),
+				unwind("fixtures"),
+				match(Criteria.where("fixtures.fixtureName").is("India vs South Africa")),
+				group().push("fixtures").as("fixtures").first("name").as("name")
+				);
+		
+		TypedAggregation<CricketCompetition> typedAggregation1 = newAggregation(CricketCompetition.class,
+				unwind("fixtures"),
+				match(Criteria.where("fixtures.fixtureName").ne("asdsds")),//is("India vs South Africa")),
+				group().push("fixtures").as("fixtures").first("name").as("name")
+				);
+		
+		
+		final DateMidnight dmid = new DateMidnight("2014-04-06");
+		System.out.println(dmid);
+		System.out.println(dmid.minusDays(1));
+		
+		TypedAggregation<CricketCompetition> typedAggregation2 = newAggregation(CricketCompetition.class,
+				match(Criteria.where("name").is("T20 World Cup 2014").andOperator(Criteria.where("sport").is("Cricket"))),
+				unwind("fixtures"),
+				match(Criteria.where("fixtures.dateTime").lte(dmid).andOperator(Criteria.where("fixtures.dateTime").gt(dmid.minusDays(1)))),
+				group().push("fixtures").as("fixtures").first("name").as("name")
+				);
+		
+		System.out.println(typedAggregation);
+		
+		AggregationResults<CricketCompetition> result = mongoTemplate.aggregate(typedAggregation2, "cricketCompetition", CricketCompetition.class);
+		
+		System.out.println(result.getMappedResults().get(0).getName());
+		
+		final CricketCompetition cc = result.getMappedResults().get(0);
+		
+		System.out.println("Fixture size is : " + cc.getFixtures().size());
+		
+		for(final CricketFixture cfx : cc.getFixtures())
+		{
+			System.out.println("Fxitrue details is : " + cfx.getFixtureId());
+		}
 		
 		//List<Competition> competitions = this.mongoTemplate.find(query, Competition.class);
 		
@@ -101,9 +151,9 @@ public class CricketCompetitionDaoImplTest {
 		query.append("sport", "Cricket");
 		query.append("fixtures.dateTime", new BasicDBObject("$gt", dm2));*/
 		
-		final DBObject fields = new BasicDBObject("fixtures.$", 1);
+		//final DBObject fields = new BasicDBObject("fixtures.$", 1);
 		
-		final DBCollection competitionCollection = this.mongoTemplate.getCollection("cricketCompetition");
+		//final DBCollection competitionCollection = this.mongoTemplate.getCollection("cricketCompetition");
 		
 		//final Competition competition = (Competition) competitionCollection.findOne(query, fields);
 		/*final DBCursor cursor = competitionCollection.find(query, fields);
@@ -116,7 +166,7 @@ public class CricketCompetitionDaoImplTest {
 		
 		
 		
-		final Sort sort = new Sort(Direction.ASC, "fixtures.dateTime");
+		/*final Sort sort = new Sort(Direction.ASC, "fixtures.dateTime");
 		
 		final List<CricketCompetition> competitions = this.competitionRepository.findQuery("Indian Premier League", "Cricket", dm1, dm2);
 		//final List<Competition> competitions = this.competitionRepository.findByNameAndSportAndFixturesDateTimeBetween("Indian Premier League", "Cricket", dm1, dm2, sort);
@@ -127,7 +177,7 @@ public class CricketCompetitionDaoImplTest {
 			System.out.println(fixture.getFixtureName());
 			System.out.println(fixture.getFixtureId());
 			System.out.println(fixture.getDateTime());
-		}
+		}*/
 	}
 	
 	//@Test
@@ -155,9 +205,9 @@ public class CricketCompetitionDaoImplTest {
 		return competition;
 	}
 	
-	private Set<CricketFixture> getFixtures()
+	private HashSet<CricketFixture> getFixtures()
 	{
-		final Set<CricketFixture> fixtures = new HashSet<CricketFixture>();
+		final HashSet<CricketFixture> fixtures = new HashSet<CricketFixture>();
 		
 		final List<BonusEntity> bonus = new ArrayList<BonusEntity>();
 		final BonusEntity be1 = new BonusEntity();
