@@ -3,7 +3,7 @@
  */
 package com.iplfreaks.game.cricket;
 
-import java.util.Set;
+import java.util.HashSet;
 
 import org.springframework.data.annotation.TypeAlias;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -26,17 +26,17 @@ public class CricketCompetition extends Competition {
 	/**
 	 * 
 	 */
-	private Set<CricketFixture> fixtures;
+	private HashSet<CricketFixture> fixtures;
 	/**
 	 * @return the fixtures
 	 */
-	public Set<CricketFixture> getFixtures() {
+	public HashSet<CricketFixture> getFixtures() {
 		return fixtures;
 	}
 	/**
 	 * @param fixtures the fixtures to set
 	 */
-	public void setFixtures(Set<CricketFixture> fixtures) {
+	public void setFixtures(HashSet<CricketFixture> fixtures) {
 		this.fixtures = fixtures;
 	}
 
