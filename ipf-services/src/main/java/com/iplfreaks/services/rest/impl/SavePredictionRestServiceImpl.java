@@ -3,8 +3,6 @@
  */
 package com.iplfreaks.services.rest.impl;
 
-import java.util.Date;
-
 import org.apache.log4j.Logger;
 
 import com.google.gson.Gson;
@@ -27,11 +25,9 @@ public class SavePredictionRestServiceImpl implements
 	@Override
 	public String saveCricketPrediction(String leagueName, String fixtureId,
 			String challengerEmailId, String bestBowler, String bestBatsman,
-			String manOfTheMatch, String winnerTeam, String bonusAnswer,
-			Date currentDateTime) {
+			String manOfTheMatch, String winnerTeam, String bonusAnswer) {
 		RestServiceResponse response = null;
-		if (!this.savePredictionService.canSavePrediction(fixtureId,
-				currentDateTime)) {
+		if (!this.savePredictionService.canSavePrediction(fixtureId)) {
 			response = new RestServiceResponse(Status.ERROR.name(),
 					"Prediction window closed for this fixture", null);
 

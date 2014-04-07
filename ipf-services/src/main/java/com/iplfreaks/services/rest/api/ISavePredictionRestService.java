@@ -3,8 +3,6 @@
  */
 package com.iplfreaks.services.rest.api;
 
-import java.util.Date;
-
 import javax.ws.rs.FormParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -46,6 +44,5 @@ public interface ISavePredictionRestService {
 			@FormParam("bestBatsman") String bestBatsman,
 			@FormParam("manOfTheMatch") String manOfTheMatch,
 			@FormParam("winnerTeam") String winnerTeam,
-			@FormParam("bonusAnswer") String bonusAnswer,
-			@FormParam("currentDateTime") Date currentDateTime);
+			@FormParam("bonusAnswer") String bonusAnswer);
 }

@@ -1,6 +1,5 @@
 package com.iplfreaks.services.api;
 
-import java.util.Date;
 
 public interface ISavePredictionService {
 
@@ -35,5 +34,5 @@ public interface ISavePredictionService {
 	 *            current time
 	 * @return true if fixture datetime is after current datetime else false
 	 */
-	public boolean canSavePrediction(String fixtureId, Date currentDateTime);
+	public boolean canSavePrediction(String fixtureId);
 }

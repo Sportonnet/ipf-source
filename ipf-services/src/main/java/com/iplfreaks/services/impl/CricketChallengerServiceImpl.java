@@ -70,9 +70,7 @@ public class CricketChallengerServiceImpl implements IChallengerService {
 
 		result.put(Keys.FIXTURE_CHALLENGES.name(), userPredictions);
 
-		/**
-		 * 
-		 */
+		// TODO
 		final DateTime fixtureDate = new DateTime(fixtureId.substring(
 				fixtureId.lastIndexOf("@")).trim());
 
