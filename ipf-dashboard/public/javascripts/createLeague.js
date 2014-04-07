@@ -2,6 +2,7 @@ $(document).ready(function () {
 
 	var counter = 2;
 
+
 	$(document).on('click', 'section footer a.btn-next', function () {
 
 		var section = $(this).parent().parent();
@@ -14,13 +15,7 @@ $(document).ready(function () {
 				return;
 
 			}
-			createNewLeague();
-			$("#completion li").removeClass("active");
-			$(completion_id).next().addClass("active");
-
-			$(section).addClass("closed");
-			$(section).next().removeClass("closed");
-			
+			createNewLeague(completion_id, section);
 		}
 
 		if ($(section).attr('id') == "add-member") {
@@ -29,9 +24,9 @@ $(document).ready(function () {
 				var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
 				var emailAddress = $(this).val();
 
-				alert("Email Address on Next" + emailAddress);
+				//alert("Email Address on Next" + emailAddress);
 				if (emailAddress == '') {
-					alert("Inside Error");
+					//alert("Inside Error");
 					$("#addMember_ErrorMsg").html('Please enter email address');
 					$("#addMember_ErrorMsg").show();
 					isErrorMsgPresent = false;
@@ -53,7 +48,7 @@ $(document).ready(function () {
 				addMember();
 			}
 		}
-
+		
 	});
 
 	$(document).on('click', 'section footer a.btn-back', function () {
@@ -90,7 +85,7 @@ $(document).ready(function () {
 
 	$("#removeButton").click(function () {
 		if (counter == 2) {
-			alert("one member is mandatory");
+			//alert("one member is mandatory");
 			return false;
 		}
 		counter--;
@@ -103,13 +98,13 @@ $(document).ready(function () {
 		return false;
 	});
 
-	function createNewLeague() {
+	function createNewLeague(completion_id, section) {
 
 		var competitionSport = $.trim($("#game_name").val());
 		var competitionName = $.trim($("#competetion-type").val());
 		var leagueName = $.trim($("#league-name").val());
 		
-		var isErrorMsgPresent = true;
+		
 		var requestPath = '/leagueRegistration/submitLeague/';
 		var url = requestPath + competitionName + '/' + leagueName + '/' + competitionSport;
 		console.log('requestPath = ' + url);
@@ -118,33 +113,32 @@ $(document).ready(function () {
 
 			if (data != null || data != '') {
 
-				// alert('data is '+data);
+				
 				var jsonObj = eval('(' + unescape(data) + ')');
 				//alert("The returned from service"+jsonObj.status);
 				console.log("status " + jsonObj.status);
-/*if(jsonObj.status=='SUCCESS'){
-					 addMember();
-				 }*/
 
 				if (jsonObj.status == 'ERROR') {
 					var statusMessage = jsonObj.errorMessage;
 					console.log("statusMessage " + jsonObj.errorMessage);
-					$("#createLeague_ErrorMsg").html(statusMessage);
-					$("#createLeague_ErrorMsg").show();
-					isErrorMsgPresent = false;
+					$("#orgStruct_ErrorMsg").html(statusMessage);
+					$("#orgStruct_ErrorMsg").show();
 
+				}else{
+					$("#completion li").removeClass("active");
+					$(completion_id).next().addClass("active");
+		
+					$(section).addClass("closed");
+					$(section).next().removeClass("closed");
 				}
 			}
 
 
 		});
-		if(isErrorMsgPresent == false){
-			return false;
-		}
 	};
 
 	function addMember() {
-		alert("In Addmember");
+		//alert("In Addmember");
 		var arr = new Array();
 
 		$("div.emailDiv > input").each(function (i) {
@@ -182,9 +176,14 @@ $(document).ready(function () {
 				//alert("The returned from service"+jsonObj.status);
 				console.log("status " + jsonObj.status);
 				if(jsonObj.status=='SUCCESS'){
-					var statusmessage = jsonObj.result.ERROR.user;
-					console.log("statusmessage SUCCESS " + statusmessage)
-					$("#addMember_SuccessMsg").html('.');
+					var pendingChngers = jsonObj.result.PENDING_CHALLENGERS;
+					$("#pendingChallengerList").html('The following Challengers could not be added to the league.<br>');
+					 $(pendingChngers).each(function(index, element) {
+						 $("#pendingChallengerList").append('<li>'+element.user.email+'</li>');
+						 console.log('The element is '+element.user.email);
+					 });
+
+					
 				 }
 
 				if (jsonObj.status == 'Operation Failed') {
@@ -194,7 +193,7 @@ $(document).ready(function () {
 
 				} 
 				
-				if(jsonObj.RestResponse.statusMessage !=null){
+				if(jsonObj.RestResponse != null && jsonObj.RestResponse.statusMessage !=null){
 
 					console.log("statusmessage " + jsonObj.RestResponse.statusMessage);
 					var statusmessage = jsonObj.RestResponse.statusMessage.split(":")[1];
@@ -208,20 +207,5 @@ $(document).ready(function () {
 
 		});
 	};
-
-/* function LeagueConfigObj(user){
-			this.LeagueConfig = user;
-
-		}
-	 
-	 
-	 function League(gameName,competetionType, leagueName, emailIds){
-			this.gameName = gameName; 
-			this.competetionType = competetionType;
-			this.leagueName = leagueName;
-			this.emailIds = emailIds;
-		}*/
-
-
 
 });
