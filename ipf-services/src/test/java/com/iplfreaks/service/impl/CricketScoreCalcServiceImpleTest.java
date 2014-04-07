@@ -90,13 +90,13 @@ public class CricketScoreCalcServiceImpleTest {
 		final Set<CricketChallenge> cricketChallenges = cricketLeagueScore.getFixturePredictionList();
 		for(final CricketChallenge cricketChallenge : cricketChallenges)
 		{
-			final CricketFixtureOutcome outcome = getCricketFixture(competition, cricketChallenge.getFixtureId());
+			final CricketFixtureOutcome outcome = getCricketFixtureOutcome(competition, cricketChallenge.getFixtureId());
 			getScore(outcome, cricketChallenge);
 		}
 		
 	}
 	
-	private CricketFixtureOutcome getCricketFixture(final CricketCompetition competition, final String fixtureId)
+	private CricketFixtureOutcome getCricketFixtureOutcome(final CricketCompetition competition, final String fixtureId)
 	{
 		for(final CricketFixture cf : competition.getFixtures())
 		{
