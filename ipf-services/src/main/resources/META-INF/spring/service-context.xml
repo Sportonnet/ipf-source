@@ -122,7 +122,6 @@
 
 	<bean id="cricketFixtureService" class="com.iplfreaks.services.impl.CricketFixturesServiceImpl">
 		<property name="cricketCompetitionDao" ref="cricketCompetitionDao" />
-		<property name="cacheService" ref="cacheService" />
 		<property name="cricketLeagueDao" ref="cricketLeagueDao" />
 	</bean>
 

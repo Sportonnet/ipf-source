@@ -78,7 +78,7 @@ public class SavePredictionServiceImpl implements ISavePredictionService {
 
 		// TODO
 		final DateTime fixtureDateTime = new DateTime(fixtureId.substring(
-				fixtureId.lastIndexOf("@")).trim());
+				fixtureId.lastIndexOf("@")+1).trim());
 
 		if (fixtureDateTime.minusMinutes(30).isAfterNow()) {
 			return true;

@@ -72,9 +72,9 @@ public class CricketChallengerServiceImpl implements IChallengerService {
 
 		// TODO
 		final DateTime fixtureDate = new DateTime(fixtureId.substring(
-				fixtureId.lastIndexOf("@")).trim());
+				fixtureId.lastIndexOf("@") + 1).trim());
 
-		if (fixtureDate.minusMinutes(30).isBeforeNow()) {
+		if (fixtureDate.minusMinutes(30).isAfterNow()) {
 			result.put(Keys.CAN_EDIT_CHALLENGE.name(), true);
 		} else {
 			result.put(Keys.CAN_EDIT_CHALLENGE.name(), false);
