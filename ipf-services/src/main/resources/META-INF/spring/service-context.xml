@@ -42,6 +42,8 @@
 			mongo-template-ref="mongoTemplate" />
 		<mongo:repository id="cricketLeagueScoreRepository"
 			mongo-template-ref="mongoTemplate" />
+		<mongo:repository id="leagueStatisticsRepository"
+			mongo-template-ref="mongoTemplate" />
 	</mongo:repositories>
 
 	<bean id="userCredentials" class="org.springframework.data.authentication.UserCredentials">
@@ -99,6 +101,11 @@
 	<bean id="cricketCompetitionDao" class="com.iplfreaks.dao.impl.CricketCompetitionDaoImpl">
 		<property name="mongoTemplate" ref="mongoTemplate" />
 		<property name="competitionRepository" ref="cricketCompetitionRepository" />
+	</bean>
+	
+	<bean id="leagueStatisticsDao" class="com.iplfreaks.dao.impl.LeagueStatsDaoImpl">
+		<property name="mongoTemplate" ref="mongoTemplate" />
+		<property name="leagueStatisticsRepository" ref="leagueStatisticsRepository" />
 	</bean>
 
 	<!-- services -->

@@ -51,7 +51,7 @@ public class CricketCompetitionDaoImpl implements ICricketCompetitionDao {
 		
 		final DateMidnight dateMidnight = new DateMidnight();
 		
-		TypedAggregation<CricketCompetition> typedAggregation = newAggregation(CricketCompetition.class,
+		final TypedAggregation<CricketCompetition> typedAggregation = newAggregation(CricketCompetition.class,
 				match(Criteria.where("name").is(name).andOperator(Criteria.where("sport").is(sport))),
 				unwind("fixtures"),
 				match(Criteria.where("fixtures.dateTime").lte(dateMidnight.plusDays(1)).andOperator(Criteria.where("fixtures.dateTime").gt(dateMidnight))),
@@ -67,7 +67,7 @@ public class CricketCompetitionDaoImpl implements ICricketCompetitionDao {
 	public CricketCompetition getPastFixtures(String name, String sport) {
 		final DateMidnight dateMidnight = new DateMidnight();
 		
-		TypedAggregation<CricketCompetition> typedAggregation = newAggregation(CricketCompetition.class,
+		final TypedAggregation<CricketCompetition> typedAggregation = newAggregation(CricketCompetition.class,
 				match(Criteria.where("name").is(name).andOperator(Criteria.where("sport").is(sport))),
 				unwind("fixtures"),
 				match(Criteria.where("fixtures.dateTime").lte(dateMidnight)),
@@ -84,7 +84,7 @@ public class CricketCompetitionDaoImpl implements ICricketCompetitionDao {
 		
 		final DateMidnight dateMidnight = new DateMidnight().plusDays(1);
 		
-		TypedAggregation<CricketCompetition> typedAggregation = newAggregation(CricketCompetition.class,
+		final TypedAggregation<CricketCompetition> typedAggregation = newAggregation(CricketCompetition.class,
 				match(Criteria.where("name").is(name).andOperator(Criteria.where("sport").is(sport))),
 				unwind("fixtures"),
 				match(Criteria.where("fixtures.dateTime").gte(dateMidnight)),
@@ -99,7 +99,7 @@ public class CricketCompetitionDaoImpl implements ICricketCompetitionDao {
 	@Override
 	public CricketCompetition getFixtureBasedOnFixtureId(String fixtureId) {
 
-		TypedAggregation<CricketCompetition> typedAggregation = newAggregation(CricketCompetition.class,
+		final TypedAggregation<CricketCompetition> typedAggregation = newAggregation(CricketCompetition.class,
 				unwind("fixtures"),
 				match(Criteria.where("fixtures.fixtureId").is(fixtureId)),//is("India vs South Africa")),
 				group().push("fixtures").as("fixtures").first("name").as("name")
@@ -115,7 +115,7 @@ public class CricketCompetitionDaoImpl implements ICricketCompetitionDao {
 	public CricketCompetition getFixtureBasedOnFixtureId(String name,
 			String sport, String fixtureId) {
 		
-		TypedAggregation<CricketCompetition> typedAggregation = newAggregation(CricketCompetition.class,
+		final TypedAggregation<CricketCompetition> typedAggregation = newAggregation(CricketCompetition.class,
 				match(Criteria.where("name").is(name).andOperator(Criteria.where("sport").is(sport))),
 				unwind("fixtures"),
 				match(Criteria.where("fixtures.fixtureId").is(fixtureId)),//is("India vs South Africa")),
