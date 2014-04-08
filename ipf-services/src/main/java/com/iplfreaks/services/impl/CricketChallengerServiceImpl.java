@@ -10,9 +10,11 @@ import java.util.Set;
 import org.joda.time.DateTime;
 
 import com.iplfreaks.common.Keys;
+import com.iplfreaks.core.Challenger;
 import com.iplfreaks.dao.api.ICricketLeagueScoreDao;
 import com.iplfreaks.dao.impl.CricketLeagueDaoImpl;
 import com.iplfreaks.game.cricket.CricketChallenge;
+import com.iplfreaks.game.cricket.CricketLeague;
 import com.iplfreaks.game.cricket.CricketLeagueScore;
 import com.iplfreaks.game.cricket.CricketPrediction;
 import com.iplfreaks.services.api.IChallengerService;
@@ -39,6 +41,11 @@ public class CricketChallengerServiceImpl implements IChallengerService {
 		 * 
 		 */
 
+		final CricketLeague cricketLeague = this.cricketLeagueDao
+				.fetchLeague(leagueName);
+
+		final Set<Challenger> challengers = cricketLeague.getChallengers();
+
 		final Map<String, Object> result = new HashMap<String, Object>();
 
 		final CricketLeagueScore leagueScore = this.cricketLeagueScoreDao
@@ -57,15 +64,31 @@ public class CricketChallengerServiceImpl implements IChallengerService {
 				break;
 			}
 		}
+
 		final List<Map<String, Object>> userPredictions = new ArrayList<Map<String, Object>>();
 
-		for (final CricketPrediction prediction : predictions) {
+		for (final Challenger challenger : challengers) {
 			final Map<String, Object> userPrediction = new HashMap<String, Object>();
-			userPrediction.put(Keys.CHALLENGER.name(), prediction
-					.getChallenger().getUser().getEmail());
-			userPrediction.put(Keys.PREDICTION.name(), prediction);
+			userPrediction.put(Keys.CHALLENGER_EMAIL.name(), challenger
+					.getUser().getEmail());
+			userPrediction.put(Keys.CHALLENGER_NAME.name(), challenger
+					.getUser().getFirstName());
 			userPredictions.add(userPrediction);
+		}
 
+		for (final CricketPrediction prediction : predictions) {
+
+			for (Map<String, Object> userPrediction : userPredictions) {
+				if (prediction
+						.getChallenger()
+						.getUser()
+						.getEmail()
+						.equalsIgnoreCase(
+								(String) userPrediction
+										.get(Keys.CHALLENGER_EMAIL.name()))) {
+					userPrediction.put(Keys.PREDICTION.name(), prediction);
+				}
+			}
 		}
 
 		result.put(Keys.FIXTURE_CHALLENGES.name(), userPredictions);

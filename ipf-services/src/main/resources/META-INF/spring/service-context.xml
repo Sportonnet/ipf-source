@@ -123,8 +123,9 @@
 		<property name="userDao" ref="userDao" />
 	</bean>
 
-	<bean id="createUserService" class="com.iplfreaks.services.impl.CreateUserServiceImpl">
+	<bean id="userService" class="com.iplfreaks.services.impl.UserServiceImpl">
 		<property name="userDao" ref="userDao" />
+		<property name="userLeagueDao" ref="userLeagueDao" />
 	</bean>
 
 	<bean id="cricketFixtureService" class="com.iplfreaks.services.impl.CricketFixturesServiceImpl">

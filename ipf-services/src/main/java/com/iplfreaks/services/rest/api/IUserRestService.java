@@ -7,7 +7,7 @@ import javax.ws.rs.Produces;
 
 @Path("/signup")
 @Produces({ "application/json" })
-public interface ICreateUserRestService {
+public interface IUserRestService {
 
 	/**
 	 * Rest Service to create user
@@ -27,4 +27,8 @@ public interface ICreateUserRestService {
 	public String createUser(@FormParam("name") String name,
 			@FormParam("emailId") String emailId,
 			@FormParam("password") String password);
+
+	@POST
+	@Path("/getUserLeagues")
+	public String getUserLeagues(@FormParam("user") String userEmail);
 }

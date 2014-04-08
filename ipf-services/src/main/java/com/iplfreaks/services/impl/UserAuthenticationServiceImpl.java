@@ -9,7 +9,7 @@ import com.iplfreaks.user.User;
 public class UserAuthenticationServiceImpl implements
 		IUserAuthenticationService {
 
-	private Logger logger = Logger.getLogger(CreateUserServiceImpl.class);
+	private Logger logger = Logger.getLogger(UserServiceImpl.class);
 	private IUserDao userDao;
 
 	@Override

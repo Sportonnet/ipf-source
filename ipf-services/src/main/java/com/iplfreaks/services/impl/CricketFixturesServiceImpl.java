@@ -21,37 +21,15 @@ public class CricketFixturesServiceImpl implements IFixturesService {
 		final CricketLeague league = this.cricketLeagueDao
 				.fetchLeague(leagueName);
 
-		final CricketCompetition competition = league.getCompetition();
-
-		if (competition == null || !competition.isActive()) {
+		if (league == null || league.getCompetition() == null
+				|| !league.getCompetition().isActive()) {
 			return null;
 		}
-		/*
-		 * List<Fixture> fixtures = this.cacheService.getFixtures(
-		 * competition.getSport(), competition.getName());
-		 * 
-		 * if (fixtures == null) { final CricketCompetition cricketCompetition =
-		 * this.cricketCompetitionDao
-		 * .getCompetitionFixtures(competition.getName(),
-		 * competition.getSport());
-		 * 
-		 * fixtures = new ArrayList<Fixture>(cricketCompetition.getFixtures());
-		 * 
-		 * if (fixtures != null && !fixtures.isEmpty()) { final String key =
-		 * this.cacheService.generateKey( competition.getSport(),
-		 * competition.getName()); this.cacheService.put(key, fixtures); } }
-		 * 
-		 * for (final Fixture fixture : fixtures) { final int day =
-		 * fixture.getDateTime().toLocalDateTime() .getDayOfMonth(); final int
-		 * month = fixture.getDateTime().toLocalDateTime() .getMonthOfYear();
-		 * final int year = fixture.getDateTime().toLocalDateTime().getYear();
-		 * final LocalDate today = new DateTime().toLocalDate(); if (year ==
-		 * today.getYear() && day == today.getDayOfMonth() && month ==
-		 * today.getMonthOfYear()) { todaysFixtures.add(fixture); } }
-		 */
+
+		final CricketCompetition competition = league.getCompetition();
 
 		final CricketCompetition cricketCompetition = this.cricketCompetitionDao
-				.getTodaysFixtures(competition.getSport(),
+				.getTodaysFixtures(competition.getName(),
 						competition.getSport());
 
 		final List<Fixture> todaysFixtures = new ArrayList<Fixture>(
@@ -66,38 +44,15 @@ public class CricketFixturesServiceImpl implements IFixturesService {
 		final CricketLeague league = this.cricketLeagueDao
 				.fetchLeague(leagueName);
 
-		final CricketCompetition competition = league.getCompetition();
-
-		if (competition == null || !competition.isActive()) {
+		if (league == null || league.getCompetition() == null
+				|| !league.getCompetition().isActive()) {
 			return null;
 		}
 
-		/*
-		 * List<Fixture> fixtures = this.cacheService.getFixtures(
-		 * competition.getSport(), competition.getName());
-		 * 
-		 * if (fixtures == null) { final CricketCompetition cricketCompetition =
-		 * this.cricketCompetitionDao
-		 * .getCompetitionFixtures(competition.getName(),
-		 * competition.getSport()); fixtures = new
-		 * ArrayList<Fixture>(cricketCompetition.getFixtures());
-		 * 
-		 * if (fixtures != null && !fixtures.isEmpty()) { final String key =
-		 * this.cacheService.generateKey( competition.getSport(),
-		 * competition.getName()); this.cacheService.put(key, fixtures); } }
-		 * final List<Fixture> pastFixtures = new ArrayList<Fixture>();
-		 * 
-		 * for (final Fixture fixture : fixtures) { final int day =
-		 * fixture.getDateTime().toLocalDateTime() .getDayOfMonth(); final int
-		 * month = fixture.getDateTime().toLocalDateTime() .getMonthOfYear();
-		 * final LocalDate today = new DateTime().toLocalDate();
-		 * 
-		 * if (month < today.getMonthOfYear() || (month ==
-		 * today.getMonthOfYear() && day < today .getDayOfMonth())) {
-		 * pastFixtures.add(fixture); } }
-		 */
+		final CricketCompetition competition = league.getCompetition();
+
 		final CricketCompetition cricketCompetition = this.cricketCompetitionDao
-				.getPastFixtures(competition.getSport(), competition.getSport());
+				.getPastFixtures(competition.getName(), competition.getSport());
 
 		final List<Fixture> pastFixtures = new ArrayList<Fixture>(
 				cricketCompetition.getFixtures());
@@ -111,40 +66,15 @@ public class CricketFixturesServiceImpl implements IFixturesService {
 		final CricketLeague league = this.cricketLeagueDao
 				.fetchLeague(leagueName);
 
-		final CricketCompetition competition = league.getCompetition();
-
-		if (competition == null || !competition.isActive()) {
+		if (league == null || league.getCompetition() == null
+				|| !league.getCompetition().isActive()) {
 			return null;
 		}
 
-		/*
-		 * List<Fixture> fixtures = this.cacheService.getFixtures(
-		 * competition.getSport(), competition.getName());
-		 * 
-		 * if (fixtures == null) { final CricketCompetition cricketCompetition =
-		 * this.cricketCompetitionDao
-		 * .getCompetitionFixtures(competition.getName(),
-		 * competition.getSport()); fixtures = new
-		 * ArrayList<Fixture>(cricketCompetition.getFixtures());
-		 * 
-		 * if (fixtures != null && !fixtures.isEmpty()) { final String key =
-		 * this.cacheService.generateKey( competition.getSport(),
-		 * competition.getName()); this.cacheService.put(key, fixtures); } }
-		 * 
-		 * final List<Fixture> upcomingFixtures = new ArrayList<Fixture>();
-		 * 
-		 * for (final Fixture fixture : fixtures) { final int day =
-		 * fixture.getDateTime().toLocalDateTime() .getDayOfMonth(); final int
-		 * month = fixture.getDateTime().toLocalDateTime() .getMonthOfYear();
-		 * final LocalDate today = new DateTime().toLocalDate();
-		 * 
-		 * if (month > today.getMonthOfYear() || (month ==
-		 * today.getMonthOfYear() && day > today .getDayOfMonth())) {
-		 * upcomingFixtures.add(fixture); } }
-		 */
+		final CricketCompetition competition = league.getCompetition();
 
 		final CricketCompetition cricketCompetition = this.cricketCompetitionDao
-				.getFutureFixtures(competition.getSport(),
+				.getFutureFixtures(competition.getName(),
 						competition.getSport());
 
 		final List<Fixture> upcomingFixtures = new ArrayList<Fixture>(

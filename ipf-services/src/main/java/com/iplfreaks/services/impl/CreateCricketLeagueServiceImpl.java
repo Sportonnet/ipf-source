@@ -18,6 +18,7 @@ import com.iplfreaks.core.League;
 import com.iplfreaks.dao.api.ICricketCompetitionDao;
 import com.iplfreaks.dao.api.ICricketLeagueScoreDao;
 import com.iplfreaks.dao.api.ILeagueDao;
+import com.iplfreaks.dao.api.ILeagueStatsDao;
 import com.iplfreaks.dao.api.IUserDao;
 import com.iplfreaks.dao.api.IUserLeaguesDao;
 import com.iplfreaks.game.Fixture;
@@ -37,6 +38,7 @@ public class CreateCricketLeagueServiceImpl implements ICreateLeagueService {
 	private IUserLeaguesDao userLeagueDao;
 	private ICricketLeagueScoreDao cricketLeagueScoreDao;
 	private ICricketCompetitionDao cricketCompetitionDao;
+	private ILeagueStatsDao leagueStatsDao;
 
 	@Override
 	public void createLeague(String leagueName, String leagueOwner,
@@ -67,6 +69,7 @@ public class CreateCricketLeagueServiceImpl implements ICreateLeagueService {
 		// adding league owner to the list of challengers
 		final List<String> challengers = new ArrayList<String>();
 		challengers.add(leagueOwner);
+
 		addChallengersToLeague(leagueName, challengers);
 
 		if (competition != null) {
@@ -79,6 +82,7 @@ public class CreateCricketLeagueServiceImpl implements ICreateLeagueService {
 			// creating score details for the league created
 			this.cricketLeagueScoreDao.createNewCricketLeagueScore(leagueName,
 					challenges);
+
 		}
 		this.logger.info("successfully created league " + leagueName);
 
@@ -102,8 +106,7 @@ public class CreateCricketLeagueServiceImpl implements ICreateLeagueService {
 					&& !challenger.trim().isEmpty()) {
 
 				final Challenger challenger2 = new Challenger();
-				final User user = new User();
-				user.setEmail(challenger);
+				final User user = this.userDao.fetchUser(challenger);
 				challenger2.setUser(user);
 
 				if (this.userDao.isUserPresent(challenger)) {
@@ -238,6 +241,21 @@ public class CreateCricketLeagueServiceImpl implements ICreateLeagueService {
 	public void setCricketCompetitionDao(
 			ICricketCompetitionDao cricketCompetitionDao) {
 		this.cricketCompetitionDao = cricketCompetitionDao;
+	}
+
+	/**
+	 * @return the leagueStatsDao
+	 */
+	public ILeagueStatsDao getLeagueStatsDao() {
+		return leagueStatsDao;
+	}
+
+	/**
+	 * @param leagueStatsDao
+	 *            the leagueStatsDao to set
+	 */
+	public void setLeagueStatsDao(ILeagueStatsDao leagueStatsDao) {
+		this.leagueStatsDao = leagueStatsDao;
 	}
 
 }

@@ -1,6 +1,8 @@
 package com.iplfreaks.services.api;
 
-public interface ICreateUserService {
+import com.iplfreaks.user.UserLeagues;
+
+public interface IUserService {
 
 	/**
 	 * 
@@ -13,4 +15,13 @@ public interface ICreateUserService {
 	 * @return return true if user is created successfully else false
 	 */
 	public boolean createUser(String namen, String emailId, String password);
+
+	/**
+	 * 
+	 * @param userEmail
+	 *            email id of the user
+	 * @return
+	 * @throws Exception
+	 */
+	public UserLeagues getUserLeagues(String userEmail) throws Exception;
 }

@@ -19,7 +19,7 @@
 		<jaxrs:serviceBeans>
 			<ref bean="createCricketLeagueRestService" />
 			<ref bean="userAuthenticationRestService" />
-			<ref bean="createUserRestService" />
+			<ref bean="userRestService" />
 			<ref bean="cricketFixtureRestService" />
 			<ref bean="teamDetailsRestService" />
 			<ref bean="savePredictionRestService" />
@@ -37,9 +37,9 @@
 		class="com.iplfreaks.services.rest.impl.UserAuthenticationRestServiceImpl">
 		<property name="userAuthenticationService" ref="userAuthenticationService" />
 	</bean>
-	<bean id="createUserRestService"
-		class="com.iplfreaks.services.rest.impl.CreateUserRestServiceImpl">
-		<property name="createUserService" ref="createUserService" />
+	<bean id="userRestService"
+		class="com.iplfreaks.services.rest.impl.UserRestServiceImpl">
+		<property name="userService" ref="userService" />
 	</bean>
 
 	<bean id="cricketFixtureRestService"
