@@ -1,6 +1,9 @@
 package com.iplfreaks.core;
 
-import java.util.Set;
+import java.util.HashSet;
+
+import org.springframework.data.annotation.TypeAlias;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.iplfreaks.base.BaseEntity;
 
@@ -8,6 +11,8 @@ import com.iplfreaks.base.BaseEntity;
  * @author dhananjayp
  *
  */
+@Document
+@TypeAlias(value="leagueStats")
 public class LeagueStatistics extends BaseEntity {
 
 	/**
@@ -17,7 +22,7 @@ public class LeagueStatistics extends BaseEntity {
 	
 	private String leagueName;
 	
-	private Set<FixtureScore> fixtureScores;
+	private HashSet<FixtureScore> fixtureScores = new HashSet<FixtureScore>();
 
 	public String getLeagueName() {
 		return leagueName;
@@ -27,11 +32,11 @@ public class LeagueStatistics extends BaseEntity {
 		this.leagueName = leagueName;
 	}
 
-	public Set<FixtureScore> getFixtureScores() {
+	public HashSet<FixtureScore> getFixtureScores() {
 		return fixtureScores;
 	}
 
-	public void setFixtureScores(Set<FixtureScore> fixtureScores) {
+	public void setFixtureScores(HashSet<FixtureScore> fixtureScores) {
 		this.fixtureScores = fixtureScores;
 	}
 

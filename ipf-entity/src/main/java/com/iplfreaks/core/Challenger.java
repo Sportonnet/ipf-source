@@ -31,6 +31,10 @@ public class Challenger {
 	}
 
 	public String getName() {
+		if(name == null || name.trim().isEmpty())
+		{
+			return user.getEmail();
+		}
 		return name;
 	}
 
