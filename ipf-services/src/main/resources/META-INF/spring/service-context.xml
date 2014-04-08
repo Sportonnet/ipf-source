@@ -116,6 +116,7 @@
 		<property name="userLeagueDao" ref="userLeagueDao" />
 		<property name="cricketLeagueScoreDao" ref="cricketLeagueScoreDao" />
 		<property name="cricketCompetitionDao" ref="cricketCompetitionDao" />
+		<property name="leagueStatisticsDao" ref="leagueStatisticsDao"/>
 	</bean>
 
 	<bean id="userAuthenticationService"

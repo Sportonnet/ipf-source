@@ -14,7 +14,9 @@ import org.joda.time.DateTime;
 
 import com.iplfreaks.common.Keys;
 import com.iplfreaks.core.Challenger;
+import com.iplfreaks.core.FixtureScore;
 import com.iplfreaks.core.League;
+import com.iplfreaks.core.LeagueStatistics;
 import com.iplfreaks.dao.api.ICricketCompetitionDao;
 import com.iplfreaks.dao.api.ICricketLeagueScoreDao;
 import com.iplfreaks.dao.api.ILeagueDao;
@@ -38,7 +40,7 @@ public class CreateCricketLeagueServiceImpl implements ICreateLeagueService {
 	private IUserLeaguesDao userLeagueDao;
 	private ICricketLeagueScoreDao cricketLeagueScoreDao;
 	private ICricketCompetitionDao cricketCompetitionDao;
-	private ILeagueStatsDao leagueStatsDao;
+	private ILeagueStatsDao leagueStatisticsDao;
 
 	@Override
 	public void createLeague(String leagueName, String leagueOwner,
@@ -83,6 +85,20 @@ public class CreateCricketLeagueServiceImpl implements ICreateLeagueService {
 			this.cricketLeagueScoreDao.createNewCricketLeagueScore(leagueName,
 					challenges);
 
+			// creating league statistics
+			final LeagueStatistics leagueStats = new LeagueStatistics();
+			leagueStats.setLeagueName(leagueName);
+			final HashSet<FixtureScore> fixtureScores = new HashSet<FixtureScore>();
+
+			for (CricketFixture fixture : fixtures) {
+				final FixtureScore fixtureScore = new FixtureScore();
+				fixtureScore.setFixtureId(fixture.getFixtureId());
+				fixtureScores.add(fixtureScore);
+			}
+			leagueStats.setFixtureScores(fixtureScores);
+
+			this.leagueStatisticsDao.createLeagueStats(leagueStats);
+
 		}
 		this.logger.info("successfully created league " + leagueName);
 
@@ -109,9 +125,10 @@ public class CreateCricketLeagueServiceImpl implements ICreateLeagueService {
 				final User user = this.userDao.fetchUser(challenger);
 				challenger2.setUser(user);
 
-				if (this.userDao.isUserPresent(challenger)) {
+				if (user != null) {
 					leagueChallengers.add(challenger2);
 				} else {
+					challenger2.setUser(new User(challenger));
 					pendingChallengers.add(challenger2);
 				}
 			}
@@ -244,18 +261,18 @@ public class CreateCricketLeagueServiceImpl implements ICreateLeagueService {
 	}
 
 	/**
-	 * @return the leagueStatsDao
+	 * @return the leagueStatisticsDao
 	 */
-	public ILeagueStatsDao getLeagueStatsDao() {
-		return leagueStatsDao;
+	public ILeagueStatsDao getLeagueStatisticsDao() {
+		return leagueStatisticsDao;
 	}
 
 	/**
-	 * @param leagueStatsDao
-	 *            the leagueStatsDao to set
+	 * @param leagueStatisticsDao
+	 *            the leagueStatisticsDao to set
 	 */
-	public void setLeagueStatsDao(ILeagueStatsDao leagueStatsDao) {
-		this.leagueStatsDao = leagueStatsDao;
+	public void setLeagueStatisticsDao(ILeagueStatsDao leagueStatisticsDao) {
+		this.leagueStatisticsDao = leagueStatisticsDao;
 	}
 
 }

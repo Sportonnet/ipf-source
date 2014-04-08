@@ -22,9 +22,14 @@ public class TeamDetailsRestServiceImpl implements ITeamDetailsRestService {
 		try {
 			Map<String, Object> result = new HashMap<String, Object>();
 			final Team team = this.teamDetailsService.getTeamDetails(teamName);
-			result.put(Keys.TEAM.name(), team);
-			response = new RestServiceResponse(Status.SUCCESS.name(), null,
-					result);
+			if (team != null) {
+				result.put(Keys.TEAM.name(), team);
+				response = new RestServiceResponse(Status.SUCCESS.name(), null,
+						result);
+			} else {
+				response = new RestServiceResponse(Status.ERROR.name(),
+						"Invalid Team Name", null);
+			}
 
 		} catch (Exception e) {
 			e.printStackTrace();

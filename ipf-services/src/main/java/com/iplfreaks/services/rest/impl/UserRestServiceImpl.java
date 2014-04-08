@@ -51,7 +51,7 @@ public class UserRestServiceImpl implements IUserRestService {
 		} catch (Exception e) {
 			e.printStackTrace();
 			response = new RestServiceResponse(Status.ERROR.name(),
-					"System is temporarily down, please try again later", null);
+					e.getMessage(), null);
 		}
 		return new Gson().toJson(response);
 	}

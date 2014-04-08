@@ -14,7 +14,7 @@ public interface IUserService {
 	 *            password
 	 * @return return true if user is created successfully else false
 	 */
-	public boolean createUser(String namen, String emailId, String password);
+	public boolean createUser(String name, String emailId, String password);
 
 	/**
 	 * 
