@@ -14,6 +14,14 @@ public class FixtureScore extends BaseEntity {
 	private String fixtureId;
 	
 	private Set<ChallengerScore> challengerScores;
+	
+	public FixtureScore() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	public FixtureScore(final String fixtureId) {
+		this.fixtureId = fixtureId;
+	}
 
 	public String getFixtureId() {
 		return fixtureId;

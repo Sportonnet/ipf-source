@@ -12,7 +12,7 @@ import com.iplfreaks.base.BaseEntity;
  *
  */
 @Document
-@TypeAlias(value="leagueStats")
+@TypeAlias(value="leagueStatistics")
 public class LeagueStatistics extends BaseEntity {
 
 	/**
