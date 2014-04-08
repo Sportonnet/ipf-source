@@ -1,5 +1,6 @@
 package com.iplfreaks.core;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import com.iplfreaks.base.BaseEntity;
@@ -13,7 +14,7 @@ public class FixtureScore extends BaseEntity {
 
 	private String fixtureId;
 	
-	private Set<ChallengerScore> challengerScores;
+	private Set<ChallengerScore> challengerScores = new HashSet<ChallengerScore>();
 	
 	public FixtureScore() {
 		// TODO Auto-generated constructor stub

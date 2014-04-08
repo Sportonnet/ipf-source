@@ -29,6 +29,39 @@ public class Prediction extends BaseEntity {
 
 	public void setChallenger(Challenger challenger) {
 		this.challenger = challenger;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result
+				+ ((challenger == null) ? 0 : challenger.hashCode());
+		return result;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Prediction other = (Prediction) obj;
+		if (challenger == null) {
+			if (other.challenger != null)
+				return false;
+		} else if (!challenger.equals(other.challenger))
+			return false;
+		return true;
 	}	
+	
 	
 }
