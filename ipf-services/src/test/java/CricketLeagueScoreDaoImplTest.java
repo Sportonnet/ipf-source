@@ -50,8 +50,16 @@ public class CricketLeagueScoreDaoImplTest {
 	@Test
 	public void testFetchPredictions()
 	{
-		final List<CricketPrediction> cricketPredictions = this.cricketLeagueScoreDaoImpl.fetchPredictions("l1", "MI vs RCB @ 27-03-2014");
+		final Set<CricketPrediction> cricketPredictions = this.cricketLeagueScoreDaoImpl.fetchPredictions("l1", "MI vs RCB @ 27-03-2014");
 		System.out.println(cricketPredictions.size());
+		
+		for(final CricketPrediction cp : cricketPredictions)
+		{
+			if(cp != null)
+			{
+				System.out.println(cp.getBestBatsman().getName());
+			}
+		}
 	}
 	
 	@Test
@@ -122,7 +130,7 @@ public class CricketLeagueScoreDaoImplTest {
 		final CricketPrediction cricketPrediction = new CricketPrediction();
 		
 		final Player player = new Player();
-		player.setName("Sachin Tendulkar");
+		player.setName("Sachin Tendulkarrrrr");
 		
 		final User user = new User();
 		user.setEmail("ch1@gmail.com");
@@ -132,18 +140,18 @@ public class CricketLeagueScoreDaoImplTest {
 		challenger.setUser(user);
 		
 		final Team team = new Team();
-		team.setName("RCB");
+		team.setName("DD");
 		
 		final List<BonusEntity> bonus = new ArrayList<BonusEntity>();
 		
 		final BonusEntity be1 = new BonusEntity();
 		be1.setBonusQuestion("Which team will win the toss ?");
-		be1.setBonusAnswer("MI");
+		be1.setBonusAnswer("RCB");
 		bonus.add(be1);
 		
 		final BonusEntity be2 = new BonusEntity();
 		be2.setBonusQuestion("What will be the distance of the longest of the six in the match ?");
-		be2.setBonusAnswer("85 - 90 yards");
+		be2.setBonusAnswer("85 - 95 yards");
 		bonus.add(be2);
 		
 		cricketPrediction.setBestBatsman(player);
@@ -154,7 +162,7 @@ public class CricketLeagueScoreDaoImplTest {
 		
 		cricketPrediction.setChallenger(challenger);
 		
-		this.cricketLeagueScoreDaoImpl.addChallengerPrediction("l1", "MI vs RCB @ 27-03-2014", cricketPrediction);
+		this.cricketLeagueScoreDaoImpl.addChallengerPrediction("l1", "DD vs MI @ 25-03-2014", cricketPrediction);
 		
 	}
 	
@@ -189,7 +197,7 @@ public class CricketLeagueScoreDaoImplTest {
 	{
 		final CricketLeagueScore lsd = new CricketLeagueScore("l1");
 		
-		Set<CricketChallenge> challenges = new HashSet<CricketChallenge>();
+		HashSet<CricketChallenge> challenges = new HashSet<CricketChallenge>();
 		
 		final CricketChallenge challenge1 = new CricketChallenge();
 		challenge1.setFixtureId("MI vs RCB @ 27-03-2014");

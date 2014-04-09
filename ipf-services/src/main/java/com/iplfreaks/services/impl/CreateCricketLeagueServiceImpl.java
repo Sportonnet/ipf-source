@@ -79,7 +79,7 @@ public class CreateCricketLeagueServiceImpl implements ICreateLeagueService {
 			final Set<CricketFixture> fixtures = competition.getFixtures();
 
 			// get default challenges for the league
-			Set<CricketChallenge> challenges = getDefaultChallengesForLeague(fixtures);
+			HashSet<CricketChallenge> challenges = getDefaultChallengesForLeague(fixtures);
 
 			// creating score details for the league created
 			this.cricketLeagueScoreDao.createNewCricketLeagueScore(leagueName,
@@ -170,9 +170,9 @@ public class CreateCricketLeagueServiceImpl implements ICreateLeagueService {
 		return result;
 	}
 
-	private Set<CricketChallenge> getDefaultChallengesForLeague(
+	private HashSet<CricketChallenge> getDefaultChallengesForLeague(
 			Set<CricketFixture> fixtures) {
-		Set<CricketChallenge> challenges = new HashSet<CricketChallenge>();
+		HashSet<CricketChallenge> challenges = new HashSet<CricketChallenge>();
 
 		for (final Fixture fixture : fixtures) {
 			final CricketChallenge challenge = new CricketChallenge();

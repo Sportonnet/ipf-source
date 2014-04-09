@@ -56,7 +56,7 @@ public class CricketLeagueScoreDaoImpl implements ICricketLeagueScoreDao {
 
 	@Override
 	public void createNewCricketLeagueScore(String leagueName,
-			Set<CricketChallenge> challenges) {
+			HashSet<CricketChallenge> challenges) {
 		
 		final CricketLeagueScore cricketLeagueScore = new CricketLeagueScore(
 				leagueName);
@@ -72,28 +72,28 @@ public class CricketLeagueScoreDaoImpl implements ICricketLeagueScoreDao {
 	 * {"$project":{"challenges":"$challenges.predictions"}})
 	 */
 	
-	public List<CricketPrediction> fetchPredictions(final String leagueName, final String fixtureId)
+	public Set<CricketPrediction> fetchPredictions(final String leagueName, final String fixtureId)
 	{
 		final TypedAggregation<CricketLeagueScore> typedAggregation = newAggregation(CricketLeagueScore.class,
 				match(Criteria.where("leagueName").is(leagueName)),
 				unwind("challenges"),
 				match(Criteria.where("challenges.fixtureId").is(fixtureId)),
-				unwind("challenges.predictions")
-				//group().push("challenges.predictions").as("challenges")
+				//unwind("challenges.predictions")
+				group().addToSet("challenges").as("challenges")
 				//group().push("fixtureScores").as("fixtureScores").first("leagueName").as("leagueName")
 				);
 		
 		System.out.println("Query used for fetching fixture based on id from leaguestatistics is : " + typedAggregation);
-		final AggregationResults<CricketPrediction> result = mongoTemplate.aggregate(typedAggregation, COLLECTION_CRICKET_LEAGUE_SCORE, CricketPrediction.class);
+		final AggregationResults<CricketLeagueScore> result = mongoTemplate.aggregate(typedAggregation, COLLECTION_CRICKET_LEAGUE_SCORE, CricketLeagueScore.class);
 		
-		return result.getMappedResults();
+		return result.getMappedResults().iterator().next().getFixturePredictionList().iterator().next().getPredictions();
 	}
 	
 	@Override
 	public void addChallengerPrediction(String leagueName, String fixtureId,
 			CricketPrediction prediction) {
 		
-		final List<CricketPrediction> allCricketPredictions = fetchPredictions(leagueName, fixtureId);
+		final Set<CricketPrediction> allCricketPredictions = fetchPredictions(leagueName, fixtureId);
 		
 		final Set<CricketPrediction> updatedCricketPredictions = new HashSet<CricketPrediction>();
 		

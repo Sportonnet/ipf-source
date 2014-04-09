@@ -3,7 +3,7 @@
  */
 package com.iplfreaks.dao.api;
 
-import java.util.Set;
+import java.util.HashSet;
 
 import com.iplfreaks.game.cricket.CricketChallenge;
 import com.iplfreaks.game.cricket.CricketLeagueScore;
@@ -20,7 +20,7 @@ public interface ICricketLeagueScoreDao {
 	public void createNewCricketLeagueScore(final CricketLeagueScore cricketLeagueScore);
 	
 	public void createNewCricketLeagueScore(String leagueName,
-			Set<CricketChallenge> challenges);
+			HashSet<CricketChallenge> challenges);
 	
 	public void addChallengerPrediction(final String leagueName, final String fixtureId, final CricketPrediction prediction);
 	
