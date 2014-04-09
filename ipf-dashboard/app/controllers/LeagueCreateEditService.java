@@ -6,14 +6,13 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import com.ning.http.client.FluentStringsMap;
-
+import play.libs.F.Promise;
 import play.libs.WS.Response;
 import play.libs.WS.WSRequest;
-import play.mvc.Content;
 import play.mvc.Controller;
 import play.mvc.Result;
-import play.libs.F.Promise;
+
+import com.ning.http.client.FluentStringsMap;
 
 public class LeagueCreateEditService extends Controller {
 	
@@ -69,7 +68,7 @@ public class LeagueCreateEditService extends Controller {
 			return ok("error");
 		}
 		session().remove("leagueName");
-		return response.get().getBody();
+		return ok(response.get().getBody());
 		
 	}
 	
