@@ -8,6 +8,7 @@ $(document).ready(function () {
 
         $("#allfixtures").show();
         $("#fixturedetails").hide();
+        $("#scoreBoard").hide();
         $("#maxRun").text('Drag Player here');
         $("#maxWct").text('Drag Player here');
         $("#MofM").text('Drag Player here');
@@ -20,6 +21,7 @@ $(document).ready(function () {
 
     });
 
+    
     $(".header1").click(function () {
 
         $header = $(this);
@@ -81,7 +83,16 @@ $(document).ready(function () {
 
     	$("#allfixtures").hide();
     	$("#fixturedetails").hide();
+    	$("#scoreBoard").hide();
     });
+    
+    $("#showScore").click(function () {
+   	 //console.log("showScore: ");
+   	//alert("In scoreDeatils");
+   	   $("#allfixtures").hide();
+       $("#fixturedetails").hide();
+       $("#scoredetails").show();
+   });
 
 });
 
@@ -124,16 +135,16 @@ function populateFixtures(type) {
         $("#allfixtures").show();
 
     }).error(function (response) {
-        errorHandler(response);
+
     }).fail(function (jqxhr, textStatus, error) {
         var err = textStatus + ', ' + error;
         console.log("jqxhr: " + jqxhr);
         console.log("Request Failed: " + err + jqxhr.status);
-        window.location = '/login';
 
     });
     
 }
+
 
 function displayFixturesDetails(ev) {
     var id = ev.id;
@@ -177,7 +188,7 @@ function displayFixturesDetails(ev) {
         });
 
     }).error(function (response) {
-        errorHandler(response);
+
     }).fail(function (jqxhr, textStatus, error) {
         var err = textStatus + ', ' + error;
         console.log("jqxhr: " + jqxhr);
@@ -198,7 +209,7 @@ function displayFixturesDetails(ev) {
         });
 
     }).error(function (response) {
-        errorHandler(response);
+
     }).fail(function (jqxhr, textStatus, error) {
         var err = textStatus + ', ' + error;
         console.log("jqxhr: " + jqxhr);
@@ -209,7 +220,9 @@ function displayFixturesDetails(ev) {
 
     $("#allfixtures").hide();
     $("#fixturedetails").show();
+    $("#scoreBoard").show();
 
 
 }
+
 

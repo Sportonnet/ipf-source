@@ -2,10 +2,18 @@ package controllers;
 
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
+import com.ning.http.client.FluentStringsMap;
+
+import play.libs.WS.Response;
+import play.libs.WS.WSRequest;
+import play.mvc.Content;
 import play.mvc.Controller;
 import play.mvc.Result;
+import play.libs.F.Promise;
 
 public class LeagueCreateEditService extends Controller {
 	
@@ -32,6 +40,7 @@ public class LeagueCreateEditService extends Controller {
 		
 		String leagueName = session().get("leagueName");
 		System.out.println("League details are... id : " + leagueName+ "emailIds : " +challengers);
+		FluentStringsMap map = new FluentStringsMap();
 		Map<String, String> queryParameters = new HashMap<String, String>();
 		queryParameters.put("leagueName",leagueName);
 		
@@ -42,21 +51,53 @@ public class LeagueCreateEditService extends Controller {
 		String challengerCommaSplit = challengerSplit.replace("\"","");
 		System.out.println("Removing commas--------->"+challengerCommaSplit);
 		String[] challenger = challengerCommaSplit.trim().split(",");
+		 Set<String> challengersSet = new HashSet<String>();
 		for (String email : challenger) {
 			System.out.println("EmailId------->"+email);
-			queryParameters.put("challengers", email);
+			challengersSet.add(email);
 		}
-		
-        String response = ServiceUtil.callPOST("/services/cricketleagues/addChallengersToLeague", null, queryParameters, 50000);
-        
+		map.add("challengers",challengersSet);
+        //String response = ServiceUtil.callPOST("/services/cricketleagues/addChallengersToLeague", null, queryParameters, 50000);
+		 WSRequest request = new WSRequest("POST");
+		 request.setUrl("http://localhost:8181/services/cricketleagues/addChallengersToLeague");
+		 request.setHeader(CONTENT_TYPE, "application/x-www-form-urlencoded");
+
+		 request.setQueryParameters(map);
+		 Promise<Response> response = request.execute();
+		 
 		if( response.equals("")){
 			return ok("error");
 		}
 		session().remove("leagueName");
-		return ok(response);
+		return response.get().getBody();
 		
 	}
 	
-	
+	/*public static String callPOST() {
+		 
+		 WSRequest request = new WSRequest("POST");
+		 request.setUrl("http://localhost:8181/services/cricketleagues/addChallengersToLeague");
+		 request.setHeader(CONTENT_TYPE, "application/x-www-form-urlencoded");
+
+		 FluentStringsMap map = new FluentStringsMap();
+
+		 map.add("leagueName", "t20-freaks");
+
+		 Set<String> challengers = new HashSet<String>();
+		 challengers.add("hiren.develiya@citiustech.com");
+		 challengers.add("aniket.divekar@abc.com");
+		 challengers.add("mohini.mudaliar@citiustech.com");
+		 challengers.add("jayesh.mair@ge.com");
+
+		 map.add("challengers", challengers);
+
+		 request.setQueryParameters(map);
+		 Promise<Response> response = request.execute();
+
+		 System.out.println(response.get().getBody());
+
+		 return response.get().getBody();
+		 }*/
+
 
 }
