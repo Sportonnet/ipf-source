@@ -48,7 +48,14 @@ public class CricketLeagueScoreDaoImplTest {
 	}
 	
 	@Test
-	public void testAddChallengerPrediction()
+	public void testFetchPredictions()
+	{
+		final List<CricketPrediction> cricketPredictions = this.cricketLeagueScoreDaoImpl.fetchPredictions("l1", "MI vs RCB @ 27-03-2014");
+		System.out.println(cricketPredictions.size());
+	}
+	
+	@Test
+	public void testDuplicatePrediction()
 	{
 		final CricketPrediction cricketPrediction = new CricketPrediction();
 		
@@ -85,7 +92,69 @@ public class CricketLeagueScoreDaoImplTest {
 		
 		cricketPrediction.setChallenger(challenger);
 		
-		this.cricketLeagueScoreDaoImpl.addChallengerPrediction("l1", "DD vs MI @ 25-03-2014", cricketPrediction);
+		final CricketPrediction cricketPrediction2 = new CricketPrediction();
+		
+		final User user1 = new User();
+		user1.setEmail("ch1@gmail.com");
+		
+		final Challenger challenger1 = new Challenger();
+		challenger1.setName("ch1");
+		challenger1.setUser(user1);
+		
+		cricketPrediction2.setBestBatsman(player);
+		cricketPrediction2.setBestBowler(player);
+		cricketPrediction2.setManOfTheMatch(player);
+		cricketPrediction2.setWinnerTeam(team);
+		cricketPrediction2.setBonus(bonus);
+		
+		cricketPrediction2.setChallenger(challenger1);
+		
+		final Set<CricketPrediction> cricketPredictions = new HashSet<CricketPrediction>();
+		System.out.println(cricketPredictions.add(cricketPrediction));
+		System.out.println(cricketPredictions.add(cricketPrediction2));
+		
+		System.out.println(cricketPredictions.size());
+	}
+	
+	@Test
+	public void testAddChallengerPrediction()
+	{
+		final CricketPrediction cricketPrediction = new CricketPrediction();
+		
+		final Player player = new Player();
+		player.setName("Sachin Tendulkar");
+		
+		final User user = new User();
+		user.setEmail("ch1@gmail.com");
+		
+		final Challenger challenger = new Challenger();
+		challenger.setName("ch1");
+		challenger.setUser(user);
+		
+		final Team team = new Team();
+		team.setName("RCB");
+		
+		final List<BonusEntity> bonus = new ArrayList<BonusEntity>();
+		
+		final BonusEntity be1 = new BonusEntity();
+		be1.setBonusQuestion("Which team will win the toss ?");
+		be1.setBonusAnswer("MI");
+		bonus.add(be1);
+		
+		final BonusEntity be2 = new BonusEntity();
+		be2.setBonusQuestion("What will be the distance of the longest of the six in the match ?");
+		be2.setBonusAnswer("85 - 90 yards");
+		bonus.add(be2);
+		
+		cricketPrediction.setBestBatsman(player);
+		cricketPrediction.setBestBowler(player);
+		cricketPrediction.setManOfTheMatch(player);
+		cricketPrediction.setWinnerTeam(team);
+		cricketPrediction.setBonus(bonus);
+		
+		cricketPrediction.setChallenger(challenger);
+		
+		this.cricketLeagueScoreDaoImpl.addChallengerPrediction("l1", "MI vs RCB @ 27-03-2014", cricketPrediction);
 		
 	}
 	
