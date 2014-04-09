@@ -15,7 +15,7 @@ public class CricketChallenge {
 	//Unique identifier for the fixture
 		private String fixtureId;
 		
-		private Set<CricketPrediction> predictions = new HashSet<CricketPrediction>();
+		private HashSet<CricketPrediction> predictions = new HashSet<CricketPrediction>();
 		
 		private CricketPrediction result;
 
@@ -43,7 +43,7 @@ public class CricketChallenge {
 		/**
 		 * @param predictions the predictions to set
 		 */
-		public void setPredictions(Set<CricketPrediction> predictions) {
+		public void setPredictions(HashSet<CricketPrediction> predictions) {
 			this.predictions = predictions;
 		}
 

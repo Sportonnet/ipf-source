@@ -79,10 +79,11 @@ public class CricketPrediction extends Prediction {
 	 */
 	@Override
 	public int hashCode() {
+		
 		final int prime = 31;
 		int result = super.hashCode();
 		result = prime * result
-				+ ((getChallenger() == null) ? 0 : getChallenger().hashCode());
+				+ ((getChallenger() == null) ? 0 : getChallenger().getUser().getEmail().hashCode());
 		return result;
 	}
 

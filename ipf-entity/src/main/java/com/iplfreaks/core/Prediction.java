@@ -38,7 +38,6 @@ public class Prediction {
 		int result = 1;//super.hashCode();
 		result = prime * result
 				+ ((challenger == null) ? 0 : challenger.getUser().getEmail().hashCode());
-		System.out.println("Hashcode in pred is : " + result);
 		return result;
 	}
 

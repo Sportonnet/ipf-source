@@ -22,7 +22,7 @@ public class CricketLeagueScore {
 	@Indexed(unique=true, sparse=true)
 	private String leagueName;
 	
-	private final Set<CricketChallenge> challenges = new HashSet<CricketChallenge>();
+	private final HashSet<CricketChallenge> challenges = new HashSet<CricketChallenge>();
 	
 	public CricketLeagueScore() {
 	}
@@ -36,7 +36,7 @@ public class CricketLeagueScore {
 		getFixturePredictionList().add(challenge);
 	}
 	
-	public void addAllFixturePrediction(final Set<CricketChallenge> challenges)
+	public void addAllFixturePrediction(final HashSet<CricketChallenge> challenges)
 	{
 		getFixturePredictionList().addAll(challenges);
 	}
@@ -58,7 +58,7 @@ public class CricketLeagueScore {
 	/**
 	 * @return the fixturePredictionList
 	 */
-	public Set<CricketChallenge> getFixturePredictionList() {
+	public HashSet<CricketChallenge> getFixturePredictionList() {
 		return challenges;
 	}
 
