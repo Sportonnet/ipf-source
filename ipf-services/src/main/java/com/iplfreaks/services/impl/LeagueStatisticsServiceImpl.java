@@ -9,34 +9,33 @@ import com.iplfreaks.services.api.ILeagueStatisticsService;
 
 public class LeagueStatisticsServiceImpl implements ILeagueStatisticsService {
 
-	private ILeagueStatsDao leagueStatsDao;
+	private ILeagueStatsDao leagueStatisticsDao;
 
 	@Override
 	public LeagueStatistics fetchFixtureScore(String leagueName,
 			String fixtureId) {
-		this.leagueStatsDao.fetchFixtureScore(leagueName, fixtureId);
-		return null;
+		return this.leagueStatisticsDao
+				.fetchFixtureScore(leagueName, fixtureId);
 	}
 
 	@Override
 	public List<ChallengerScore> fetchLeagueScore(String leagueName) {
-		this.leagueStatsDao.fetchLeagueScore(leagueName);
-		return null;
+		return this.leagueStatisticsDao.fetchLeagueScore(leagueName);
 	}
 
 	/**
-	 * @return the leagueStatsDao
+	 * @return the leagueStatisticsDao
 	 */
-	public ILeagueStatsDao getLeagueStatsDao() {
-		return leagueStatsDao;
+	public ILeagueStatsDao getLeagueStatisticsDao() {
+		return leagueStatisticsDao;
 	}
 
 	/**
-	 * @param leagueStatsDao
-	 *            the leagueStatsDao to set
+	 * @param leagueStatisticsDao
+	 *            the leagueStatisticsDao to set
 	 */
-	public void setLeagueStatsDao(ILeagueStatsDao leagueStatsDao) {
-		this.leagueStatsDao = leagueStatsDao;
+	public void setLeagueStatisticsDao(ILeagueStatsDao leagueStatisticsDao) {
+		this.leagueStatisticsDao = leagueStatisticsDao;
 	}
 
 }

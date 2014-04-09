@@ -24,6 +24,7 @@
 			<ref bean="teamDetailsRestService" />
 			<ref bean="savePredictionRestService" />
 			<ref bean="cricketChallengerRestService" />
+			<ref bean="leagueStatisticsRestService" />
 		</jaxrs:serviceBeans>
 	</jaxrs:server>
 
@@ -37,8 +38,7 @@
 		class="com.iplfreaks.services.rest.impl.UserAuthenticationRestServiceImpl">
 		<property name="userAuthenticationService" ref="userAuthenticationService" />
 	</bean>
-	<bean id="userRestService"
-		class="com.iplfreaks.services.rest.impl.UserRestServiceImpl">
+	<bean id="userRestService" class="com.iplfreaks.services.rest.impl.UserRestServiceImpl">
 		<property name="userService" ref="userService" />
 	</bean>
 
@@ -58,7 +58,10 @@
 		class="com.iplfreaks.services.rest.impl.CricketChallengerRestServiceImpl">
 		<property name="challengerService" ref="cricketChallengerService" />
 	</bean>
-
+	<bean id="leagueStatisticsRestService"
+		class="com.iplfreaks.services.rest.impl.LeagueStatisticsRestServiceImpl">
+		<property name="leagueStatistics" ref="leagueStatisticsService" />
+	</bean>
 	<!-- 4 -->
 	<!-- This has to point to the service registered through serviceimpl.xml 
 		in the service.impl project -->
