@@ -2,9 +2,7 @@ package com.iplfreaks.core;
 
 import org.joda.time.DateTime;
 
-import com.iplfreaks.base.BaseEntity;
-
-public class Prediction extends BaseEntity {
+public class Prediction {
 
 	/**
 	 * 
@@ -37,9 +35,10 @@ public class Prediction extends BaseEntity {
 	@Override
 	public int hashCode() {
 		final int prime = 31;
-		int result = super.hashCode();
+		int result = 1;//super.hashCode();
 		result = prime * result
-				+ ((challenger == null) ? 0 : challenger.hashCode());
+				+ ((challenger == null) ? 0 : challenger.getUser().getEmail().hashCode());
+		System.out.println("Hashcode in pred is : " + result);
 		return result;
 	}
 
@@ -50,8 +49,6 @@ public class Prediction extends BaseEntity {
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (!super.equals(obj))
-			return false;
 		if (getClass() != obj.getClass())
 			return false;
 		Prediction other = (Prediction) obj;
