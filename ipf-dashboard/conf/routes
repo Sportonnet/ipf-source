@@ -20,3 +20,6 @@ GET			/logout																																			controllers.LoginController.logO
 
 
 GET  		/getAllPlayers/:match																															controllers.Dashboard.getPlayers(match:String)					
+GET  		/getFixturesDetails/:leagueName/:type																											controllers.Dashboard.getAllFixtures(leagueName:String, type:String)
+POST  		/getFixtureDetails/:leagueName/:fixtureId																										controllers.Dashboard.getFixtureDetails(leagueName:String, fixtureId:String)
+POST  		/savePredictions/:fixtureId/:leagueName/:maxWct/:maxRun/:MofM/:mWnr/:bAns																		controllers.Dashboard.savePredictions(fixtureId:String, leagueName:String, maxWct:String, maxRun:String, MofM:String, mWnr:String, bAns:String)
