@@ -5,7 +5,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 
-@Path("/signup")
+@Path("/users")
 @Produces({ "application/json" })
 public interface IUserRestService {
 
