@@ -39,6 +39,9 @@
          <section>
             <div  id = "container_play">
                <div id="wrapper2">
+               <div id="myAllLeague"  style="display:none;">
+               <ul></ul>
+               </div>
                   <div id="allfixtures"  class="animate form" style="display:none;">
                      <div class="main_block">
                         <div id = "future" class="inner_block">
@@ -64,107 +67,13 @@
                      </div>
                   </div>
                   <div id="fixturedetails" style="display:none;" class="animate form">
-                     <div  >
+                     <div  style="height: 500px ">
                         <a href="#" id = "Bck_Mth_Lst" >Back to Match List</a>          
-                        <h1> Playyyy!!! </h1>
+                        <div id = 'playGame' style="margin-left: 250px"></div>
                         <div id="leftcolumn">
                            <div class="CSSTableGenerator" style="width:97%;">
-                              <table>
-                                 <tr>
-                                    <td style="padding:7px 30px;" >
-                                       Player Name.
-                                    </td>
-                                    <td style="padding:7px 30px;" >
-                                       Max. Run Scorer
-                                    </td>
-                                    <td style="padding:7px 30px;" >
-                                       Max Wicket Taker
-                                    </td>
-                                    <td style="padding:7px 30px;" >
-                                       Man of the Match
-                                    </td>
-                                    <td style="padding:7px 30px;" >
-                                       Match Winner
-                                    </td>
-                                    <td style="padding:7px 30px;" >
-                                       Bonus Question
-                                    </td>
-                                    <td style="padding:7px 30px;" >
-                                       Submit
-                                    </td>
-                                 </tr>
-                                 <tr>
-                                    <td >
-                                       Hiren
-                                    </td>
-                                    <td>
-                                       <div  id = "maxRun" ondragenter="return dragEnter(event)" ondrop="return dragDrop(event)" ondragover="return dragOver(event)">Drag Player here </div>
-                                    </td>
-                                    <td>
-                                       <div id = "maxWct" ondragenter="return dragEnter(event)" ondrop="return dragDrop(event)" ondragover="return dragOver(event)">Drag Player here </div>
-                                    </td>
-                                    <td>
-                                       <div  id = "MofM" ondragenter="return dragEnter(event)" ondrop="return dragDrop(event)" ondragover="return dragOver(event)">Drag Player here </div>
-                                    </td>
-                                    <td>
-                                    </td>
-                                    <td>
-                                    </td>
-                                    <td>
-                                       <a href="#" id = "submitRes" >Save</a>
-                                    </td>
-                                 </tr>
-                                 <tr>
-                                    <td >
-                                       Aniket
-                                    </td>
-                                    <td>
-                                    </td>
-                                    <td>
-                                    </td>
-                                    <td>
-                                    </td>
-                                    <td>
-                                    </td>
-                                    <td>
-                                    </td>
-                                    <td>
-                                    </td>
-                                 </tr>
-                                 <tr>
-                                    <td >
-                                       Jayesh
-                                    </td>
-                                    <td>
-                                    </td>
-                                    <td>
-                                    </td>
-                                    <td>
-                                    </td>
-                                    <td>
-                                    </td>
-                                    <td>
-                                    </td>
-                                    <td>
-                                    </td>
-                                 </tr>
-                                 <tr>
-                                    <td >
-                                       DP
-                                    </td>
-                                    <td>
-                                    </td>
-                                    <td>
-                                    </td>
-                                    <td>
-                                    </td>
-                                    <td>
-                                    </td>
-                                    <td>
-                                    </td>
-                                    <td>
-                                    </td>
-                                 </tr>
+                              <table id = "fixturedetailsTable">
+                                 
                               </table>
                            </div>
                            	<div id="scoreBoard"  class="animate form" style="display:none;">
@@ -189,11 +98,13 @@
                            </div>
                            <div style="display: inline; white-space: nowrap;" class="header3"><img src="@routes.Assets.at("images/1395333942_129.png")" alt="plus image" /><span></span>
                            </div>
-                           <div id = "teams" style="border:2px solid #ccc; width:170px; height: 100px; overflow-y: scroll; display: none;">
+                           <div id = "teams" style="border:2px solid #ccc; width:150px; height: 45px; overflow-y: scroll; display: none;">
+                           </div>
+                           <div style="display: inline; white-space: nowrap;" class="header4"><img src="@routes.Assets.at("images/1395333942_129.png")" alt="plus image" /><span></span>
+                           </div>
+                           <div id = "bonAns" style="border:2px solid #ccc; width:150px; height: 80px; overflow-y: scroll; display: none;">
                            </div>
                         </div>
-                     </div>
-                  </div>
                	  <div id="scoredetails" style="display:none;" class="animate form">
 	               	  <div class="CSSTableGenerator" style="margin-left : 100px;" >
 			                <table id = "score_details" align="right">
@@ -215,10 +126,9 @@
 			                     <td> 100 </td>
 			                    </tr>
 						</table>
-	               </div>
-            </div>
+                     </div>
+                  </div>
                </div>
-               
             </div>
          </section>
       </div>
