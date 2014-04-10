@@ -173,6 +173,7 @@ $(document).ready(function () {
 
 				// alert('data is '+data);
 				var jsonObj = eval('(' + unescape(data) + ')');
+				alert(jsonObj);
 				//alert("The returned from service"+jsonObj.status);
 				console.log("status " + jsonObj.status);
 				if(jsonObj.status=='SUCCESS'){

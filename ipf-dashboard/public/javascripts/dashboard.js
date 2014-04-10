@@ -79,6 +79,7 @@ $(document).ready(function () {
         $("#myAllLeague").show();
         $("#allfixtures").hide();
         $("#fixturedetails").hide();
+        $("#scoredetails").hide();
     });
 
     $(".home").click(function (e) {
@@ -86,6 +87,7 @@ $(document).ready(function () {
         $("#allfixtures").hide();
         $("#fixturedetails").hide();
         $("#myAllLeague").hide();
+        $("#scoredetails").hide();
     });
     
     $("#showScore").click(function () {
@@ -95,6 +97,14 @@ $(document).ready(function () {
        $("#fixturedetails").hide();
        $("#scoredetails").show();
    });
+    
+    $("#bckToAllFixtures").click(function () {
+      	   $("#allfixtures").show();
+          $("#fixturedetails").hide();
+          $("#scoredetails").hide();
+      });
+    
+    
 
 });
 
@@ -221,12 +231,14 @@ function displayFixturesDetails(ev) {
     var trs = $('#match_details').find('tr:eq(' + id + ')');
     var match = $.trim(trs.find('td:eq(1)').html());
     var bonusQuestion = '';
+    var bonusAns = '';
     var venue = '';
 
     $(fixtures).each(function (index, element) {
         if (match == element.fixtureName) {
             fixtureId = element.fixtureId;
             bonusQuestion = element.bonus[0].bonusQuestion;
+            bonusAns = element.bonus[0].options;
             venue = element.venue;
         }
     });
@@ -323,10 +335,11 @@ function displayFixturesDetails(ev) {
     $('<div id = "team1" style="border:2px solid #ccc;" draggable="true" ondragstart="return dragStartTeam(event)"><p>' + team1 + '</p></div>').appendTo("#teams");
     $('<div id = "team2" style="border:2px solid #ccc;" draggable="true" ondragstart="return dragStartTeam(event)"><p>' + team2 + '</p></div>').appendTo("#teams");
     
-    $('<div id = "bonAns1" style="border:2px solid #ccc;" draggable="true" ondragstart="return dragStartBon(event)"><p>1</p></div>').appendTo("#bonAns");
-    $('<div id = "bonAns2" style="border:2px solid #ccc;" draggable="true" ondragstart="return dragStartBon(event)"><p>2</p></div>').appendTo("#bonAns");
-    $('<div id = "bonAns3" style="border:2px solid #ccc;" draggable="true" ondragstart="return dragStartBon(event)"><p>3</p></div>').appendTo("#bonAns");
-    $('<div id = "bonAns4" style="border:2px solid #ccc;" draggable="true" ondragstart="return dragStartBon(event)"><p>4</p></div>').appendTo("#bonAns");
+    $(bonusAns).each(function (index, element) {
+    	$('<div id = "bonAns'+count+'" style="border:2px solid #ccc;" draggable="true" ondragstart="return dragStartBon(event)"><p>1</p></div>').appendTo("#bonAns");
+    	count++;    
+    });
+    count = 0;
     requestPath = '/getAllPlayers/';
     url = requestPath + team1;
     console.log('requestPath = ' + requestPath);
