@@ -28,14 +28,15 @@ public class LoginController extends Controller{
 	}
 	
 	public static Result signUp(String uName, String email, String password) {
-		
+
 		Map<String, String> queryParams = new HashMap<String, String>();
-        queryParams.put("name", uName);
-        queryParams.put("emailId", email);
-        queryParams.put("password", password);
-					
-		String response = ServiceUtil.callPOST("/services/signup/createUser/", null, queryParams, 50000);
-		System.out.println("We reached here"+response);
+		queryParams.put("name", uName);
+		queryParams.put("emailId", email);
+		queryParams.put("password", password);
+
+		String response = ServiceUtil.callPOST("/services/users/createUser/",
+				null, queryParams, 50000);
+		System.out.println("We reached here" + response);
 		return ok(response);
 			
 	

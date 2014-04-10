@@ -91,4 +91,14 @@ public class Dashboard extends Controller {
 
 	}
 	
+	public static Result getMyAllLeague() {
+
+		Map<String, String> queryParams = new HashMap<String, String>();
+		queryParams.put("user", session().get("email"));
+		String response = ServiceUtil.callPOST("/services/users/getUserLeagues/",
+				null, queryParams, 50000);
+		return ok(response);
+
+	}
+	
 }
