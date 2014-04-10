@@ -14,10 +14,10 @@ public class LoginController extends Controller{
 	
 	public static Result authenticate(String uName, String password) {
 
-			session().put("loginName", uName);
+			session().put("email", "hdeveliya483@gmail.com");
 			String requestData = "emailId="+URLEncoder.encode(uName)+"&password="+URLEncoder.encode(password);			
-			String response = ServiceUtil.callPOST("/services/login/isUserAuthorized/", requestData, null, 50000);
-			if("true".equalsIgnoreCase("true"))
+			String  response = ServiceUtil.callPOST("/services/login/isUserAuthorized/", requestData, null, 50000);
+			if(response.equalsIgnoreCase("true"))
 			{
 				return ok("success");
 			}else{
@@ -38,9 +38,8 @@ public class LoginController extends Controller{
 				null, queryParams, 50000);
 		System.out.println("We reached here" + response);
 		return ok(response);
-			
-	
-}
+
+	}
 	
 	public static Result goToDashboard() {
 

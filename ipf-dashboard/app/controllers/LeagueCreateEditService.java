@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import play.api.libs.ws.WS;
 import play.libs.F.Promise;
 import play.libs.WS.Response;
 import play.libs.WS.WSRequest;
@@ -40,8 +41,6 @@ public class LeagueCreateEditService extends Controller {
 		String leagueName = session().get("leagueName");
 		System.out.println("League details are... id : " + leagueName+ "emailIds : " +challengers);
 		FluentStringsMap map = new FluentStringsMap();
-		Map<String, String> queryParameters = new HashMap<String, String>();
-		queryParameters.put("leagueName",leagueName);
 		
 		String result = java.net.URLDecoder.decode(challengers, "UTF-8");
 		System.out.println("Results----------->"+result);
@@ -55,15 +54,17 @@ public class LeagueCreateEditService extends Controller {
 			System.out.println("EmailId------->"+email);
 			challengersSet.add(email);
 		}
+		map.add("leagueName",leagueName);
 		map.add("challengers",challengersSet);
         //String response = ServiceUtil.callPOST("/services/cricketleagues/addChallengersToLeague", null, queryParameters, 50000);
 		 WSRequest request = new WSRequest("POST");
+
+		 
 		 request.setUrl("http://localhost:8181/services/cricketleagues/addChallengersToLeague");
 		 request.setHeader(CONTENT_TYPE, "application/x-www-form-urlencoded");
-
 		 request.setQueryParameters(map);
 		 Promise<Response> response = request.execute();
-		 
+		 System.out.println("response  "+response.get().getBody());
 		if( response.equals("")){
 			return ok("error");
 		}

@@ -80,7 +80,6 @@ public class ServiceUtil {
         }
 
 		Promise<WS.Response> wsResponse = null;
-		System.out.println("Request holder------------->"+requestHolder.toString());
 		try {
 			if(jsonRequest!=null){
 				wsResponse = requestHolder.post(jsonRequest);	
@@ -93,7 +92,7 @@ public class ServiceUtil {
 			response = String.valueOf(jsonNode);
 			response=wsResponse.get(promiseTime, TimeUnit.MILLISECONDS).getBody();
 			System.out.println("The response is "+response);
-			System.out.println(">>ServiceUtil callPOST() to " + serviceUrl.toString() + " response.get().getBody()..." + response);
+            //System.out.println(">>ServiceUtil callPOST() to " + serviceUrl.toString() + " response.get().getBody()..." + response);
 			if("".equals(response)){
 				throw new Exception ("Response body is empty ");
 				
