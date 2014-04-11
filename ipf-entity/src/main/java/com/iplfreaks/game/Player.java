@@ -64,9 +64,7 @@ public class Player extends BaseEntity {
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (!super.equals(obj))
-			return false;
-		if (getClass() != obj.getClass())
+				if (getClass() != obj.getClass())
 			return false;
 		Player other = (Player) obj;
 		if (name == null) {
