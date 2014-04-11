@@ -146,19 +146,17 @@ public class CricketScoreCalcServiceImpleTest {
 				System.out.println("Winner team prediction : Miss" );
 			}
 			
-			int i = 0;
-			for(final BonusEntity be : outcome.getBonus())
+			for(final BonusEntity be : cricketPrediction.getBonus())
 			{
-				if(be.getBonusAnswer().equals(cricketPrediction.getBonus().get(i)))
+				if(outcome.getBonus().contains(be))
 				{
 					System.out.println("Bonus " + be.getBonusQuestion() + " prediction : Hit" );
 				}
-				else{
+				else
+				{
 					System.out.println("Bonus " + be.getBonusQuestion() + " prediction : Miss" );
 				}
-				i++;
 			}
-			
 		}
 		
 		
