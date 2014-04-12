@@ -31,7 +31,7 @@ public class SavePredictionServiceImpl implements ISavePredictionService {
 	public void saveCricketPrediction(String leagueName, String fixtureId,
 			String challengerEmailId, String bestBowlerName,
 			String bestBatsmanName, String manOfTheMatchName,
-			String winnerTeam, String bonusAnswer) {
+			String winnerTeam, List<String> bonus) {
 
 		this.logger.info("saving prediction for fixture : " + fixtureId
 				+ " by user : " + challengerEmailId);
@@ -49,10 +49,18 @@ public class SavePredictionServiceImpl implements ISavePredictionService {
 		final Player bestBatsman = new Player(bestBatsmanName);
 		final Player manOfTheMatch = new Player(manOfTheMatchName);
 
-		final List<BonusEntity> bonusAnswers = new ArrayList<BonusEntity>();
-		final BonusEntity bonus = new BonusEntity();
-		bonus.setBonusAnswer(bonusAnswer);
-		bonusAnswers.add(bonus);
+		final List<BonusEntity> bonusList = new ArrayList<BonusEntity>();
+
+		for (final String bonusQA : bonus) {
+			final BonusEntity bonusEntity = new BonusEntity();
+			String bonusQ = bonusQA.substring(0, bonusQA.lastIndexOf("|"))
+					.trim();
+			String bonusA = bonusQA.substring(bonusQA.lastIndexOf("|") + 1)
+					.trim();
+			bonusEntity.setBonusQuestion(bonusQ);
+			bonusEntity.setBonusAnswer(bonusA);
+			bonusList.add(bonusEntity);
+		}
 
 		final Team winner = new Team();
 		winner.setName(winnerTeam);
@@ -60,7 +68,7 @@ public class SavePredictionServiceImpl implements ISavePredictionService {
 		prediction.setBestBatsman(bestBatsman);
 		prediction.setBestBowler(bestBowler);
 		prediction.setManOfTheMatch(manOfTheMatch);
-		prediction.setBonus(bonusAnswers);
+		prediction.setBonus(bonusList);
 		prediction.setWinnerTeam(winner);
 
 		prediction.setTime(new DateTime());
@@ -76,9 +84,8 @@ public class SavePredictionServiceImpl implements ISavePredictionService {
 	@Override
 	public boolean canSavePrediction(String fixtureId) {
 
-		// TODO
 		final DateTime fixtureDateTime = new DateTime(fixtureId.substring(
-				fixtureId.lastIndexOf("@")+1).trim());
+				fixtureId.lastIndexOf("@") + 1).trim());
 
 		if (fixtureDateTime.minusMinutes(30).isAfterNow()) {
 			return true;

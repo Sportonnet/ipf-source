@@ -3,6 +3,8 @@
  */
 package com.iplfreaks.services.rest.impl;
 
+import java.util.List;
+
 import org.apache.log4j.Logger;
 
 import com.google.gson.Gson;
@@ -25,7 +27,7 @@ public class SavePredictionRestServiceImpl implements
 	@Override
 	public String saveCricketPrediction(String leagueName, String fixtureId,
 			String challengerEmailId, String bestBowler, String bestBatsman,
-			String manOfTheMatch, String winnerTeam, String bonusAnswer) {
+			String manOfTheMatch, String winnerTeam, List<String> bonus) {
 		RestServiceResponse response = null;
 		if (!this.savePredictionService.canSavePrediction(fixtureId)) {
 			response = new RestServiceResponse(Status.ERROR.name(),
@@ -37,7 +39,7 @@ public class SavePredictionRestServiceImpl implements
 		try {
 			this.savePredictionService.saveCricketPrediction(leagueName,
 					fixtureId, challengerEmailId, bestBowler, bestBatsman,
-					manOfTheMatch, winnerTeam, bonusAnswer);
+					manOfTheMatch, winnerTeam, bonus);
 			response = new RestServiceResponse(Status.SUCCESS.name(), null,
 					null);
 		} catch (Exception e) {

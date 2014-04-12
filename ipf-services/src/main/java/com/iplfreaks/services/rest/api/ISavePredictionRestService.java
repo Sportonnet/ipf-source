@@ -3,6 +3,8 @@
  */
 package com.iplfreaks.services.rest.api;
 
+import java.util.List;
+
 import javax.ws.rs.FormParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -31,8 +33,8 @@ public interface ISavePredictionRestService {
 	 *            name of the man of the match
 	 * @param winnerTeam
 	 *            name of the winning team
-	 * @param bonusAnswer
-	 *            answer to the bonus question
+	 * @param bonus
+	 *             bonus questions and answers
 	 */
 	@POST
 	@Path("/saveCricketPrediction")
@@ -44,5 +46,5 @@ public interface ISavePredictionRestService {
 			@FormParam("bestBatsman") String bestBatsman,
 			@FormParam("manOfTheMatch") String manOfTheMatch,
 			@FormParam("winnerTeam") String winnerTeam,
-			@FormParam("bonusAnswer") String bonusAnswer);
+			@FormParam("bonusAnswer") List<String> bonus);
 }

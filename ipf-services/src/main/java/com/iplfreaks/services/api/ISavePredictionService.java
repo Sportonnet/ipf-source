@@ -1,5 +1,6 @@
 package com.iplfreaks.services.api;
 
+import java.util.List;
 
 public interface ISavePredictionService {
 
@@ -19,12 +20,12 @@ public interface ISavePredictionService {
 	 *            name of the man of the match
 	 * @param winnerTeam
 	 *            name of the winning team
-	 * @param bonusAnswer
-	 *            answer to the bonus question
+	 * @param bonus
+	 *            bonus questions and answers
 	 */
 	public void saveCricketPrediction(String leagueName, String fixtureId,
 			String challengerEmailId, String bestBowler, String bestBatsman,
-			String manOfTheMatch, String winnerTeam, String bonusAnswer);
+			String manOfTheMatch, String winnerTeam, List<String> bonus);
 
 	/**
 	 * 
