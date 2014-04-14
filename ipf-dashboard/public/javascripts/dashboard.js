@@ -2,6 +2,7 @@ var fixtures = '';
 var leagueName = '';
 var fixtureId = '';
 var dateTime = '';
+var bonusQuestion = '';
 
 $(document).ready(function () {
 
@@ -230,7 +231,7 @@ function displayFixturesDetails(ev) {
     var id = ev.id;
     var trs = $('#match_details').find('tr:eq(' + id + ')');
     var match = $.trim(trs.find('td:eq(1)').html());
-    var bonusQuestion = '';
+    bonusQuestion = '';
     var bonusAns = '';
     var venue = '';
 
@@ -416,7 +417,7 @@ function savePrediction(ev) {
     }
 
     var requestPath = '/savePredictions/';
-    var url = requestPath + fixtureId + '/' + leagueName + '/' + maxWct + '/' + maxRun + '/' + MofM + '/' + mWnr + '/' + bAns;
+    var url = requestPath + fixtureId + '/' + leagueName + '/' + maxWct + '/' + maxRun + '/' + MofM + '/' + mWnr + '/' + bonusQuestion +'/'+ bAns;
     console.log('requestPath = ' + url);
     $.post(url, '', function (data) {
         var jsonObj = eval('(' + unescape(data) + ')');
