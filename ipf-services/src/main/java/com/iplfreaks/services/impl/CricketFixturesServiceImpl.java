@@ -32,6 +32,9 @@ public class CricketFixturesServiceImpl implements IFixturesService {
 				.getTodaysFixtures(competition.getName(),
 						competition.getSport());
 
+		if (cricketCompetition == null) {
+			return getUpcomingFixtures(leagueName);
+		}
 		final List<Fixture> todaysFixtures = new ArrayList<Fixture>(
 				cricketCompetition.getFixtures());
 

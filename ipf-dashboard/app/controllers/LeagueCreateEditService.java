@@ -60,7 +60,7 @@ public class LeagueCreateEditService extends Controller {
 		map.add("challengers", challengersSet);
 		
 		String response = ServiceUtil.callPOST(
-				"/services/cricketleagues/createLeague", map);
+				"/services/cricketleagues/addChallengersToLeague", map);
 		
 		System.out.println("response  " + response);
 		if (response.equals("")) {
