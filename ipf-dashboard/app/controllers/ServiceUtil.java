@@ -15,9 +15,12 @@ import java.util.concurrent.TimeUnit;
 
 import org.codehaus.jackson.node.ObjectNode;
 
+import com.ning.http.client.FluentStringsMap;
+
 import play.libs.F.Promise;
 import play.libs.Json;
 import play.libs.WS;
+import play.libs.WS.WSRequest;
 import play.libs.WS.WSRequestHolder;
 import play.mvc.Http;
 
@@ -60,8 +63,43 @@ public class ServiceUtil {
 
 	        return wsResponse.get(timeout, TimeUnit.MILLISECONDS);
 	    }
+	 public static String callPOST(String path, FluentStringsMap map) {
+			String response = "";
+			StringBuilder serviceUrl= new StringBuilder().append(BASE_REQUEST_URL).append(path);
+			System.out.println("serviceUrl "+serviceUrl);
+			
+			try{
+			WSRequest request = new WSRequest("POST");
 
-	public static String callPOST(String path,String jsonRequest, Map<String,String> queryParameters,long promiseTime) {
+			request.setUrl(serviceUrl.toString());
+			request.setHeader(CONTENT_TYPE, "application/x-www-form-urlencoded");
+			request.setQueryParameters(map);
+			
+			response = request.execute().get().getBody();
+				if("".equals(response)){
+					throw new Exception ("Response body is empty ");
+					
+				}
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				 ObjectNode data = Json.newObject();
+				
+				 ObjectNode statusMessage = Json.newObject();
+				 statusMessage.put("status", "500");
+				 statusMessage.put("message",e.getMessage());
+				 ObjectNode RestResponse = Json.newObject();
+				 
+				 RestResponse.put("statusMessage", statusMessage);
+				 data.put("RestResponse",RestResponse);
+				 
+				 response= data.toString();
+				 System.out.println("response on error >>"+ response);
+			}
+			 
+			return response;
+		}
+	/*public static String callPOST(String path,String jsonRequest, Map<String,String> queryParameters,long promiseTime) {
 		String response;
 		StringBuilder serviceUrl= new StringBuilder().append(BASE_REQUEST_URL).append(path);
 		System.out.println("serviceUrl "+serviceUrl);
@@ -70,9 +108,9 @@ public class ServiceUtil {
 		WSRequestHolder requestHolder = WS
 				.url(serviceUrl.toString())
 				.setHeader(CONTENT_TYPE, "application/x-www-form-urlencoded");
-        /*if (accessToken != null && !accessToken.isEmpty()) {
+        if (accessToken != null && !accessToken.isEmpty()) {
                 requestHolder.setHeader(AUTHORIZATION_HEADER_NAME, accessToken);
-        }*/
+        }
         if (queryParameters != null) {
             for (Map.Entry<String, String> entry : queryParameters.entrySet()) {
                 requestHolder.setQueryParameter(entry.getKey(), entry.getValue());
@@ -115,7 +153,7 @@ public class ServiceUtil {
 		}
 		 
 		return response;
-	}
+	}*/
 	
 	/**
 	* This method Apache's HTTPAsync client to invoke long running REST web services asynchronously.

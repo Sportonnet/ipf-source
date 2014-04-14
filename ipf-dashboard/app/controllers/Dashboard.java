@@ -1,7 +1,11 @@
 package controllers;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
+
+import com.ning.http.client.FluentStringsMap;
 
 import play.libs.WS;
 import play.mvc.Controller;
@@ -43,21 +47,21 @@ public class Dashboard extends Controller {
 	
 	public static Result getFixtureDetails(String leagueName, String fixtureId) {
 
-		Map<String, String> queryParams = new HashMap<String, String>();
-		queryParams.put("leagueName", leagueName);
-		queryParams.put("fixtureId", fixtureId);
+		FluentStringsMap queryParams = new FluentStringsMap();
+		queryParams.add("leagueName", leagueName);
+		queryParams.add("fixtureId", fixtureId);
 		String response = ServiceUtil.callPOST("/services/challergerService/getCricketChallenges/",
-				null, queryParams, 50000);
+				queryParams);
 		return ok(response);
 
 	}
 	
-	public static Result savePredictions(String fixtureId, String leagueName, String maxWct, String maxRun, String MofM, String mWnr, String bAns) {
+	public static Result savePredictions(String fixtureId, String leagueName, String maxWct, String maxRun, String MofM, String mWnr, String bQ, String bAns) {
 
-		Map<String, String> queryParams = new HashMap<String, String>();
-		queryParams.put("fixtureId", fixtureId);
-		queryParams.put("leagueName", leagueName);
-		queryParams.put("challengerEmailId", session().get("email"));
+		FluentStringsMap queryParams = new FluentStringsMap();
+		queryParams.add("fixtureId", fixtureId);
+		queryParams.add("leagueName", leagueName);
+		queryParams.add("challengerEmailId", session().get("email"));
 		if(maxWct.equalsIgnoreCase("Drag Player here"))
 		{
 			maxWct = "";
@@ -78,25 +82,28 @@ public class Dashboard extends Controller {
 		{
 			bAns = "";
 		}
-		queryParams.put("bestBowler", maxWct);
-		queryParams.put("bestBatsman", maxRun);
-		queryParams.put("manOfTheMatch", MofM);
-		queryParams.put("winnerTeam", mWnr);
-		queryParams.put("bonusAnswer", bAns);
+		queryParams.add("bestBowler", maxWct);
+		queryParams.add("bestBatsman", maxRun);
+		queryParams.add("manOfTheMatch", MofM);
+		queryParams.add("winnerTeam", mWnr);
+		
+		Set<String> bQA = new HashSet<String>();
+		bQA.add(bQ.toString().trim()+"|"+bAns.toString().trim());
+		queryParams.add("bonusAnswer", bQA);
 		
 		System.out.println("maxWct "+maxWct +"mWnr "+mWnr + session().get("email"));
 		String response = ServiceUtil.callPOST("/services/prediction/saveCricketPrediction/",
-				null, queryParams, 50000);
+				queryParams);
 		return ok(response);
 
 	}
 	
 	public static Result getMyAllLeague() {
 
-		Map<String, String> queryParams = new HashMap<String, String>();
-		queryParams.put("user", session().get("email"));
+		FluentStringsMap queryParams = new FluentStringsMap();
+		queryParams.add("user", session().get("email"));
 		String response = ServiceUtil.callPOST("/services/users/getUserLeagues/",
-				null, queryParams, 50000);
+				queryParams);
 		return ok(response);
 
 	}

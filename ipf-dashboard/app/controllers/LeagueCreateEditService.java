@@ -1,14 +1,9 @@
 package controllers;
 
 import java.io.UnsupportedEncodingException;
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 
-import play.libs.F.Promise;
-import play.libs.WS.Response;
-import play.libs.WS.WSRequest;
 import play.mvc.Controller;
 import play.mvc.Result;
 
@@ -19,21 +14,20 @@ public class LeagueCreateEditService extends Controller {
 	public static Result submitLeague(String competitionName,
 			String leagueName, String competitionSport) {
 
-		String leagueOwnerId = session().get("loginName");
+		String leagueOwnerId = session().get("email");
 		session().put("leagueName", leagueName);
 		System.out.println("Email id----->" + leagueOwnerId);
 		System.out.println("League details are... competitionName : "
 				+ competitionName + "leagueName : " + leagueName
 				+ "leagueOwnerId:" + leagueOwnerId + "competitionSport:"
 				+ competitionSport);
-		Map<String, String> queryParameters = new HashMap<String, String>();
-		queryParameters.put("competitionName", competitionName);
-		queryParameters.put("leagueName", leagueName);
-		queryParameters.put("leagueOwnerId", leagueOwnerId);
-		queryParameters.put("competitionSport", competitionSport);
+		FluentStringsMap queryParameters = new FluentStringsMap();
+		queryParameters.add("competitionName", competitionName);
+		queryParameters.add("leagueName", leagueName);
+		queryParameters.add("leagueOwnerId", leagueOwnerId);
+		queryParameters.add("competitionSport", competitionSport);
 		String response = ServiceUtil.callPOST(
-				"/services/cricketleagues/createLeague", null, queryParameters,
-				50000);
+				"/services/cricketleagues/createLeague", queryParameters);
 		if (response.equals("")) {
 			return ok("error");
 		}
@@ -64,21 +58,16 @@ public class LeagueCreateEditService extends Controller {
 		}
 		map.add("leagueName", leagueName);
 		map.add("challengers", challengersSet);
-		// String response =
-		// ServiceUtil.callPOST("/services/cricketleagues/addChallengersToLeague",
-		// null, queryParameters, 50000);
-		WSRequest request = new WSRequest("POST");
-
-		request.setUrl("http://localhost:8181/services/cricketleagues/addChallengersToLeague");
-		request.setHeader(CONTENT_TYPE, "application/x-www-form-urlencoded");
-		request.setQueryParameters(map);
-		Promise<Response> response = request.execute();
-		System.out.println("response  " + response.get().getBody());
+		
+		String response = ServiceUtil.callPOST(
+				"/services/cricketleagues/createLeague", map);
+		
+		System.out.println("response  " + response);
 		if (response.equals("")) {
 			return ok("error");
 		}
 		session().remove("leagueName");
-		return ok(response.get().getBody());
+		return ok(response);
 
 	}
 

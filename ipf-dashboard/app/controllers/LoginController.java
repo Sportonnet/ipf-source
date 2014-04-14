@@ -4,6 +4,8 @@ import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.ning.http.client.FluentStringsMap;
+
 import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.dashboard;
@@ -14,9 +16,13 @@ public class LoginController extends Controller{
 	
 	public static Result authenticate(String uName, String password) {
 
-			session().put("email", "hdeveliya483@gmail.com");
-			String requestData = "emailId="+URLEncoder.encode(uName)+"&password="+URLEncoder.encode(password);			
-			String  response = ServiceUtil.callPOST("/services/login/isUserAuthorized/", requestData, null, 50000);
+			session().put("email", uName);
+			//String requestData = "emailId="+URLEncoder.encode(uName)+"&password="+URLEncoder.encode(password);
+			FluentStringsMap queryParams = new FluentStringsMap();
+			queryParams.add("emailId", uName);
+			queryParams.add("password", password);
+			
+			String  response = ServiceUtil.callPOST("/services/login/isUserAuthorized/", queryParams);
 			if(response.equalsIgnoreCase("true"))
 			{
 				return ok("success");
@@ -29,13 +35,13 @@ public class LoginController extends Controller{
 	
 	public static Result signUp(String uName, String email, String password) {
 
-		Map<String, String> queryParams = new HashMap<String, String>();
-		queryParams.put("name", uName);
-		queryParams.put("emailId", email);
-		queryParams.put("password", password);
+		FluentStringsMap queryParams = new FluentStringsMap();
+		queryParams.add("name", uName);
+		queryParams.add("emailId", email);
+		queryParams.add("password", password);
 
 		String response = ServiceUtil.callPOST("/services/users/createUser/",
-				null, queryParams, 50000);
+				queryParams);
 		System.out.println("We reached here" + response);
 		return ok(response);
 
