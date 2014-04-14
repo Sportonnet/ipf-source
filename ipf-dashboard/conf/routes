@@ -15,11 +15,12 @@ POST        /leagueRegistration/submitLeague/:competitionName/:leagueName/:compe
 POST		/leagueRegistration/addChallengersToLeague/:challengers																							controllers.LeagueCreateEditService.addChallengersToLeague(challengers:String)
 POST  		/loginAuthenticate/login/:uname/:password																										controllers.LoginController.authenticate(uname:String, password:String)
 POST		/loginAuthenticate/signup/:uname/:email/:password																								controllers.LoginController.signUp(uname:String, email:String, password:String)
-GET			/loginSuccess																																	controllers.LoginController.goToDashboard()
+GET			/loginSuccess																																			controllers.LoginController.goToDashboard()
 GET			/logout																																			controllers.LoginController.logOut()
 
 
 GET  		/getAllPlayers/:match																															controllers.Dashboard.getPlayers(match:String)					
 GET  		/getFixturesDetails/:leagueName/:type																											controllers.Dashboard.getAllFixtures(leagueName:String, type:String)
 POST  		/getFixtureDetails/:leagueName/:fixtureId																										controllers.Dashboard.getFixtureDetails(leagueName:String, fixtureId:String)
-POST  		/savePredictions/:fixtureId/:leagueName/:maxWct/:maxRun/:MofM/:mWnr/:bAns																		controllers.Dashboard.savePredictions(fixtureId:String, leagueName:String, maxWct:String, maxRun:String, MofM:String, mWnr:String, bAns:String)
+POST  		/savePredictions/:fixtureId/:leagueName/:maxWct/:maxRun/:MofM/:mWnr/:bQ/:bAns																		controllers.Dashboard.savePredictions(fixtureId:String, leagueName:String, maxWct:String, maxRun:String, MofM:String, mWnr:String, bQ:String, bAns:String)
+POST  		/getMyAllLeague																																	controllers.Dashboard.getMyAllLeague()
