@@ -3,9 +3,11 @@
  */
 package com.iplfreaks.dao.impl;
 
+import static org.springframework.data.domain.Sort.Direction.ASC;
 import static org.springframework.data.mongodb.core.aggregation.Aggregation.group;
 import static org.springframework.data.mongodb.core.aggregation.Aggregation.match;
 import static org.springframework.data.mongodb.core.aggregation.Aggregation.newAggregation;
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.sort;
 import static org.springframework.data.mongodb.core.aggregation.Aggregation.unwind;
 
 import java.util.List;
@@ -55,6 +57,7 @@ public class CricketCompetitionDaoImpl implements ICricketCompetitionDao {
 				match(Criteria.where("name").is(name).andOperator(Criteria.where("sport").is(sport))),
 				unwind("fixtures"),
 				match(Criteria.where("fixtures.dateTime").lte(dateMidnight.plusDays(1)).andOperator(Criteria.where("fixtures.dateTime").gt(dateMidnight))),
+				sort(ASC, "fixtures.dateTime"),
 				group().push("fixtures").as("fixtures").first("name").as("name")
 				);
 		System.out.println("Query used for today's fixture is : " + typedAggregation);
@@ -71,6 +74,7 @@ public class CricketCompetitionDaoImpl implements ICricketCompetitionDao {
 				match(Criteria.where("name").is(name).andOperator(Criteria.where("sport").is(sport))),
 				unwind("fixtures"),
 				match(Criteria.where("fixtures.dateTime").lte(dateMidnight)),
+				sort(ASC, "fixtures.dateTime"),
 				group().push("fixtures").as("fixtures").first("name").as("name")
 				);
 		System.out.println("Query used for past fixture is : " + typedAggregation);
@@ -88,6 +92,7 @@ public class CricketCompetitionDaoImpl implements ICricketCompetitionDao {
 				match(Criteria.where("name").is(name).andOperator(Criteria.where("sport").is(sport))),
 				unwind("fixtures"),
 				match(Criteria.where("fixtures.dateTime").gte(dateMidnight)),
+				sort(ASC, "fixtures.dateTime"),
 				group().push("fixtures").as("fixtures").first("name").as("name")
 				);
 		System.out.println("Query used for future fixture is : " + typedAggregation);
@@ -102,6 +107,7 @@ public class CricketCompetitionDaoImpl implements ICricketCompetitionDao {
 		final TypedAggregation<CricketCompetition> typedAggregation = newAggregation(CricketCompetition.class,
 				unwind("fixtures"),
 				match(Criteria.where("fixtures.fixtureId").is(fixtureId)),//is("India vs South Africa")),
+				sort(ASC, "fixtures.dateTime"),
 				group().push("fixtures").as("fixtures").first("name").as("name")
 				);
 		
@@ -119,6 +125,7 @@ public class CricketCompetitionDaoImpl implements ICricketCompetitionDao {
 				match(Criteria.where("name").is(name).andOperator(Criteria.where("sport").is(sport))),
 				unwind("fixtures"),
 				match(Criteria.where("fixtures.fixtureId").is(fixtureId)),//is("India vs South Africa")),
+				sort(ASC, "fixtures.dateTime"),
 				group().push("fixtures").as("fixtures").first("name").as("name")
 				);
 		
