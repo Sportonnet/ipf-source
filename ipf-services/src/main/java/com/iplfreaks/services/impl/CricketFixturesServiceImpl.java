@@ -31,14 +31,13 @@ public class CricketFixturesServiceImpl implements IFixturesService {
 		final CricketCompetition cricketCompetition = this.cricketCompetitionDao
 				.getTodaysFixtures(competition.getName(),
 						competition.getSport());
+		if (cricketCompetition != null) {
+			final List<Fixture> todaysFixtures = new ArrayList<Fixture>(
+					cricketCompetition.getFixtures());
 
-		if (cricketCompetition == null) {
-			return getUpcomingFixtures(leagueName);
+			return todaysFixtures;
 		}
-		final List<Fixture> todaysFixtures = new ArrayList<Fixture>(
-				cricketCompetition.getFixtures());
-
-		return todaysFixtures;
+		return null;
 	}
 
 	@Override
@@ -56,11 +55,13 @@ public class CricketFixturesServiceImpl implements IFixturesService {
 
 		final CricketCompetition cricketCompetition = this.cricketCompetitionDao
 				.getPastFixtures(competition.getName(), competition.getSport());
+		if (cricketCompetition != null) {
+			final List<Fixture> pastFixtures = new ArrayList<Fixture>(
+					cricketCompetition.getFixtures());
 
-		final List<Fixture> pastFixtures = new ArrayList<Fixture>(
-				cricketCompetition.getFixtures());
-
-		return pastFixtures;
+			return pastFixtures;
+		}
+		return null;
 	}
 
 	@Override
@@ -79,11 +80,13 @@ public class CricketFixturesServiceImpl implements IFixturesService {
 		final CricketCompetition cricketCompetition = this.cricketCompetitionDao
 				.getFutureFixtures(competition.getName(),
 						competition.getSport());
+		if (cricketCompetition != null) {
+			final List<Fixture> upcomingFixtures = new ArrayList<Fixture>(
+					cricketCompetition.getFixtures());
 
-		final List<Fixture> upcomingFixtures = new ArrayList<Fixture>(
-				cricketCompetition.getFixtures());
-
-		return upcomingFixtures;
+			return upcomingFixtures;
+		}
+		return null;
 	}
 
 	/**
