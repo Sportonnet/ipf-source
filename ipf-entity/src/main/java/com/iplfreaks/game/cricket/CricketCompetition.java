@@ -6,6 +6,8 @@ package com.iplfreaks.game.cricket;
 import java.util.HashSet;
 
 import org.springframework.data.annotation.TypeAlias;
+import org.springframework.data.mongodb.core.index.CompoundIndex;
+import org.springframework.data.mongodb.core.index.CompoundIndexes;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.iplfreaks.core.Competition;
@@ -17,6 +19,9 @@ import com.iplfreaks.core.Competition;
 
 @Document
 @TypeAlias(value="cricketCompetition")
+@CompoundIndexes(value={
+	    @CompoundIndex(name="name_sport_id", def="{'name':1, 'sport':1}", unique=true)
+	})
 public class CricketCompetition extends Competition {
 	
 	/**
